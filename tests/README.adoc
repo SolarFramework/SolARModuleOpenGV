@@ -1,0 +1,4 @@
+= SolARModuleOpenGV demo application
+
+This application demonstrates the SolARModuleOpenGV module.
+
