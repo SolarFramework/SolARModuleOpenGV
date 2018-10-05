@@ -61,6 +61,12 @@ double SolARTriangulationOpengv::triangulate(const std::vector<SRef<Keypoint>>& 
                                                     return 1.0;
 }
 
+double triangulate(	const SRef<Keyframe> &curKeyframe,
+						const std::vector<DescriptorMatch>&matches,
+						std::vector<SRef<CloudPoint>>& pcloud) {
+							return 1.0;
+						}
+						
 void SolARTriangulationOpengv::setCameraParameters(const CamCalibration & intrinsicParams, const CamDistortion & distorsionParams) {
 
 }
