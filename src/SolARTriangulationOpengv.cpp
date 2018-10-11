@@ -49,8 +49,6 @@ double SolARTriangulationOpengv::triangulate(const std::vector<SRef<Point2Df>>& 
                                                 const Transform3Df& poseView2,
                                                 std::vector<SRef<CloudPoint>>& pcloud){
     
-
-
     /// Rotation matrix in opengv is defined as 3x3Matrix3d
     //Eigen::Matrix3d rotation_t;
 

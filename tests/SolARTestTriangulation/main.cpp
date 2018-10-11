@@ -31,69 +31,6 @@ using namespace SolAR::datastructure;
 using namespace SolAR::api;
 using namespace SolAR::MODULES::OPENGV;
 namespace xpcf  = org::bcom::xpcf;
-/*
-bool load_2dpoints(std::string&path_file, int points_no, std::vector<SRef<Point2Df>>&pt2d){
-    std::ifstream ox(path_file);
-    if (!ox)
-        return false;
-
-    float pt[2];
-  //  Point2Df point_temp;
-    std::string dummy;
-    pt2d.resize(points_no);
-    float v[2];
-    for(int i = 0; i < points_no; ++i){
-       ox>>dummy;
-       v[0]  = std::stof(dummy);
-       ox>>dummy;
-       v[1]= std::stof(dummy);
-       pt2d[i]  = xpcf::utils::make_shared<Point2Df>(v[0], v[1]);
-    }
-  ox.close();
-  return true;
-}
-
-
-bool load_pose(std::string &path_file, Transform3Df &P){
-    std::ifstream ox(path_file);
-    if (!ox)
-        return false;
-
-    float v;
-    std::string dummy;
-    for(int i = 0; i < 3; ++i){
-        for(int j = 0; j < 4; ++j){
-
-            ox>>dummy;
-
-            P(i,j) = std::stof(dummy);
-        }
-    }
-
-    P(3,0) = 0.0;
-    P(3,1) = 0.0;
-    P(3,2) = 0.0;
-    P(3,3) = 1.0;
-
-    P = P.inverse();
-
-    LOG_INFO("pose =\n{}", P.matrix());
-   ox.close();
-
-   return true;
-}
-
-bool create_matches(std::vector<SRef<Point2Df>>&pt2d_1, std::vector<SRef<Point2Df>>&pt2d_2, std::vector<DescriptorMatch>&matches)
-{
-    int min_size = std::min(pt2d_1.size(), pt2d_2.size());
-    for (int i = 0; i < min_size; i++)
-    {
-        matches.push_back(DescriptorMatch(i,i,1.0));
-    }
-    return true;
-
-}
-*/
 
 void help(){
     std::cout << "\n\n";
@@ -109,6 +46,23 @@ int main()
 //#if NDEBUG
 //    boost::log::core::get()->set_logging_enabled(false);
 //#endif
+SRef<xpcf::IComponentManager> xpcfComponentManager = xpcf::getComponentManagerInstance();
+#ifdef USE_FREE
+    if(xpcfComponentManager->load("conf_Triangulation.xml")!=org::bcom::xpcf::_SUCCESS)
+    {
+        LOG_ERROR("Failed to load the configuration file conf_Triangulation.xml")
+        return -1;
+    }
+#else
+    if(xpcfComponentManager->load("conf_Triangulation_nf.xml")!=org::bcom::xpcf::_SUCCESS)
+    {
+        LOG_ERROR("Failed to load the configuration file conf_Triangulation_nf.xml")
+        return -1;
+    }
+#endif
+
+  SRef<solver::map::ITriangulator> triangulator_opengv = xpcfComponentManager->create<SolAR::MODULES::OPENGV::SolARTriangulationOpengv>()->bindTo<solver::map::ITriangulator>();
+   
 
   //  LOG_ADD_LOG_TO_CONSOLE();
     /*
