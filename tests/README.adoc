@@ -1,4 +1,4 @@
-= SolARModuleOpenGV demo application
+= SolARContainerOpenCV demo application
 
-This application demonstrates the SolARModuleOpenGV module.
+This application demonstrates the SolARContainerOpenCV container.
 
