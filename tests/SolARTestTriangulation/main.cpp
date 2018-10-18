@@ -54,7 +54,7 @@ SRef<xpcf::IComponentManager> xpcfComponentManager = xpcf::getComponentManagerIn
         return -1;
     }
 #else
-    if(xpcfComponentManager->load("conf_Triangulation_nf.xml")!=org::bcom::xpcf::_SUCCESS)
+    if(xpcfComponentManager->load("conf_Triangulation.xml")!=org::bcom::xpcf::_SUCCESS)
     {
         LOG_ERROR("Failed to load the configuration file conf_Triangulation_nf.xml")
         return -1;
@@ -127,5 +127,7 @@ SRef<xpcf::IComponentManager> xpcfComponentManager = xpcf::getComponentManagerIn
     }
     log_cloud.close();
     */
+
     return(0);
+    
     }

@@ -30,7 +30,7 @@ SOURCES += \
 
 unix {
     LIBS += -ldl 
-    QMAKE_CXXFLAGS += DBOOST_LOG_DYN_LINK 
+  #  QMAKE_CXXFLAGS += DBOOST_LOG_DYN_LINK 
     
 }
 
