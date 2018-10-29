@@ -26,5 +26,4 @@
 #else //_WIN32
 #define SOLAROPENGV_EXPORT_API
 #endif //_WIN32
-#include "SolARModuleOpengv_traits.h"
 #endif //SOLAR_OPENGV_API

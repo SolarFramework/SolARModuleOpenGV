@@ -17,7 +17,7 @@
  */
 
 #include "SolARTriangulationOpengv.h"
-
+#include "SolARModuleOpengv_traits.h"
 #include <opengv/triangulation/methods.hpp>
 #include <opengv/relative_pose/CentralRelativeAdapter.hpp>
 
@@ -146,7 +146,7 @@ double SolARTriangulationOpengv::triangulate(const std::vector<SRef<Keypoint>>& 
                                                     return 1.0;
 }
 
-double triangulate(	const SRef<Keyframe> &curKeyframe,
+double SolARTriangulationOpengv::triangulate(	const SRef<Keyframe> &curKeyframe,
 						const std::vector<DescriptorMatch>&matches,
 						std::vector<SRef<CloudPoint>>& pcloud) {
 							return 1.0;
