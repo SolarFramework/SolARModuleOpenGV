@@ -128,6 +128,8 @@ SRef<xpcf::IComponentManager> xpcfComponentManager = xpcf::getComponentManagerIn
     log_cloud.close();
     */
 
+   std::cout<<"Load ok"<<std::endl;
+
     return(0);
     
     }
