@@ -1,7 +1,7 @@
 TARGET = SolARTriangulationOpenGVTest
 VERSION=1.0.0
 
-CONFIG += c++11
+CONFIG += c++1z
 CONFIG -= qt
 CONFIG += console
 

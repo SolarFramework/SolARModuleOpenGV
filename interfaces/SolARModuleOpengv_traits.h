@@ -17,7 +17,7 @@
 #ifndef SOLARMODULEOPENGV_TRAITS_H
 #define SOLARMODULEOPENGV_TRAITS_H
 
-#include "xpcf/api/IComponentManager.h"
+#include "xpcf/core/traits.h"
 
 namespace SolAR {
 namespace MODULES {
@@ -29,6 +29,7 @@ class SolARTriangulationOpengv;
 
 XPCF_DEFINE_COMPONENT_TRAITS(SolAR::MODULES::OPENGV::SolARTriangulationOpengv,
                             "bb7dac37-499a-4bc4-9b57-3e010a94ed30",
+                             "SolARTriangulationOpengv",
                             "SolAR::MODULES::OPENGV::SolARTriangulationOpengv component")
 
 #endif // SOLARMODULEOPENGV_TRAITS_H
