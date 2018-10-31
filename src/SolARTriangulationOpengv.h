@@ -40,7 +40,7 @@ public:
     SolARTriangulationOpengv();
 
     ///@brief SolARTriangulationOpengv destructor.
-   ~SolARTriangulationOpengv();
+   ~SolARTriangulationOpengv() override;
 
     /// @brief this method is used to set intrinsic parameters and distorsion of the camera
     /// @param[in] Camera calibration matrix parameters.

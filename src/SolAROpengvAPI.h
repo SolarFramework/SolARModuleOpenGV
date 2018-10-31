@@ -18,7 +18,7 @@
 #define SOLAR_OPENGV_API_H
 
 #if _WIN32
-#ifdef SolARModuleOpenCV_API_DLLEXPORT
+#ifdef SolARModuleOpenGV_API_DLLEXPORT
 #define SOLAROPENGV_EXPORT_API __declspec(dllexport)
 #else //SOLAROPENGV_EXPORT_API
 #define SOLAROPENGV_EXPORT_API __declspec(dllimport)
