@@ -45,6 +45,8 @@ src/SolARTriangulationOpengv.cpp
 
 unix {
     QMAKE_CXXFLAGS += -Wignored-qualifiers
+    QMAKE_CXX = clang++
+    QMAKE_LINK = clang++	
 }
 
 macx {

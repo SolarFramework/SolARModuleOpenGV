@@ -25,6 +25,10 @@
 #include "SolARModuleOpengv_traits.h"
 #include "api/solver/map/ITriangulator.h"
 #include "api/input/devices/ICamera.h"
+#include <opengv/types.hpp>
+
+#include <opengv/triangulation/methods.hpp>
+#include <opengv/relative_pose/CentralRelativeAdapter.hpp>
 
 using namespace SolAR;
 using namespace SolAR::datastructure;
@@ -65,6 +69,39 @@ SRef<xpcf::IComponentManager> xpcfComponentManager = xpcf::getComponentManagerIn
     //instantiate a triangulation
     SRef<solver::map::ITriangulator> triangulator_opengv = xpcfComponentManager->create<SolAR::MODULES::OPENGV::SolARTriangulationOpengv>()->bindTo<solver::map::ITriangulator>();
    
+
+    opengv::translation_t position1 = Eigen::Vector3d::Zero();
+    opengv::rotation_t rotation1 = Eigen::Matrix<double, 3, 3, Eigen::ColMajor>();
+    
+    opengv::translation_t position2  = Eigen::Vector3d::Zero(); 
+    opengv::rotation_t rotation2 = Eigen::Matrix<double, 3,3, Eigen::ColMajor>();  
+
+   //Extract the relative pose
+    opengv::translation_t relativePosition;
+    opengv::rotation_t relativeRotation;
+  
+    relativeRotation = rotation1.transpose() * rotation2;
+    relativePosition = rotation1.transpose() * (position2 - position1);
+
+
+    opengv::bearingVectors_t bearingVectors1;
+    opengv::bearingVectors_t bearingVectors2;
+    
+    size_t numberPoints = 10;
+     for (size_t i = 0; i<numberPoints; i++) {
+
+        bearingVectors1.push_back(opengv::point_t(i, i*2,1.0));
+        bearingVectors2.push_back(opengv::point_t(i + 5 , i*2+5,1.0 ));
+    
+    }
+
+    //create a central relative adapter and pass the relative pose
+    opengv::relative_pose::CentralRelativeAdapter adapter(
+      bearingVectors1,
+      bearingVectors2,
+      relativePosition,
+      relativeRotation);
+
     std::cout<<"The module was loaded properly. "<<std::endl;
 
     return(0);

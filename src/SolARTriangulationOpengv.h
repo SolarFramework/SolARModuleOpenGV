@@ -24,6 +24,9 @@
 #include "api/solver/map/ITriangulator.h"
 
 #include <vector>
+#include <opengv/types.hpp>
+
+
 
 namespace SolAR {
 using namespace datastructure;
@@ -36,6 +39,7 @@ namespace OPENGV {
 class SOLAROPENGV_EXPORT_API SolARTriangulationOpengv : public org::bcom::xpcf::ComponentBase,
     public api::solver::map::ITriangulator {
 public:
+
     ///@brief SolARTriangulationOpengv constructor.
     SolARTriangulationOpengv();
 
@@ -47,13 +51,14 @@ public:
     /// @param[in] Camera distorsion parameters.
     void setCameraParameters(const CamCalibration & intrinsicParams, const CamDistortion & distorsionParams)  override;
 
-     double triangulate(const std::vector<SRef<Point2Df>>& pt2d_1,
-                       const std::vector<SRef<Point2Df>>& pt2d_2,
-                       const std::vector<DescriptorMatch>&matches,
-                       const std::pair<unsigned int,unsigned int>&working_views,
-                       const Transform3Df& poseView1,
-                       const Transform3Df& poseView2,
-                       std::vector<SRef<CloudPoint>>& pcloud) override;
+     double triangulate(
+                        const std::vector<SRef<Point2Df>>& pt2d_1,
+                        const std::vector<SRef<Point2Df>>& pt2d_2,
+                        const std::vector<DescriptorMatch>&matches,
+                        const std::pair<unsigned int,unsigned int>&working_views,
+                        const Transform3Df& poseView1,
+                        const Transform3Df& poseView2,
+                        std::vector<SRef<CloudPoint>>& pcloud) override;
 
     /// @brief triangulate pairs of points 2d captured from two views with differents poses (with respect to the camera instrinsic parameters).
     /// @param[in] pointsView1, set of keypoints seen in view_1.
@@ -84,12 +89,10 @@ public:
     void unloadComponent () override final;
 
  private:
-    // Camera calibration matrix
-   // cv::Mat_<double> m_camMatrix;
-    // inverse of the Camera calibration matrix
-   // cv::Mat_<double> m_Kinv;
-    // Camera distortion parameters
-   // cv::Mat_<double> m_camDistorsion;
+   // Camera calibration matrix
+   CamCalibration m_intrinsicParams;
+   CamDistortion  m_distorsionParams;
+
 
 };
 
