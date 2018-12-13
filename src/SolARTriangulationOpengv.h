@@ -34,7 +34,7 @@ namespace MODULES {
 namespace OPENGV {
 /**
 * @class SolARTriangulationOpengv
-* @brief Triangulates set of corresponding 2D-2D points correspondances with known respective camera poses based on opencv SVD.
+* @brief Triangulates set of corresponding 2D-2D points correspondances with known respective camera poses based on opengv.
 */
 class SOLAROPENGV_EXPORT_API SolARTriangulationOpengv : public org::bcom::xpcf::ComponentBase,
     public api::solver::map::ITriangulator {
@@ -99,8 +99,6 @@ public:
 }
 }
 }
-
-
 
 
 #endif // SOLARTRIANGULATIONOPENGV_H
