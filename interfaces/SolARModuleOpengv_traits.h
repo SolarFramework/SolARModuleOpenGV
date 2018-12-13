@@ -23,6 +23,7 @@ namespace SolAR {
 namespace MODULES {
 namespace OPENGV {
 class SolARTriangulationOpengv;
+class SolARPoseEstimationPnpOpengv;
 }
 }
 }
@@ -31,5 +32,10 @@ XPCF_DEFINE_COMPONENT_TRAITS(SolAR::MODULES::OPENGV::SolARTriangulationOpengv,
                             "bb7dac37-499a-4bc4-9b57-3e010a94ed30",
                              "SolARTriangulationOpengv",
                             "SolAR::MODULES::OPENGV::SolARTriangulationOpengv component")
+
+XPCF_DEFINE_COMPONENT_TRAITS(SolAR::MODULES::OPENGV::SolARPoseEstimationPnpOpengv,
+                            "22007c73-6847-48aa-a2c1-d2ff59baf92f",
+                             "SolARPoseEstimationPnpOpengv",
+                             "SolAR::MODULES::OPENGV::SolARPoseEstimationPnpOpengv component")
 
 #endif // SOLARMODULEOPENGV_TRAITS_H

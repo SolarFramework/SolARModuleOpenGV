@@ -5,5 +5,10 @@
                 <interface uuid="125f2007-1bf9-421d-9367-fbdc1210d006" description="IComponentIntrospect"/>
                 <interface uuid="3a01b0e9-9a76-43f5-97b3-85bb6979b953" description="ITriangulator"/>
         </component>
+        <component uuid="22007c73-6847-48aa-a2c1-d2ff59baf92f" description="SolARPoseEstimationPnpOpengv">
+                <interface uuid="125f2007-1bf9-421d-9367-fbdc1210d006" description="IComponentIntrospect"/>
+                <interface uuid="77281cda-47c2-4bb7-bde6-5b0d02e75dae" description="I3DTransformFinderFrom2D3D"/>
+        </component>
+
     </module>
 </xpcf-registry>
