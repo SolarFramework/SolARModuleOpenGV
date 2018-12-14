@@ -21,7 +21,8 @@
 
 namespace SolAR {
 namespace MODULES {
-namespace OPENGV {
+
+namespace OPENGV{
 class SolARTriangulationOpengv;
 class SolARPoseEstimationPnpOpengv;
 }

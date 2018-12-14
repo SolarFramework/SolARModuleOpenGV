@@ -42,8 +42,8 @@ namespace SolAR {
         namespace OPENGV {
         /**
          * @class SolARPoseEstimationPnpOpengv
-         * @brief Finds the camera pose of 2D-3D points correspondaces based on opencv pnp algorithm using Ransac method.
-         */
+         * @brief Finds the camera pose of 2D-3D points correspondaces based on opengv pnp algorithm using Ransac method.
+         */   
             class SOLAROPENGV_EXPORT_API SolARPoseEstimationPnpOpengv : public org::bcom::xpcf::ConfigurableBase,
                 public api::solver::pose::I3DTransformFinderFrom2D3D
             {

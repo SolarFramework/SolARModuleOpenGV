@@ -17,4 +17,13 @@
 #ifndef SOLAROPENGVHELPER_H
 #define SOLAROPENGVHELPER_H
 
+#include "SolAROpengvAPI.h"
+#include "xpcf/api/IComponentManager.h"
+
+#include "core/Messages.h"
+#include "datastructure/Image.h"
+#include "datastructure/MathDefinitions.h"
+#include "datastructure/GeometryDefinitions.h"
+#include "datastructure/DescriptorBuffer.h"
+
 #endif // SOLAROPENGVHELPER_H

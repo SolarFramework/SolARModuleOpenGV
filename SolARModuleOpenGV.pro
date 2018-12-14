@@ -38,10 +38,14 @@ INCLUDEPATH += interfaces
 HEADERS += interfaces/SolARModuleOpengv_traits.h \
 interfaces/SolAROpengvAPI.h \
 interfaces/SolAROpenGVHelper.h \
+interfaces/SolARPoseEstimationPnpOpengv.h \
 interfaces/SolARTriangulationOpengv.h
 
+
 SOURCES += src/SolARModuleOpengv.cpp \
-src/SolARTriangulationOpengv.cpp
+src/SolARPoseEstimationPnpOpengv.cpp 
+src/SolARTriangulationOpengv.cpp \
+
 
 unix {
     QMAKE_CXXFLAGS += -Wignored-qualifiers
