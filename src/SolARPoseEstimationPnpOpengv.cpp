@@ -48,38 +48,33 @@ FrameworkReturnCode SolARPoseEstimationPnpOpengv::estimate( const std::vector<SR
                                                             Transform3Df & pose,
                                                             const Transform3Df initialPose) {
     
-    
-    opengv::translation_t position  = Eigen::Vector3d(pose(0,3), pose(1,3) ,pose(2,3));
-    opengv::rotation_t rotation;// = Eigen::Matrix<double, 3,3, Eigen::ColMajor>();
-
-    rotation(0,0)  = pose(0,0); rotation(0,1)  = pose(0,1); rotation(0,2)  = pose(0,2);
-    rotation(1,0)  = pose(1,0); rotation(1,1)  = pose(1,1); rotation(1,2)  = pose(1,2);
-    rotation(2,0)  = pose(2,0); rotation(2,1)  = pose(2,1); rotation(2,2)  = pose(2,2);
-
     Eigen::Matrix<float,3,3> k_invert =  m_intrinsicParams.inverse();
  
-    //TO DO tomorrow... here use bearingVectors type from opengv
     std::vector<Eigen::Vector3f> buffer_vector; 
+    buffer_vector.resize( imagePoints.size());
 
     opengv::bearingVectors_t bearing_buffer;
     opengv::points_t points;
+
     //TO DO APPLY UNDISTORSION
     for(unsigned int k =0; k < imagePoints.size(); k++){
 
-        points.push_back( opengv::point_t( imagePoints[k]->getX(), imagePoints[k]->getY(), 1.0f));
-        buffer_vector[k] = k_invert*Eigen::Vector3f(imagePoints[k]->getX(), imagePoints[k]->getY(), 1.0f);
+        points.push_back( opengv::point_t( worldPoints[k]->getX(), worldPoints[k]->getY(), worldPoints[k]->getZ()));
         
-        bearing_buffer.push_back(opengv::point_t( buffer_vector[k][0], buffer_vector[k][1], buffer_vector[k][2]));
-        bearing_buffer[k] /=bearing_buffer[k].norm();
-
+        Eigen::Vector3f tmp = k_invert*Eigen::Vector3f(imagePoints[k]->getX(), imagePoints[k]->getY(), 1.0f);
+        bearing_buffer.push_back(opengv::point_t( tmp[0], tmp[1],tmp[2]));
+        bearing_buffer[k] /=tmp.norm();
     }  
-    
-    opengv::absolute_pose::CentralAbsoluteAdapter adapter( bearing_buffer, points, position, rotation );
+
+    opengv::rotation_t rotationgv;
+    opengv::absolute_pose::CentralAbsoluteAdapter adapter( bearing_buffer, points, rotationgv );
  
     opengv::transformation_t epnp_transformation;
     
     size_t iterations = 50;
+
     for(size_t i = 0; i < iterations; i++){
+
         epnp_transformation = opengv::absolute_pose::epnp(adapter);
     }
 
@@ -89,7 +84,6 @@ FrameworkReturnCode SolARPoseEstimationPnpOpengv::estimate( const std::vector<SR
     pose(2,0) = epnp_transformation(2,0); pose(2,1) = epnp_transformation(2,1); pose(2,2) = epnp_transformation(2,2); pose(2,3) = epnp_transformation(2,3);
     pose(3,0) =0;                         pose(3,1) =0;                         pose(3,2) =0;                         pose(3,3) =1;
    
-    
     return FrameworkReturnCode::_SUCCESS;
 
 }
@@ -101,7 +95,6 @@ FrameworkReturnCode SolARPoseEstimationPnpOpengv::estimate( const std::vector<SR
                                                             Transform3Df & pose,
                                                             const Transform3Df initialPose) {
 
-  
     return FrameworkReturnCode::_SUCCESS;
 }
 

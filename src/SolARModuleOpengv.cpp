@@ -35,7 +35,7 @@ extern "C" XPCF_MODULEHOOKS_API xpcf::XPCFErrorCode XPCF_getComponent(const boos
 
     if (errCode != xpcf::XPCFErrorCode::_SUCCESS)
     {
-         errCode = xpcf::tryCreateComponent<SolAR::MODULES::OPENGV::SolARTriangulationOpengv>(componentUUID,interfaceRef);
+         errCode = xpcf::tryCreateComponent<SolAR::MODULES::OPENGV::SolARPoseEstimationPnpOpengv>(componentUUID,interfaceRef);
     }
 
     return errCode;

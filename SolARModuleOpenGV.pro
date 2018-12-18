@@ -43,8 +43,8 @@ interfaces/SolARTriangulationOpengv.h
 
 
 SOURCES += src/SolARModuleOpengv.cpp \
-src/SolARPoseEstimationPnpOpengv.cpp 
-src/SolARTriangulationOpengv.cpp \
+src/SolARPoseEstimationPnpOpengv.cpp \
+src/SolARTriangulationOpengv.cpp 
 
 
 unix {
