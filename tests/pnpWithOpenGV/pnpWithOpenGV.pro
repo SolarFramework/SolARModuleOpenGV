@@ -23,10 +23,14 @@ DEPENDENCIESCONFIG = sharedlib
 #NOTE : CONFIG as staticlib or sharedlib, DEPENDENCIESCONFIG as staticlib or sharedlib MUST BE DEFINED BEFORE templatelibconfig.pri inclusion
 include ($$(BCOMDEVROOT)/builddefs/qmake/templateappconfig.pri)
 
-HEADERS += \
+HEADERS += experiment_helpers.hpp \
+random_generators.hpp \
+time_measurement.hpp
 
-SOURCES += \
-    main.cpp
+SOURCES += 	experiment_helpers.cpp\
+random_generators.cpp \
+time_measurement.cpp \
+main.cpp
 
 unix {
     LIBS += -ldl 
