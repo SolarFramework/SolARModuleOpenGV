@@ -106,33 +106,34 @@ int main(){
    
     LOG_ADD_LOG_TO_CONSOLE();
 
+     //---
+
+    LOG_DEBUG("Camera loaded");
+    SRef<image::IImageLoader> imageLoader1 =xpcfComponentManager->create<SolARImageLoaderOpencv>("image1")->bindTo<image::IImageLoader>();
+    LOG_DEBUG("Image 1 loaded");
+    SRef<image::IImageLoader> imageLoader2 =xpcfComponentManager->create<SolARImageLoaderOpencv>("image2")->bindTo<image::IImageLoader>();
+    LOG_DEBUG("Image 2 loaded");
+
     // component declaration and creation
     SRef<input::devices::ICamera> camera =xpcfComponentManager->create<SolARCameraOpencv>()->bindTo<input::devices::ICamera>();
-    LOG_INFO("Intrinsic parameters for the camera for the frame 2: \n {}",camera->getIntrinsicsParameters().matrix());
+    LOG_DEBUG("Intrinsic parameters for the camera for the frame 2: \n {}",camera->getIntrinsicsParameters().matrix());
 
     CamCalibration tmp_cam_calib = camera->getIntrinsicsParameters();
 
-    //---
-
-    LOG_INFO("Camera loaded");
-    SRef<image::IImageLoader> imageLoader1 =xpcfComponentManager->create<SolARImageLoaderOpencv>("image1")->bindTo<image::IImageLoader>();
-    LOG_INFO("Image 1 loaded");
-    SRef<image::IImageLoader> imageLoader2 =xpcfComponentManager->create<SolARImageLoaderOpencv>("image2")->bindTo<image::IImageLoader>();
-    LOG_INFO("Image 2 loaded");
 
 #ifdef USE_FREE
-    LOG_INFO("free keypoint detector");
+    LOG_DEBUG("free keypoint detector");
     SRef<features::IKeypointDetector> keypointsDetector =xpcfComponentManager->create<SolARKeypointDetectorOpencv>()->bindTo<features::IKeypointDetector>();
 #else
-    LOG_INFO("nonfree keypoint detector");
+    LOG_DEBUG("nonfree keypoint detector");
     SRef<features::IKeypointDetector>  keypointsDetector = xpcfComponentManager->create<SolARKeypointDetectorNonFreeOpencv>()->bindTo<features::IKeypointDetector>();
 #endif
 
 #ifdef USE_FREE
-    LOG_INFO("free keypoint extractor");
+    LOG_DEBUG("free keypoint extractor");
     SRef<features::IDescriptorsExtractor> descriptorExtractor =xpcfComponentManager->create<SolARDescriptorsExtractorAKAZE2Opencv>()->bindTo<features::IDescriptorsExtractor>();
 #else
-    LOG_INFO("nonfree keypoint extractor");
+    LOG_DEBUG("nonfree keypoint extractor");
     SRef<features::IDescriptorsExtractor> descriptorExtractor = xpcfComponentManager->create<SolARDescriptorsExtractorSURF64Opencv>()->bindTo<features::IDescriptorsExtractor>();
 #endif
 
@@ -198,14 +199,14 @@ int main(){
 
     // Estimate the pose of the second frame (the first frame being the reference of our coordinate system)
     poseFinderFrom2D2D->estimate(keypoints1, keypoints2, poseFrame1, poseFrame2, matches);
-    LOG_INFO("Number of matches used for triangulation {}//{}", matches.size(), nbMatches);
-    LOG_INFO("Estimated pose of the camera for the frame 2: \n {}", poseFrame2.matrix());
+    LOG_DEBUG("Number of matches used for triangulation {}//{}", matches.size(), nbMatches);
+    LOG_DEBUG("Estimated pose of the camera for the frame 2: \n {}", poseFrame2.matrix());
 
     // Create a image showing the matches used for pose estimation of the second camera
     overlayMatches->draw(image1, image2, matchesImage, keypoints1, keypoints2, matches);
 
     // Triangulate the inliers keypoints which match
-    double reproj_error =triangulator->triangulate(keypoints1,keypoints2,matches,std::make_pair(0, 1),poseFrame1,poseFrame2,cloud);
+//    double reproj_error = triangulator->triangulate(keypoints1,keypoints2,matches,std::make_pair(0, 1),poseFrame1,poseFrame2,cloud);
         
     double reproj_error_opengv = triangulator_opengv->triangulate(keypoints1,keypoints2,matches,std::make_pair(0, 1),poseFrame1,poseFrame2,cloud_opengv);
 
@@ -223,8 +224,8 @@ int main(){
 
     myfile.close();
 
-    LOG_INFO("Reprojection error: {}", reproj_error);
-    LOG_INFO("Reprojection error using opengv: {}", reproj_error_opengv);
+//    LOG_DEBUG("Reprojection error: {}", reproj_error);
+    LOG_INFO("\n\n Reprojection error using opengv: {}\n\n", reproj_error_opengv);
     
     mapFilter->filter(poseFrame1, poseFrame2, cloud_opengv, filteredCloud);
 
@@ -233,7 +234,7 @@ int main(){
         if (viewer3DPoints->display(cloud_opengv, poseFrame2) == FrameworkReturnCode::_STOP ||
             viewerMatches->display(matchesImage) == FrameworkReturnCode::_STOP  ){
 
-            LOG_INFO("End of Triangulation sample");
+            LOG_DEBUG("End of Triangulation sample");
            break;
         }
     }
