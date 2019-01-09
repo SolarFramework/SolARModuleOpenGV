@@ -133,7 +133,30 @@ double SolARTriangulationOpengv::triangulate(const std::vector<SRef<Point2Df>>& 
         visibility[working_views.second] = matches[k].getIndexInDescriptorB();
 
         Eigen::Vector4f tmp_vec_to_reproj= Eigen::Vector4f(  triangulate_results.col(k)[0], triangulate_results.col(k)[1], triangulate_results.col(k)[2],1.0f);
-        Eigen::Vector4f  reprojected_point_3d = poseView1*  tmp_vec_to_reproj ;				
+
+
+        Eigen::Matrix<float,4,4> tmp_transform;
+        tmp_transform(0,0) = poseView1(0,0);
+        tmp_transform(0,1) = poseView1(0,1);
+        tmp_transform(0,2) = poseView1(0,2);
+        tmp_transform(0,3) = poseView1(0,3);
+
+        tmp_transform(1,0) = poseView1(1,0);
+        tmp_transform(1,1) = poseView1(1,1);
+        tmp_transform(1,2) = poseView1(1,2);
+        tmp_transform(1,3) = poseView1(1,3);
+
+        tmp_transform(2,0) = poseView1(2,0);
+        tmp_transform(2,1) = poseView1(2,1);
+        tmp_transform(2,2) = poseView1(2,2);
+        tmp_transform(2,3) = poseView1(2,3);
+
+        tmp_transform(3,0) = poseView1(3,0);
+        tmp_transform(3,1) = poseView1(3,1);
+        tmp_transform(3,2) = poseView1(3,2);
+        tmp_transform(3,3) = poseView1(3,3);
+
+        Eigen::Vector4f  reprojected_point_3d = tmp_transform *  tmp_vec_to_reproj ;
 
         Eigen::Vector2d  reprojected_point_2d = Eigen::Vector2d(reprojected_point_3d[0]/reprojected_point_3d[2], reprojected_point_3d[1]/reprojected_point_3d[2]);
 
@@ -251,7 +274,30 @@ double SolARTriangulationOpengv::triangulate(const std::vector<SRef<Keypoint>>& 
         visibility[working_views.second] = matches[k].getIndexInDescriptorB();
 
         Eigen::Vector4f tmp_vec_to_reproj= Eigen::Vector4f(  triangulate_results.col(k)[0], triangulate_results.col(k)[1], triangulate_results.col(k)[2],1.0f);
-        Eigen::Vector4f  reprojected_point_3d = poseView1*  tmp_vec_to_reproj ;				
+
+
+        Eigen::Matrix<float,4,4> tmp_transform;
+        tmp_transform(0,0) = poseView1(0,0);
+        tmp_transform(0,1) = poseView1(0,1);
+        tmp_transform(0,2) = poseView1(0,2);
+        tmp_transform(0,3) = poseView1(0,3);
+
+        tmp_transform(1,0) = poseView1(1,0);
+        tmp_transform(1,1) = poseView1(1,1);
+        tmp_transform(1,2) = poseView1(1,2);
+        tmp_transform(1,3) = poseView1(1,3);
+
+        tmp_transform(2,0) = poseView1(2,0);
+        tmp_transform(2,1) = poseView1(2,1);
+        tmp_transform(2,2) = poseView1(2,2);
+        tmp_transform(2,3) = poseView1(2,3);
+
+        tmp_transform(3,0) = poseView1(3,0);
+        tmp_transform(3,1) = poseView1(3,1);
+        tmp_transform(3,2) = poseView1(3,2);
+        tmp_transform(3,3) = poseView1(3,3);
+
+        Eigen::Vector4f  reprojected_point_3d = tmp_transform *  tmp_vec_to_reproj ;
 
         Eigen::Vector2d  reprojected_point_2d = Eigen::Vector2d(reprojected_point_3d[0]/reprojected_point_3d[2], reprojected_point_3d[1]/reprojected_point_3d[2]);
 
@@ -279,9 +325,9 @@ double SolARTriangulationOpengv::triangulate(	const SRef<Keyframe> &curKeyframe,
                                                 const std::vector<DescriptorMatch>&matches,
                                                 std::vector<SRef<CloudPoint>>& pcloud) {
 
- return triangulate( curKeyframe->getKeypoints(),curKeyframe->getReferenceKeyframe()->getKeypoints(), matches,
-                        std::make_pair<unsigned int,unsigned int>(curKeyframe->m_idx,curKeyframe->getReferenceKeyframe()->m_idx),
-                        curKeyframe->getReferenceKeyframe()->getPose(),  curKeyframe->getPose(), pcloud);
+return triangulate( curKeyframe->getKeypoints(),curKeyframe->getReferenceKeyframe()->getKeypoints(), matches,
+                           std::make_pair<unsigned int,unsigned int>((unsigned int)(curKeyframe->m_idx),(unsigned int)(curKeyframe->getReferenceKeyframe()->m_idx)),
+                           curKeyframe->getReferenceKeyframe()->getPose(),  curKeyframe->getPose(), pcloud);
 
 }
 
