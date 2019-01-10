@@ -23,22 +23,12 @@ DEPENDENCIESCONFIG = sharedlib
 #NOTE : CONFIG as staticlib or sharedlib, DEPENDENCIESCONFIG as staticlib or sharedlib MUST BE DEFINED BEFORE templatelibconfig.pri inclusion
 include ($$(BCOMDEVROOT)/builddefs/qmake/templateappconfig.pri)
 
-HEADERS += experiment_helpers.hpp \
-random_generators.hpp \
-time_measurement.hpp
+#HEADERS += 
 
-SOURCES += 	experiment_helpers.cpp\
-random_generators.cpp \
-time_measurement.cpp \
-main.cpp
+SOURCES += main.cpp
 
 unix {
-    LIBS += -ldl 
-    QMAKE_CXX = clang++
-    QMAKE_LINK = clang++
-	
-  #  QMAKE_CXXFLAGS += DBOOST_LOG_DYN_LINK 
-    
+    LIBS += -ldl    
 }
 
 macx {
@@ -54,6 +44,5 @@ win32 {
     # Windows Kit (msvc2013 64)
     LIBS += -L$$(WINDOWSSDKDIR)lib/winv6.3/um/x64 -lshell32 -lgdi32 -lComdlg32
     INCLUDEPATH += $$(WINDOWSSDKDIR)lib/winv6.3/um/x64
-
 }
 

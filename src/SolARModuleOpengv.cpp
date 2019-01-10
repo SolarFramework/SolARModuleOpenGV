@@ -38,10 +38,16 @@ extern "C" XPCF_MODULEHOOKS_API xpcf::XPCFErrorCode XPCF_getComponent(const boos
          errCode = xpcf::tryCreateComponent<SolAR::MODULES::OPENGV::SolARPoseEstimationPnpOpengv>(componentUUID,interfaceRef);
     }
 
+    if (errCode != xpcf::XPCFErrorCode::_SUCCESS)
+    {
+         errCode = xpcf::tryCreateComponent<SolAR::MODULES::OPENGV::SolARPoseEstimationP3PKneip>(componentUUID,interfaceRef);
+    }
+
     return errCode;
 }
 
 XPCF_BEGIN_COMPONENTS_DECLARATION
 XPCF_ADD_COMPONENT(SolAR::MODULES::OPENGV::SolARTriangulationOpengv)
 XPCF_ADD_COMPONENT(SolAR::MODULES::OPENGV::SolARPoseEstimationPnpOpengv)
+XPCF_ADD_COMPONENT(SolAR::MODULES::OPENGV::SolARPoseEstimationP3PKneip)
 XPCF_END_COMPONENTS_DECLARATION

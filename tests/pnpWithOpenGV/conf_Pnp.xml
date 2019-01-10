@@ -6,6 +6,12 @@
                 <interface uuid="125f2007-1bf9-421d-9367-fbdc1210d006" name="IComponentIntrospect" description="IComponentIntrospect"/>
                 <interface uuid="3a01b0e9-9a76-43f5-97b3-85bb6979b953" name="ITriangulator" description="ITriangulator"/>
         </component> 	
+
+	  <component uuid="22007c73-6847-48aa-a2c1-d2ff59baf92f" name="SolARPoseEstimationP3PKneip" description="SolARPoseEstimationP3PKneip">
+                <interface uuid="125f2007-1bf9-421d-9367-fbdc1210d006" name="IComponentIntrospect" description="IComponentIntrospect"/>
+                <interface uuid="77281cda-47c2-4bb7-bde6-5b0d02e75dae" name="I3DTransformFinderFrom2D3D" description="I3DTransformFinderFrom2D3D"/>
+        </component>
+	
     </module>
 	
     <module uuid="15e1990b-86b2-445c-8194-0cbe80ede970" name="SolARModuleOpenCV" path="$BCOMDEVROOT/bcomBuild/SolARModuleOpenCV/0.5.0/lib/x86_64/shared" description="OpenCV modules">0
