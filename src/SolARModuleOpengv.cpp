@@ -17,6 +17,8 @@
 #include "SolARModuleOpengv_traits.h"
 
 #include "SolARTriangulationOpengv.h"
+#include "SolARPoseEstimationPnpOpengv.h"
+#include "SolARPoseEstimationP3PKneip.h"
 
 namespace xpcf=org::bcom::xpcf;
 
@@ -25,11 +27,21 @@ XPCF_DECLARE_MODULE("9f5f0fb9-a8c8-4532-bddf-f988052f63c3", "SolARModuleOpenGV",
 extern "C" XPCF_MODULEHOOKS_API xpcf::XPCFErrorCode XPCF_getComponent(const boost::uuids::uuid& componentUUID,SRef<xpcf::IComponentIntrospect>& interfaceRef)
 {
     xpcf::XPCFErrorCode errCode = xpcf::XPCFErrorCode::_FAIL;
-    errCode =  xpcf::tryCreateComponent<SolAR::MODULES::OPENGV::SolARTriangulationOpengv>(componentUUID,interfaceRef);
-    
+   
+     if (errCode != xpcf::XPCFErrorCode::_SUCCESS)
+     {
+
+        errCode =  xpcf::tryCreateComponent<SolAR::MODULES::OPENGV::SolARTriangulationOpengv>(componentUUID,interfaceRef);
+     }
+
     if (errCode != xpcf::XPCFErrorCode::_SUCCESS)
     {
-       // errCode = xpcf::tryCreateComponent<SolAR::MODULES::OPENCV::SolARTriangulationOpengv>(componentUUID,interfaceRef);
+         errCode = xpcf::tryCreateComponent<SolAR::MODULES::OPENGV::SolARPoseEstimationPnpOpengv>(componentUUID,interfaceRef);
+    }
+
+    if (errCode != xpcf::XPCFErrorCode::_SUCCESS)
+    {
+         errCode = xpcf::tryCreateComponent<SolAR::MODULES::OPENGV::SolARPoseEstimationP3PKneip>(componentUUID,interfaceRef);
     }
 
     return errCode;
@@ -37,4 +49,6 @@ extern "C" XPCF_MODULEHOOKS_API xpcf::XPCFErrorCode XPCF_getComponent(const boos
 
 XPCF_BEGIN_COMPONENTS_DECLARATION
 XPCF_ADD_COMPONENT(SolAR::MODULES::OPENGV::SolARTriangulationOpengv)
+XPCF_ADD_COMPONENT(SolAR::MODULES::OPENGV::SolARPoseEstimationPnpOpengv)
+XPCF_ADD_COMPONENT(SolAR::MODULES::OPENGV::SolARPoseEstimationP3PKneip)
 XPCF_END_COMPONENTS_DECLARATION

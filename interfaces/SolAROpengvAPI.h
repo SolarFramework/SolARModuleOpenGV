@@ -14,16 +14,16 @@
  * limitations under the License.
  */
 
-#ifndef SOLAROPENGVHELPER_H
-#define SOLAROPENGVHELPER_H
+#ifndef SOLAR_OPENGV_API_H
+#define SOLAR_OPENGV_API_H
 
-#include "SolAROpengvAPI.h"
-#include "xpcf/api/IComponentManager.h"
-
-#include "core/Messages.h"
-#include "datastructure/Image.h"
-#include "datastructure/MathDefinitions.h"
-#include "datastructure/GeometryDefinitions.h"
-#include "datastructure/DescriptorBuffer.h"
-
-#endif // SOLAROPENGVHELPER_H
+#if _WIN32
+#ifdef SolARModuleOpenGV_API_DLLEXPORT
+#define SOLAROPENGV_EXPORT_API __declspec(dllexport)
+#else //SOLAROPENGV_EXPORT_API
+#define SOLAROPENGV_EXPORT_API __declspec(dllimport)
+#endif //SOLAROPENGV_EXPORT_API
+#else //_WIN32
+#define SOLAROPENGV_EXPORT_API
+#endif //_WIN32
+#endif //SOLAR_OPENGV_API

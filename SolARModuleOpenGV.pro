@@ -6,7 +6,7 @@ CONFIG -= qt
 TARGET = SolARModuleOpenGV
 INSTALLSUBDIR = bcomBuild
 FRAMEWORK = $$TARGET
-VERSION=1.0.0
+VERSION=0.5.0
 
 DEFINES += MYVERSION=$${VERSION}
 CONFIG += c++1z
@@ -38,13 +38,21 @@ INCLUDEPATH += interfaces
 HEADERS += interfaces/SolARModuleOpengv_traits.h \
 interfaces/SolAROpengvAPI.h \
 interfaces/SolAROpenGVHelper.h \
-interfaces/SolARTriangulationOpengv.h
+interfaces/SolARPoseEstimationP3PKneip.h \
+interfaces/SolARPoseEstimationPnpOpengv.h \
+interfaces/SolARTriangulationOpengv.h 
+
 
 SOURCES += src/SolARModuleOpengv.cpp \
-src/SolARTriangulationOpengv.cpp
+src/SolARPoseEstimationP3PKneip.cpp \
+src/SolARPoseEstimationPnpOpengv.cpp \
+src/SolARTriangulationOpengv.cpp 
+
 
 unix {
     QMAKE_CXXFLAGS += -Wignored-qualifiers
+    QMAKE_CXX = clang++
+    QMAKE_LINK = clang++	
 }
 
 macx {
