@@ -18,6 +18,7 @@
 
 #include "SolARTriangulationOpengv.h"
 #include "SolARPoseEstimationPnpOpengv.h"
+#include "SolARPoseEstimationP3PKneip.h"
 
 namespace xpcf=org::bcom::xpcf;
 
