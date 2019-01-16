@@ -38,15 +38,15 @@ INCLUDEPATH += interfaces
 HEADERS += interfaces/SolARModuleOpengv_traits.h \
 interfaces/SolAROpengvAPI.h \
 interfaces/SolAROpenGVHelper.h \
-interfaces/SolARPoseEstimationP3PKneip.h \
-interfaces/SolARPoseEstimationPnpOpengv.h \
-interfaces/SolARTriangulationOpengv.h 
+interfaces/PoseEstimationP3PKneip.h \
+interfaces/PoseEstimationPnp.h \
+interfaces/Triangulation.h 
 
 
 SOURCES += src/SolARModuleOpengv.cpp \
-src/SolARPoseEstimationP3PKneip.cpp \
-src/SolARPoseEstimationPnpOpengv.cpp \
-src/SolARTriangulationOpengv.cpp 
+src/PoseEstimationP3PKneip.cpp \
+src/PoseEstimationPnp.cpp \
+src/Triangulation.cpp 
 
 
 unix {

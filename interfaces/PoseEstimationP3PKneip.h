@@ -28,8 +28,8 @@
  * SUCH DAMAGE.                                                               *
  ******************************************************************************/
 
-#ifndef SolARPoseEstimationPnpOpengv_H
-#define SolARPoseEstimationPnpOpengv_H
+#ifndef SolARPoseEstimationP3PKneip_H
+#define SolARPoseEstimationP3PKneip_H
 #include <vector>
 #include "api/solver/pose/I3DTransformFinderFrom2D3D.h"
 #include "datastructure/Image.h"
@@ -41,17 +41,17 @@ namespace SolAR {
     namespace MODULES {
         namespace OPENGV {
         /**
-         * @class SolARPoseEstimationPnpOpengv
+         * @class SolARPoseEstimationP3PKneip
          * @brief Finds the camera pose of 2D-3D points correspondaces based on opengv pnp algorithm.
          */   
-            class SOLAROPENGV_EXPORT_API SolARPoseEstimationPnpOpengv : public org::bcom::xpcf::ConfigurableBase,
+            class SOLAROPENGV_EXPORT_API PoseEstimationP3PKneip : public org::bcom::xpcf::ConfigurableBase,
                 public api::solver::pose::I3DTransformFinderFrom2D3D
             {
             public:
-                ///@brief SolARPoseEstimationPnpOpengv constructor;
-                SolARPoseEstimationPnpOpengv();
-                ///@brief SolARPoseEstimationPnpOpengv destructor;
-                ~SolARPoseEstimationPnpOpengv();
+                ///@brief SolARPoseEstimationP3PKneip constructor;
+                PoseEstimationP3PKneip();
+                ///@brief SolARPoseEstimationP3PKneip destructor;
+                ~PoseEstimationP3PKneip();
 
                 /// @brief Estimates camera pose from a set of 2D image points of their corresponding 3D  world points.
                 /// @param[in] imagePoints, set of 2d_points seen in view_1.
@@ -62,6 +62,7 @@ namespace SolAR {
                                          const std::vector<SRef<Point3Df>> & worldPoints,
                                          Transform3Df & pose,
                                          const Transform3Df initialPose = Transform3Df::Identity()) override;
+
 
                 /// @brief this method is used to set intrinsic parameters and distorsion of the camera
                 /// @param[in] Camera calibration matrix parameters.
@@ -81,4 +82,4 @@ namespace SolAR {
 }
 }
 
-#endif // SolARPoseEstimationPnpOpengv_H
+#endif // SolARPoseEstimationP3PKneip_H

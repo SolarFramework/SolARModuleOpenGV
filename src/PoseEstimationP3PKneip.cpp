@@ -15,7 +15,7 @@
  */
 
 
-#include "SolARPoseEstimationPnpOpengv.h"
+#include "PoseEstimationP3PKneip.h"
 #include "SolARModuleOpengv_traits.h"
 
 #include <opengv/absolute_pose/methods.hpp>
@@ -23,7 +23,7 @@
 #include <opengv/math/cayley.hpp>
 
 
-XPCF_DEFINE_FACTORY_CREATE_INSTANCE(SolAR::MODULES::OPENGV::SolARPoseEstimationPnpOpengv);
+XPCF_DEFINE_FACTORY_CREATE_INSTANCE(SolAR::MODULES::OPENGV::PoseEstimationP3PKneip);
 
 namespace xpcf  = org::bcom::xpcf;
 
@@ -32,18 +32,18 @@ using namespace datastructure;
 namespace MODULES {
 namespace OPENGV {
 
-SolARPoseEstimationPnpOpengv::SolARPoseEstimationPnpOpengv():ConfigurableBase(xpcf::toUUID<SolARPoseEstimationPnpOpengv>())
+PoseEstimationP3PKneip::PoseEstimationP3PKneip():ConfigurableBase(xpcf::toUUID<PoseEstimationP3PKneip>())
 {
     addInterface<api::solver::pose::I3DTransformFinderFrom2D3D>(this);
 
     LOG_DEBUG(" SolARPoseEstimationOpengv constructor");
 }
 
-SolARPoseEstimationPnpOpengv::~SolARPoseEstimationPnpOpengv(){
+PoseEstimationP3PKneip::~PoseEstimationP3PKneip(){
 
 }
 
-FrameworkReturnCode SolARPoseEstimationPnpOpengv::estimate( const std::vector<SRef<Point2Df>> & imagePoints,
+FrameworkReturnCode PoseEstimationP3PKneip::estimate( const std::vector<SRef<Point2Df>> & imagePoints,
                                                             const std::vector<SRef<Point3Df>> & worldPoints,
                                                             Transform3Df & pose,
                                                             const Transform3Df initialPose) {
@@ -78,11 +78,12 @@ FrameworkReturnCode SolARPoseEstimationPnpOpengv::estimate( const std::vector<SR
         epnp_transformation = opengv::absolute_pose::p3p_kneip(adapter);
     }
 
-if(epnp_transformation.size() > 1){
+//for now, I just get the first result provided
+if(epnp_transformation.size() > 0){
 
-    pose(0,0) = epnp_transformation[1](0,0); pose(0,1) = epnp_transformation[1](0,1); pose(0,2) = epnp_transformation[1](0,2); pose(0,3) = epnp_transformation[1](0,3);
-    pose(1,0) = epnp_transformation[1](1,0); pose(1,1) = epnp_transformation[1](1,1); pose(1,2) = epnp_transformation[1](1,2); pose(1,3) = epnp_transformation[1](1,3);
-    pose(2,0) = epnp_transformation[1](2,0); pose(2,1) = epnp_transformation[1](2,1); pose(2,2) = epnp_transformation[1](2,2); pose(2,3) = epnp_transformation[1](2,3);
+    pose(0,0) = epnp_transformation[0](0,0); pose(0,1) = epnp_transformation[0](0,1); pose(0,2) = epnp_transformation[0](0,2); pose(0,3) = epnp_transformation[0](0,3);
+    pose(1,0) = epnp_transformation[0](1,0); pose(1,1) = epnp_transformation[0](1,1); pose(1,2) = epnp_transformation[0](1,2); pose(1,3) = epnp_transformation[0](1,3);
+    pose(2,0) = epnp_transformation[0](2,0); pose(2,1) = epnp_transformation[0](2,1); pose(2,2) = epnp_transformation[0](2,2); pose(2,3) = epnp_transformation[0](2,3);
     pose(3,0) = 0;                        pose(3,1) = 0;                       pose(3,2) =0;                         pose(3,3) =1;
 
 }
@@ -91,7 +92,7 @@ if(epnp_transformation.size() > 1){
 }
 
 
-void SolARPoseEstimationPnpOpengv::setCameraParameters(const CamCalibration & intrinsicParams, const CamDistortion & distorsionParams) {
+void PoseEstimationP3PKneip::setCameraParameters(const CamCalibration & intrinsicParams, const CamDistortion & distorsionParams) {
     m_intrinsicParams = intrinsicParams;
     m_distorsionParams =distorsionParams;
 }
