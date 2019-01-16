@@ -90,16 +90,6 @@ if(epnp_transformation.size() > 1){
     return FrameworkReturnCode::_SUCCESS;
 }
 
-FrameworkReturnCode SolARPoseEstimationPnpOpengv::estimate( const std::vector<SRef<Point2Df>> & imagePoints,
-                                                            const std::vector<SRef<Point3Df>> & worldPoints,
-                                                            std::vector<SRef<Point2Df>>&imagePoints_inlier,
-                                                            std::vector<SRef<Point3Df>>&worldPoints_inlier,
-                                                            Transform3Df & pose,
-                                                            const Transform3Df initialPose) {
-
-    return FrameworkReturnCode::_SUCCESS;
-}
-
 
 void SolARPoseEstimationPnpOpengv::setCameraParameters(const CamCalibration & intrinsicParams, const CamDistortion & distorsionParams) {
     m_intrinsicParams = intrinsicParams;

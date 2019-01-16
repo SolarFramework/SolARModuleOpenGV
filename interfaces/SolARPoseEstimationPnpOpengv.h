@@ -63,15 +63,6 @@ namespace SolAR {
                                          Transform3Df & pose,
                                          const Transform3Df initialPose = Transform3Df::Identity()) override;
 
-                /// @brief Not implemented... the interface should be split
-                FrameworkReturnCode estimate(const std::vector<SRef<Point2Df>> & imagePoints,
-                                         const std::vector<SRef<Point3Df>> & worldPoints,
-                                         std::vector<SRef<Point2Df>>&imagePoints_inlier,
-                                         std::vector<SRef<Point3Df>>&worldPoints_inlier,
-                                         Transform3Df & pose,
-                                         const Transform3Df initialPose = Transform3Df::Identity()) override;
-
-
                 /// @brief this method is used to set intrinsic parameters and distorsion of the camera
                 /// @param[in] Camera calibration matrix parameters.
                 /// @param[in] Camera distorsion parameters.
