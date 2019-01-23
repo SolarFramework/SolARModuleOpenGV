@@ -36,7 +36,7 @@
 // ADD COMPONENTS HEADERS HERE
 
 #include "SolARModuleOpencv_traits.h"
-#include "SolARModuleOpengl_traits.h"
+//#include "SolARModuleOpengl_traits.h"
 #include "SolARModuleTools_traits.h"
 
 #include "SolARModuleNonFreeOpencv_traits.h"
@@ -65,7 +65,7 @@ using namespace SolAR::api;
 using namespace SolAR::MODULES::OPENCV;
 using namespace SolAR::MODULES::TOOLS;
 using namespace SolAR::MODULES::NONFREEOPENCV;
-using namespace SolAR::MODULES::OPENGL;
+//using namespace SolAR::MODULES::OPENGL;
 
 using namespace SolAR::MODULES::OPENGV;
 namespace xpcf  = org::bcom::xpcf;
@@ -80,7 +80,7 @@ void help(){
 }
 
 int main(){
-
+/*
 #if NDEBUG
     boost::log::core::get()->set_logging_enabled(false);
 #endif
@@ -102,7 +102,7 @@ int main(){
 #endif
 
     //Opengv Triangulation
-    SRef<solver::map::ITriangulator> triangulator_opengv = xpcfComponentManager->create<SolAR::MODULES::OPENGV::SolARTriangulationOpengv>()->bindTo<solver::map::ITriangulator>();
+    SRef<solver::map::ITriangulator> triangulator_opengv = xpcfComponentManager->create<SolAR::MODULES::OPENGV::Triangulation>()->bindTo<solver::map::ITriangulator>();
    
     LOG_ADD_LOG_TO_CONSOLE();
 
@@ -242,7 +242,7 @@ int main(){
 
     
     std::cout<<"Load ok"<<std::endl;
-
+*/
     return(0);
     
 }

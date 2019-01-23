@@ -15,7 +15,7 @@
  */
 
 
-#include "PoseEstimationP3PKneip.h"
+#include "PoseEstimationP3PGao.h"
 #include "SolARModuleOpengv_traits.h"
 
 #include <opengv/absolute_pose/methods.hpp>
@@ -23,7 +23,7 @@
 #include <opengv/math/cayley.hpp>
 
 
-XPCF_DEFINE_FACTORY_CREATE_INSTANCE(SolAR::MODULES::OPENGV::PoseEstimationP3PKneip);
+XPCF_DEFINE_FACTORY_CREATE_INSTANCE(SolAR::MODULES::OPENGV::PoseEstimationP3PGao);
 
 namespace xpcf  = org::bcom::xpcf;
 
@@ -32,18 +32,18 @@ using namespace datastructure;
 namespace MODULES {
 namespace OPENGV {
 
-PoseEstimationP3PKneip::PoseEstimationP3PKneip():ConfigurableBase(xpcf::toUUID<PoseEstimationP3PKneip>())
+PoseEstimationP3PGao::PoseEstimationP3PGao():ConfigurableBase(xpcf::toUUID<PoseEstimationP3PGao>())
 {
     addInterface<api::solver::pose::I3DTransformFinderFrom2D3D>(this);
 
-    LOG_DEBUG(" SolARPoseEstimationOpengv constructor");
+    LOG_DEBUG(" PoseEstimationP3PGao constructor");
 }
 
-PoseEstimationP3PKneip::~PoseEstimationP3PKneip(){
+PoseEstimationP3PGao::~PoseEstimationP3PGao(){
 
 }
 
-FrameworkReturnCode PoseEstimationP3PKneip::estimate( const std::vector<SRef<Point2Df>> & imagePoints,
+FrameworkReturnCode PoseEstimationP3PGao::estimate( const std::vector<SRef<Point2Df>> & imagePoints,
                                                             const std::vector<SRef<Point3Df>> & worldPoints,
                                                             Transform3Df & pose,
                                                             const Transform3Df initialPose) {
@@ -74,11 +74,8 @@ FrameworkReturnCode PoseEstimationP3PKneip::estimate( const std::vector<SRef<Poi
     size_t iterations = 50;
 
     for(size_t i = 0; i < iterations; i++){
-
-        epnp_transformation = opengv::absolute_pose::p3p_kneip(adapter);
+        epnp_transformation = opengv::absolute_pose::p3p_gao(adapter);
     }
-
-    //epnp_transformation.data();
 
 //for now, I just get the first result provided
 if(epnp_transformation.size() > 0){
@@ -94,7 +91,7 @@ if(epnp_transformation.size() > 0){
 }
 
 
-void PoseEstimationP3PKneip::setCameraParameters(const CamCalibration & intrinsicParams, const CamDistortion & distorsionParams) {
+void PoseEstimationP3PGao::setCameraParameters(const CamCalibration & intrinsicParams, const CamDistortion & distorsionParams) {
     m_intrinsicParams = intrinsicParams;
     m_distorsionParams =distorsionParams;
 }
