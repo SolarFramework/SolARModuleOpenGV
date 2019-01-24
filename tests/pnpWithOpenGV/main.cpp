@@ -47,6 +47,8 @@ using namespace opengv;
 #include "api/features/IDescriptorMatcher.h"
 #include "api/features/IMatchesFilter.h"
 #include "api/solver/pose/I3DTransformFinderFrom2D2D.h"
+#include "api/solver/pose/I3DTransformFinderFrom2D3D.h"
+
 #include "api/solver/map/ITriangulator.h"
 #include "api/solver/map/IMapFilter.h"
 #include "api/display/IMatchesOverlay.h"
@@ -58,7 +60,7 @@ using namespace opengv;
 using namespace SolAR;
 using namespace SolAR::datastructure;
 using namespace SolAR::api;
-using namespace SolAR::MODULES::OPENCV;
+//using namespace SolAR::MODULES::OPENCV;
 using namespace SolAR::MODULES::TOOLS;
 using namespace SolAR::MODULES::OPENGV;
 namespace xpcf  = org::bcom::xpcf;
@@ -75,93 +77,6 @@ void help()
 
 int main()
 {
-    /*
-#if NDEBUG
-    boost::log::core::get()->set_logging_enabled(false);
-#endif
-
-  SRef<xpcf::IComponentManager> xpcfComponentManager = xpcf::getComponentManagerInstance();
-
-#ifdef USE_FREE
-    if(xpcfComponentManager->load("conf_Pnp.xml")!=org::bcom::xpcf::_SUCCESS)
-    {
-        LOG_ERROR("Failed to load the configuration file conf_Pnp.xml")
-        return -1;
-    }
-#else
-    if(xpcfComponentManager->load("conf_Pnp.xml")!=org::bcom::xpcf::_SUCCESS)
-    {
-        LOG_ERROR("Failed to load the configuration file conf_Pnp.xml")
-        return -1;
-    }
-#endif
-
-    //Opengv Triangulation
-    SRef<solver::map::ITriangulator> triangulator_opengv = xpcfComponentManager->create<SolAR::MODULES::OPENGV::SolARTriangulationOpengv>()->bindTo<solver::map::ITriangulator>();
-   
-    LOG_ADD_LOG_TO_CONSOLE();
-
-    LOG_INFO("Camera loaded");
-    SRef<image::IImageLoader> imageLoader1 =xpcfComponentManager->create<SolARImageLoaderOpencv>("image1")->bindTo<image::IImageLoader>();
-    LOG_INFO("Image 1 loaded");
-    SRef<image::IImageLoader> imageLoader2 =xpcfComponentManager->create<SolARImageLoaderOpencv>("image2")->bindTo<image::IImageLoader>();
-    LOG_INFO("Image 2 loaded");
-
-
-    // component declaration and creation
-    SRef<input::devices::ICamera> camera =xpcfComponentManager->create<SolARCameraOpencv>()->bindTo<input::devices::ICamera>();
-    LOG_INFO("Intrinsic parameters for the camera for the frame 2: \n {}",camera->getIntrinsicsParameters().matrix());
-
-    CamCalibration tmp_cam_calib = camera->getIntrinsicsParameters();
-
-#ifdef USE_FREE
-    LOG_INFO("free keypoint detector");
-    SRef<features::IKeypointDetector> keypointsDetector =xpcfComponentManager->create<SolARKeypointDetectorOpencv>()->bindTo<features::IKeypointDetector>();
-#else
-    LOG_INFO("nonfree keypoint detector");
-    SRef<features::IKeypointDetector>  keypointsDetector = xpcfComponentManager->create<SolARKeypointDetectorNonFreeOpencv>()->bindTo<features::IKeypointDetector>();
-#endif
-
-#ifdef USE_FREE
-    LOG_INFO("free keypoint extractor");
-    SRef<features::IDescriptorsExtractor> descriptorExtractor =xpcfComponentManager->create<SolARDescriptorsExtractorAKAZE2Opencv>()->bindTo<features::IDescriptorsExtractor>();
-#else
-    LOG_INFO("nonfree keypoint extractor");
-    SRef<features::IDescriptorsExtractor> descriptorExtractor = xpcfComponentManager->create<SolARDescriptorsExtractorSURF64Opencv>()->bindTo<features::IDescriptorsExtractor>();
-#endif
-
-    SRef<features::IDescriptorMatcher> matcher =xpcfComponentManager->create<SolARDescriptorMatcherKNNOpencv>()->bindTo<features::IDescriptorMatcher>();
-    SRef<display::IMatchesOverlay> overlayMatches =xpcfComponentManager->create<SolARMatchesOverlayOpencv>()->bindTo<display::IMatchesOverlay>();
-    SRef<display::IImageViewer> viewerMatches =xpcfComponentManager->create<SolARImageViewerOpencv>()->bindTo<display::IImageViewer>();
- 
-    // declarations of data structures used to exange information between components
-    SRef<Image>                                         image1;
-    SRef<Image>                                         image2;
-
-    std::vector< SRef<Keypoint>>                        keypoints1;
-    std::vector< SRef<Keypoint>>                        keypoints2;
-
-    SRef<DescriptorBuffer>                              descriptors1;
-    SRef<DescriptorBuffer>                              descriptors2;
-    std::vector<DescriptorMatch>                        matches;
-
-    SRef<Image>                                         matchesImage;
-
-    Transform3Df                                        poseFrame1 = Transform3Df::Identity();
-    Transform3Df                                        poseFrame2;
-
-    // initialize components requiring the camera intrinsic parameters (please refeer to the use of intrinsic parameters file)
-    // poseFinderFrom2D2D->setCameraParameters(camera->getIntrinsicsParameters(), camera->getDistorsionParameters());
-    // triangulator->setCameraParameters(camera->getIntrinsicsParameters(), camera->getDistorsionParameters());
-    // triangulator_opengv->setCameraParameters(camera->getIntrinsicsParameters(), camera->getDistorsionParameters());
-
-    // Get first image
-    if (imageLoader1->getImage(image1) != FrameworkReturnCode::_SUCCESS){
-        
-        LOG_ERROR("Cannot load image 1 with path {}", imageLoader1->bindTo<xpcf::IConfigurable>()->getProperty("pathFile")->getStringValue());
-        return -1;
-    }
-*/
     //initialize random seed
     initializeRandomSeed();
 
@@ -331,4 +246,70 @@ int main()
     std::cout << "timings from nonlinear algorithm: ";
     std::cout << nonlinear_time << std::endl;
     
+
+
+#if NDEBUG
+    boost::log::core::get()->set_logging_enabled(false);
+#endif
+
+  SRef<xpcf::IComponentManager> xpcfComponentManager = xpcf::getComponentManagerInstance();
+
+#ifdef USE_FREE
+    if(xpcfComponentManager->load("conf_Pnp.xml")!=org::bcom::xpcf::_SUCCESS)
+    {
+        //
+        LOG_ERROR("Failed to load the configuration file conf_Pnp.xml")
+        return -1;
+    }
+#else
+    if(xpcfComponentManager->load("conf_Pnp.xml")!=org::bcom::xpcf::_SUCCESS)
+    {
+        LOG_ERROR("Failed to load the configuration file conf_Pnp.xml")
+        return -1;
+    }
+#endif
+
+    CamCalibration  intrinsicParams;
+    CamDistortion   distorsionParams;
+    distorsionParams[0] =0;
+    distorsionParams[1] =0;
+    distorsionParams[2] =0;
+    distorsionParams[3] =0;
+    distorsionParams[4] =0;
+
+    //set to identity Matrix
+    intrinsicParams(0,0) = 1; intrinsicParams(0,1) = 0; intrinsicParams(0,2) = 0;
+    intrinsicParams(1,0) = 0; intrinsicParams(1,1) = 1; intrinsicParams(1,2) = 0;
+    intrinsicParams(2,0) = 0; intrinsicParams(2,1) = 0; intrinsicParams(2,2) = 1;
+
+    //
+    auto poseEstimation_p3p_kneip = xpcfComponentManager->create<SolAR::MODULES::OPENGV::PoseEstimationP3PKneip>()->bindTo<SolAR::api::solver::pose::I3DTransformFinderFrom2D3D>();
+    auto poseEstimation_p3p_gao   = xpcfComponentManager->create<SolAR::MODULES::OPENGV::PoseEstimationP3PGao>()->bindTo<SolAR::api::solver::pose::I3DTransformFinderFrom2D3D>();
+    auto poseEstimation_p3p_epnp  = xpcfComponentManager->create<SolAR::MODULES::OPENGV::PoseEstimationEPnp>()->bindTo<SolAR::api::solver::pose::I3DTransformFinderFrom2D3D>();
+    auto poseEstimation_p3p_upnp  = xpcfComponentManager->create<SolAR::MODULES::OPENGV::PoseEstimationUPnp>()->bindTo<SolAR::api::solver::pose::I3DTransformFinderFrom2D3D>();
+
+    // initialize pose estimation
+    poseEstimation_p3p_kneip->setCameraParameters(  intrinsicParams, distorsionParams);
+    poseEstimation_p3p_gao->setCameraParameters(    intrinsicParams, distorsionParams);
+    poseEstimation_p3p_epnp->setCameraParameters(   intrinsicParams, distorsionParams);
+    poseEstimation_p3p_upnp->setCameraParameters(   intrinsicParams, distorsionParams);
+
+    //  points
+    //  camCorrespondences
+
+     std::vector<SRef<Point2Df>>  imagePoints;
+     std::vector<SRef<Point3Df>>  worldPoints;
+
+     Transform3Df pose_p3p_kneip;
+     Transform3Df pose_p3p_gao;
+     Transform3Df pose_p3p_epnp;
+     Transform3Df pose_p3p_upnp;
+
+      poseEstimation_p3p_kneip->estimate(   imagePoints, worldPoints, pose_p3p_kneip);
+      poseEstimation_p3p_gao->estimate(     imagePoints, worldPoints, pose_p3p_gao);
+      poseEstimation_p3p_epnp->estimate(    imagePoints, worldPoints, pose_p3p_epnp);
+      poseEstimation_p3p_upnp->estimate(    imagePoints, worldPoints, pose_p3p_upnp);
+
+
+
 }
