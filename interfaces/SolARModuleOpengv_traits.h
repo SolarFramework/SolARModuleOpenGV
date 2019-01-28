@@ -24,10 +24,18 @@ namespace MODULES {
 
 namespace OPENGV{
 class PoseEstimationEPnp;
+class PoseEstimationUPnp;
+
 //class PoseEstimationP2P;
 class PoseEstimationP3PGao;
 class PoseEstimationP3PKneip;
 class PoseEstimationUPnp;
+
+
+class PoseEstimationSACEPnp;
+class PoseEstimationSACP3PGao;
+class PoseEstimationSACP3PKneip;
+
 class Triangulation;
 }
 }
@@ -57,5 +65,22 @@ XPCF_DEFINE_COMPONENT_TRAITS(SolAR::MODULES::OPENGV::PoseEstimationUPnp,
                             "922e9db6-e424-4518-ad26-31201471ff00",
                              "PoseEstimationUPnp",
                              "SolAR::MODULES::OPENGV::PoseEstimationUPnp component")
+
+
+XPCF_DEFINE_COMPONENT_TRAITS(SolAR::MODULES::OPENGV::PoseEstimationSACEPnp,
+                            "a2c38e05-40d9-47fc-aad4-1ea2255333d5",
+                             "PoseEstimationSACEPnp",
+                             "SolAR::MODULES::OPENGV::PoseEstimationSACEPnp component")
+
+XPCF_DEFINE_COMPONENT_TRAITS(SolAR::MODULES::OPENGV::PoseEstimationSACP3PGao,
+                            "76329985-5faf-46e0-9179-0aedacedb6e2",
+                             "PoseEstimationSACP3PGao",
+                             "SolAR::MODULES::OPENGV::PoseEstimationSACP3PGao component")
+
+XPCF_DEFINE_COMPONENT_TRAITS(SolAR::MODULES::OPENGV::PoseEstimationSACP3PKneip,
+                            "97045e96-506f-41f8-bb78-b966b4f8d435",
+                             "PoseEstimationSACP3PKneip",
+                             "SolAR::MODULES::OPENGV::PoseEstimationSACP3PKneip component")
+                             
 
 #endif // SOLARMODULEOPENGV_TRAITS_H

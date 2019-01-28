@@ -21,6 +21,10 @@
 #include "PoseEstimationP3PGao.h"
 #include "PoseEstimationP3PKneip.h"
 
+#include "PoseEstimationSACEPnp.h"
+#include "PoseEstimationSACP3PGao.h"
+#include "PoseEstimationSACP3PKneip.h"
+
 namespace xpcf=org::bcom::xpcf;
 
 XPCF_DECLARE_MODULE("9f5f0fb9-a8c8-4532-bddf-f988052f63c3", "SolARModuleOpenGV", "SolARModuleOpenGV module description")
@@ -50,6 +54,23 @@ extern "C" XPCF_MODULEHOOKS_API xpcf::XPCFErrorCode XPCF_getComponent(const boos
          errCode = xpcf::tryCreateComponent<SolAR::MODULES::OPENGV::PoseEstimationP3PGao>(componentUUID,interfaceRef);
     }
 
+     if (errCode != xpcf::XPCFErrorCode::_SUCCESS)
+     {
+         errCode = xpcf::tryCreateComponent<SolAR::MODULES::OPENGV::PoseEstimationSACEPnp>(componentUUID,interfaceRef);
+     }
+
+     if (errCode != xpcf::XPCFErrorCode::_SUCCESS)
+     {
+         errCode = xpcf::tryCreateComponent<SolAR::MODULES::OPENGV::PoseEstimationP3PGao>(componentUUID,interfaceRef);
+     }
+
+     if (errCode != xpcf::XPCFErrorCode::_SUCCESS)
+     {
+         errCode = xpcf::tryCreateComponent<SolAR::MODULES::OPENGV::PoseEstimationP3PKneip>(componentUUID,interfaceRef);
+     }
+
+    
+
     return errCode;
 }
 
@@ -59,4 +80,7 @@ XPCF_ADD_COMPONENT(SolAR::MODULES::OPENGV::PoseEstimationEPnp)
 XPCF_ADD_COMPONENT(SolAR::MODULES::OPENGV::PoseEstimationP3PGao)
 XPCF_ADD_COMPONENT(SolAR::MODULES::OPENGV::PoseEstimationP3PKneip)
 XPCF_ADD_COMPONENT(SolAR::MODULES::OPENGV::PoseEstimationUPnp)
+
+XPCF_ADD_COMPONENT(SolAR::MODULES::OPENGV::PoseEstimationSACEPnp)
+
 XPCF_END_COMPONENTS_DECLARATION
