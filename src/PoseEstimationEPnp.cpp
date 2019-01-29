@@ -78,17 +78,28 @@ FrameworkReturnCode PoseEstimationEPnp::estimate( const std::vector<SRef<Point2D
     
     size_t iterations = 50;
 
-    for(size_t i = 0; i < iterations; i++){
+    for (size_t i = 0; i < iterations; i++)
+    {
 
         epnp_transformation = opengv::absolute_pose::epnp(adapter);
     }
 
-
-    pose(0,0) = epnp_transformation(0,0); pose(0,1) = epnp_transformation(0,1); pose(0,2) = epnp_transformation(0,2); pose(0,3) = epnp_transformation(0,3);
-    pose(1,0) = epnp_transformation(1,0); pose(1,1) = epnp_transformation(1,1); pose(1,2) = epnp_transformation(1,2); pose(1,3) = epnp_transformation(1,3);
-    pose(2,0) = epnp_transformation(2,0); pose(2,1) = epnp_transformation(2,1); pose(2,2) = epnp_transformation(2,2); pose(2,3) = epnp_transformation(2,3);
-    pose(3,0) = 0;                        pose(3,1) = 0;                       pose(3,2) =0;                         pose(3,3) =1;
-
+    pose(0, 0) = epnp_transformation(0, 0);
+    pose(0, 1) = epnp_transformation(0, 1);
+    pose(0, 2) = epnp_transformation(0, 2);
+    pose(0, 3) = epnp_transformation(0, 3);
+    pose(1, 0) = epnp_transformation(1, 0);
+    pose(1, 1) = epnp_transformation(1, 1);
+    pose(1, 2) = epnp_transformation(1, 2);
+    pose(1, 3) = epnp_transformation(1, 3);
+    pose(2, 0) = epnp_transformation(2, 0);
+    pose(2, 1) = epnp_transformation(2, 1);
+    pose(2, 2) = epnp_transformation(2, 2);
+    pose(2, 3) = epnp_transformation(2, 3);
+    pose(3, 0) = 0;
+    pose(3, 1) = 0;
+    pose(3, 2) = 0;
+    pose(3, 3) = 1;
 
     return FrameworkReturnCode::_SUCCESS;
 }

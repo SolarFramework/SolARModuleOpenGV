@@ -97,16 +97,29 @@ FrameworkReturnCode PoseEstimationSACP3PKneip::estimate( const std::vector<SRef<
 
     imagePoints_inlier.resize( ransac.inliers_.size());
     worldPoints_inlier.resize( ransac.inliers_.size());
-    
-    for (unsigned int kc = 0;  kc <  ransac.inliers_.size() ; kc ++){
-        imagePoints_inlier[kc] =  xpcf::utils::make_shared<SolAR::Point2Df>(imagePoints[kc]->getX(), imagePoints[kc]->getY());
-        worldPoints_inlier[kc] =  xpcf::utils::make_shared<SolAR::Point3Df>(worldPoints[kc]->getX(), worldPoints[kc]->getY(),worldPoints[kc]->getZ());
+
+    for (unsigned int kc = 0; kc < ransac.inliers_.size(); kc++)
+    {
+        imagePoints_inlier[kc] = xpcf::utils::make_shared<SolAR::Point2Df>(imagePoints[kc]->getX(), imagePoints[kc]->getY());
+        worldPoints_inlier[kc] = xpcf::utils::make_shared<SolAR::Point3Df>(worldPoints[kc]->getX(), worldPoints[kc]->getY(), worldPoints[kc]->getZ());
     }
 
-    pose(0,0) =   ransac.model_coefficients_(0,0); pose(0,1) =   ransac.model_coefficients_(0,1); pose(0,2) =   ransac.model_coefficients_(0,2); pose(0,3) =   ransac.model_coefficients_(0,3);
-    pose(1,0) =   ransac.model_coefficients_(1,0); pose(1,1) =   ransac.model_coefficients_(1,1); pose(1,2) =   ransac.model_coefficients_(1,2); pose(1,3) =   ransac.model_coefficients_(1,3);
-    pose(2,0) =   ransac.model_coefficients_(2,0); pose(2,1) =   ransac.model_coefficients_(2,1); pose(2,2) =   ransac.model_coefficients_(2,2); pose(2,3) =   ransac.model_coefficients_(2,3);
-    pose(3,0) = 0;                                 pose(3,1) = 0;                       pose(3,2) =0;                         pose(3,3) =1;
+    pose(0, 0) = ransac.model_coefficients_(0, 0);
+    pose(0, 1) = ransac.model_coefficients_(0, 1);
+    pose(0, 2) = ransac.model_coefficients_(0, 2);
+    pose(0, 3) = ransac.model_coefficients_(0, 3);
+    pose(1, 0) = ransac.model_coefficients_(1, 0);
+    pose(1, 1) = ransac.model_coefficients_(1, 1);
+    pose(1, 2) = ransac.model_coefficients_(1, 2);
+    pose(1, 3) = ransac.model_coefficients_(1, 3);
+    pose(2, 0) = ransac.model_coefficients_(2, 0);
+    pose(2, 1) = ransac.model_coefficients_(2, 1);
+    pose(2, 2) = ransac.model_coefficients_(2, 2);
+    pose(2, 3) = ransac.model_coefficients_(2, 3);
+    pose(3, 0) = 0;
+    pose(3, 1) = 0;
+    pose(3, 2) = 0;
+    pose(3, 3) = 1;
 
     return FrameworkReturnCode::_SUCCESS;
 }

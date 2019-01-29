@@ -83,14 +83,26 @@ FrameworkReturnCode PoseEstimationUPnp::estimate( const std::vector<SRef<Point2D
         upnp_transformation = opengv::absolute_pose::upnp(adapter);
     }
 
-if(upnp_transformation.size() > 0){
+    if (upnp_transformation.size() > 0)
+    {
 
-    pose(0,0) = upnp_transformation[0](0,0); pose(0,1) = upnp_transformation[0](0,1); pose(0,2) = upnp_transformation[0](0,2); pose(0,3) = upnp_transformation[0](0,3);
-    pose(1,0) = upnp_transformation[0](1,0); pose(1,1) = upnp_transformation[0](1,1); pose(1,2) = upnp_transformation[0](1,2); pose(1,3) = upnp_transformation[0](1,3);
-    pose(2,0) = upnp_transformation[0](2,0); pose(2,1) = upnp_transformation[0](2,1); pose(2,2) = upnp_transformation[0](2,2); pose(2,3) = upnp_transformation[0](2,3);
-    pose(3,0) = 0;                           pose(3,1) = 0;                           pose(3,2) =0;                         pose(3,3) =1;
-
-}
+        pose(0, 0) = upnp_transformation[0](0, 0);
+        pose(0, 1) = upnp_transformation[0](0, 1);
+        pose(0, 2) = upnp_transformation[0](0, 2);
+        pose(0, 3) = upnp_transformation[0](0, 3);
+        pose(1, 0) = upnp_transformation[0](1, 0);
+        pose(1, 1) = upnp_transformation[0](1, 1);
+        pose(1, 2) = upnp_transformation[0](1, 2);
+        pose(1, 3) = upnp_transformation[0](1, 3);
+        pose(2, 0) = upnp_transformation[0](2, 0);
+        pose(2, 1) = upnp_transformation[0](2, 1);
+        pose(2, 2) = upnp_transformation[0](2, 2);
+        pose(2, 3) = upnp_transformation[0](2, 3);
+        pose(3, 0) = 0;
+        pose(3, 1) = 0;
+        pose(3, 2) = 0;
+        pose(3, 3) = 1;
+    }
 
     return FrameworkReturnCode::_SUCCESS;
 }
