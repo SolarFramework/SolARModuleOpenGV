@@ -31,12 +31,12 @@ class PoseEstimationP3PGao;
 class PoseEstimationP3PKneip;
 class PoseEstimationUPnp;
 
-
 class PoseEstimationSACEPnp;
 class PoseEstimationSACP3PGao;
 class PoseEstimationSACP3PKneip;
 
 class Triangulation;
+
 }
 }
 }

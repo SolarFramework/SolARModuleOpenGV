@@ -48,6 +48,11 @@ FrameworkReturnCode PoseEstimationUPnp::estimate( const std::vector<SRef<Point2D
                                                             Transform3Df & pose,
                                                             const Transform3Df initialPose) {
     
+    if (imagePoints.size() < 3 || worldPoints.size() < 3 || worldPoints.size() != imagePoints.size()){
+        return FrameworkReturnCode::_ERROR_;
+    }   
+
+
     Eigen::Matrix<float,3,3> k_invert =  m_intrinsicParams.inverse();
  
     std::vector<Eigen::Vector3f> buffer_vector; 

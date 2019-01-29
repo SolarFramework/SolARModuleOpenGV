@@ -48,6 +48,10 @@ FrameworkReturnCode PoseEstimationP3PKneip::estimate( const std::vector<SRef<Poi
                                                             Transform3Df & pose,
                                                             const Transform3Df initialPose) {
     
+    if ( imagePoints.size() != 3 ||  worldPoints.size() !=3){
+         return FrameworkReturnCode::_ERROR_;
+    }
+
     Eigen::Matrix<float,3,3> k_invert =  m_intrinsicParams.inverse();
  
     std::vector<Eigen::Vector3f> buffer_vector; 
@@ -74,7 +78,6 @@ FrameworkReturnCode PoseEstimationP3PKneip::estimate( const std::vector<SRef<Poi
     size_t iterations = 50;
 
     for(size_t i = 0; i < iterations; i++){
-
         epnp_transformation = opengv::absolute_pose::p3p_kneip(adapter);
     }
 
