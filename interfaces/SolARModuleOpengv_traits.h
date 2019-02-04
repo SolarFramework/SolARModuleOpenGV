@@ -29,7 +29,6 @@ class PoseEstimationUPnp;
 //class PoseEstimationP2P;
 class PoseEstimationP3PGao;
 class PoseEstimationP3PKneip;
-class PoseEstimationUPnp;
 
 class PoseEstimationSACEPnp;
 class PoseEstimationSACP3PGao;
@@ -52,7 +51,7 @@ XPCF_DEFINE_COMPONENT_TRAITS(SolAR::MODULES::OPENGV::PoseEstimationEPnp,
                              "SolAR::MODULES::OPENGV::PoseEstimationEPnp component")
 
 XPCF_DEFINE_COMPONENT_TRAITS(SolAR::MODULES::OPENGV::PoseEstimationP3PGao,
-                            "6efb890b-8e90-487b-a34a-50e7373444cf ",
+                            "6efb890b-8e90-487b-a34a-50e7373444cf",
                              "PoseEstimationP3PGao",
                              "SolAR::MODULES::OPENGV::PoseEstimationP3PGao component")
 
