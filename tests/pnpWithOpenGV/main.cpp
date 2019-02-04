@@ -247,8 +247,6 @@ int main()
     std::cout << "timings from nonlinear algorithm: ";
     std::cout << nonlinear_time << std::endl;
     
-
-
 #if NDEBUG
     boost::log::core::get()->set_logging_enabled(false);
 #endif
@@ -269,29 +267,13 @@ int main()
         return -1;
     }
 #endif
-/*
-    double minDepth = 4;
-     double maxDepth = 8;
-
-     for( size_t i = 0; i < (size_t) gt.cols(); i++ ){
-
-       gt.col(i) = opengv::generateRandomPoint( maxDepth, minDepth );
-     }
-
-     //create the 2D3D-correspondences by looping through the cameras
-     size_t numberCams = camOffsets.size();
-     size_t camCorrespondence = 0;
-
-
-     for( size_t i = 0; i < (size_t) gt.cols(); i++ )
-     {
-       //get the camera transformation
-       translation_t camOffset = camOffsets[camCorrespondence];
-       rotation_t camRotation = camRotations[camCorrespondence];
-     }
-*/
 
     CamCalibration  intrinsicParams;
+    //set to identity Matrix
+    intrinsicParams(0,0) = 1; intrinsicParams(0,1) = 0; intrinsicParams(0,2) = 0;
+    intrinsicParams(1,0) = 0; intrinsicParams(1,1) = 1; intrinsicParams(1,2) = 0;
+    intrinsicParams(2,0) = 0; intrinsicParams(2,1) = 0; intrinsicParams(2,2) = 1;
+
     CamDistortion   distorsionParams;
     distorsionParams(0,0) =0;
     distorsionParams(1,0) =0;
@@ -299,12 +281,6 @@ int main()
     distorsionParams(3,0) =0;
     distorsionParams(4,0) =0;
 
-    //set to identity Matrix
-    intrinsicParams(0,0) = 1; intrinsicParams(0,1) = 0; intrinsicParams(0,2) = 0;
-    intrinsicParams(1,0) = 0; intrinsicParams(1,1) = 1; intrinsicParams(1,2) = 0;
-    intrinsicParams(2,0) = 0; intrinsicParams(2,1) = 0; intrinsicParams(2,2) = 1;
-
-    //
     auto poseEstimation_p3p_kneip = xpcfComponentManager->create<SolAR::MODULES::OPENGV::PoseEstimationP3PKneip>()->bindTo<SolAR::api::solver::pose::I3DTransformFinderFrom2D3D>();
     auto poseEstimation_p3p_epnp  = xpcfComponentManager->create<SolAR::MODULES::OPENGV::PoseEstimationEPnp>()->bindTo<SolAR::api::solver::pose::I3DTransformFinderFrom2D3D>();
     auto poseEstimation_p3p_gao   = xpcfComponentManager->create<SolAR::MODULES::OPENGV::PoseEstimationP3PGao>()->bindTo<SolAR::api::solver::pose::I3DTransformFinderFrom2D3D>();
@@ -314,25 +290,43 @@ int main()
     auto poseEstimation_p3p_sac_gao = xpcfComponentManager->create<SolAR::MODULES::OPENGV::PoseEstimationSACP3PGao>()->bindTo<SolAR::api::solver::pose::I3DTransformSACFinderFrom2D3D>();
     auto poseEstimation_p3p_sac_kneip  = xpcfComponentManager->create<SolAR::MODULES::OPENGV::PoseEstimationSACP3PKneip>()->bindTo<SolAR::api::solver::pose::I3DTransformSACFinderFrom2D3D>();
 
-    // initialize pose estimation
+    // initialize pose estimation components with camera paremeters
     poseEstimation_p3p_kneip->setCameraParameters(  intrinsicParams, distorsionParams);
     poseEstimation_p3p_gao->setCameraParameters(    intrinsicParams, distorsionParams);
     poseEstimation_p3p_epnp->setCameraParameters(   intrinsicParams, distorsionParams);
-   // poseEstimation_p3p_upnp->setCameraParameters(   intrinsicParams, distorsionParams);
+    poseEstimation_p3p_upnp->setCameraParameters(   intrinsicParams, distorsionParams);
+    poseEstimation_epnp_sac->setCameraParameters(   intrinsicParams, distorsionParams);
+    poseEstimation_p3p_sac_gao->setCameraParameters(   intrinsicParams, distorsionParams);
+    poseEstimation_p3p_sac_kneip->setCameraParameters(   intrinsicParams, distorsionParams);
 
-    //  points
-    //  camCorrespondences
 
+     //synthetize 2d points and 3d points to test the components.
      std::vector<SRef<Point2Df>>  imagePoints;
      std::vector<SRef<Point3Df>>  worldPoints;
 
-     imagePoints.resize(points.size());
-     worldPoints.resize(points.size());
 
-     for(unsigned int kc =0; kc < points.size() ; kc++){
+     unsigned int Npoints = 1024;
 
-        imagePoints[kc] = xpcf::utils::make_shared<Point2Df >(bearingVectors[kc](0,0), bearingVectors[kc](1,0)) ;
-        worldPoints[kc] = xpcf::utils::make_shared<Point3Df >(points[kc](0,0),points[kc](1,0),points[kc](2,0) ) ;
+     imagePoints.resize(Npoints);
+     worldPoints.resize(Npoints);
+
+     for(unsigned int kc =0; kc < Npoints; kc++){
+
+         double minDepth = 4;
+         double maxDepth = 8;
+
+         Eigen::Vector3d  current_random_point = generateRandomPoint( maxDepth, minDepth );
+
+         //get the camera transformation
+         translation_t camOffset = camOffsets[0];
+         rotation_t camRotation = camRotations[0];
+
+         //project the point into the viewpoint frame
+         point_t bodyPoint = rotation.transpose()*(current_random_point - position);
+
+         imagePoints[kc] = xpcf::utils::make_shared<Point2Df >(bodyPoint(0,0), bodyPoint(1,0)) ;
+         worldPoints[kc] = xpcf::utils::make_shared<Point3Df >(current_random_point(0,0),current_random_point(1,0),current_random_point(2,0) ) ;
+
      }
 
      Transform3Df pose_p3p_kneip;
@@ -343,15 +337,30 @@ int main()
      poseEstimation_p3p_kneip->estimate(   imagePoints, worldPoints, pose_p3p_kneip);
      poseEstimation_p3p_gao->estimate(     imagePoints, worldPoints, pose_p3p_gao);
      poseEstimation_p3p_epnp->estimate(    imagePoints, worldPoints, pose_p3p_epnp);
- //    poseEstimation_p3p_upnp->estimate(    imagePoints, worldPoints, pose_p3p_upnp);
+     poseEstimation_p3p_upnp->estimate(    imagePoints, worldPoints, pose_p3p_upnp);
 
+
+     Transform3Df pose_p3p_epnp_sac;
+     Transform3Df pose_p3p_gao_sac;
+     Transform3Df pose_p3p_kneip_sac;
+
+     std::vector<SRef<Point2Df>> imagePoints_inlier_epnp_sac;
+     std::vector<SRef<Point3Df>> worldPoints_inlier_epnp_sac;
+
+     std::vector<SRef<Point2Df>> imagePoints_inlier_gao_sac;
+     std::vector<SRef<Point3Df>> worldPoints_inlier_gao_sac;
+
+     std::vector<SRef<Point2Df>> imagePoints_inlier_kneip_sac;
+     std::vector<SRef<Point3Df>> worldPoints_inlier_kneip_sac;
+
+     poseEstimation_epnp_sac->estimate(     imagePoints, worldPoints, imagePoints_inlier_epnp_sac, worldPoints_inlier_epnp_sac, pose_p3p_epnp_sac);
+     poseEstimation_p3p_sac_gao->estimate(  imagePoints, worldPoints, imagePoints_inlier_gao_sac, worldPoints_inlier_gao_sac, pose_p3p_gao_sac);
+     poseEstimation_p3p_sac_kneip->estimate(imagePoints, worldPoints, imagePoints_inlier_kneip_sac, worldPoints_inlier_kneip_sac, pose_p3p_kneip_sac);
 
         std::cout<< "********************* pose_p3p_kneip **************************"<<std::endl;
 
         for (unsigned int i = 0; i < 4; i++)
             for (unsigned int j = 0; j < 4; j++){
-
             std::cout << pose_p3p_kneip(i,j) << std::endl;
         }
-
 }
