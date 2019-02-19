@@ -71,12 +71,7 @@ FrameworkReturnCode PoseEstimationP3PKneip::estimate( const std::vector<SRef<Poi
         bearing_buffer.push_back(opengv::point_t( tmp[0], tmp[1],tmp[2]));
         bearing_buffer[k] /=tmp.norm();
         
-    
-        Eigen::Vector3f upoint(xu,yu, 1.0f);
-        Eigen::Vector3f tmp = m_intrinsicParams*upoint;
-        bearing_buffer.push_back(opengv::point_t( tmp[0], tmp[1],tmp[2]));
-        bearing_buffer[k] /=tmp.norm();
-        
+ 
     }  
 
     opengv::rotation_t rotationgv;
