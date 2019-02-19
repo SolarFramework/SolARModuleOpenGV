@@ -61,7 +61,7 @@ FrameworkReturnCode PoseEstimationP3PGao::estimate( const std::vector<SRef<Point
     opengv::points_t points;
 
     //TO DO APPLY UNDISTORSION
-    for(unsigned int k =0; k <3/* imagePoints.size()*/; k++){
+    for(unsigned int k =0; k <imagePoints.size(); k++){
 
         points.push_back( opengv::point_t( worldPoints[k]->getX(), worldPoints[k]->getY(), worldPoints[k]->getZ()));
         
@@ -73,31 +73,31 @@ FrameworkReturnCode PoseEstimationP3PGao::estimate( const std::vector<SRef<Point
     opengv::rotation_t rotationgv;
     opengv::absolute_pose::CentralAbsoluteAdapter adapter( bearing_buffer, points, rotationgv );
  
-    opengv::transformations_t epnp_transformation;
+    opengv::transformations_t gao_transformation;
     
     size_t iterations = 50;
 
     for (size_t i = 0; i < iterations; i++)
     {
-        epnp_transformation = opengv::absolute_pose::p3p_gao(adapter);
+        gao_transformation = opengv::absolute_pose::p3p_gao(adapter);
     }
 
     //for now, I just get the first result provided
-    if (epnp_transformation.size() > 0)
+    if (gao_transformation.size() > 0)
     {
 
-        pose(0, 0) = epnp_transformation[0](0, 0);
-        pose(0, 1) = epnp_transformation[0](0, 1);
-        pose(0, 2) = epnp_transformation[0](0, 2);
-        pose(0, 3) = epnp_transformation[0](0, 3);
-        pose(1, 0) = epnp_transformation[0](1, 0);
-        pose(1, 1) = epnp_transformation[0](1, 1);
-        pose(1, 2) = epnp_transformation[0](1, 2);
-        pose(1, 3) = epnp_transformation[0](1, 3);
-        pose(2, 0) = epnp_transformation[0](2, 0);
-        pose(2, 1) = epnp_transformation[0](2, 1);
-        pose(2, 2) = epnp_transformation[0](2, 2);
-        pose(2, 3) = epnp_transformation[0](2, 3);
+        pose(0, 0) = gao_transformation[0](0, 0);
+        pose(0, 1) = gao_transformation[0](0, 1);
+        pose(0, 2) = gao_transformation[0](0, 2);
+        pose(0, 3) = gao_transformation[0](0, 3);
+        pose(1, 0) = gao_transformation[0](1, 0);
+        pose(1, 1) = gao_transformation[0](1, 1);
+        pose(1, 2) = gao_transformation[0](1, 2);
+        pose(1, 3) = gao_transformation[0](1, 3);
+        pose(2, 0) = gao_transformation[0](2, 0);
+        pose(2, 1) = gao_transformation[0](2, 1);
+        pose(2, 2) = gao_transformation[0](2, 2);
+        pose(2, 3) = gao_transformation[0](2, 3);
         pose(3, 0) = 0;
         pose(3, 1) = 0;
         pose(3, 2) = 0;

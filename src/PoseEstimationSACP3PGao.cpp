@@ -55,7 +55,8 @@ FrameworkReturnCode PoseEstimationSACP3PGao::estimate(const std::vector<SRef<Poi
     if ( imagePoints.size() < 3 || worldPoints.size() < 3  || worldPoints.size() != imagePoints.size() ){
         return FrameworkReturnCode::_ERROR_;
     }
-
+ 
+    LOG_INFO("Tne number of 2D-3D correspondence in input to estimate the pose : \n {}", imagePoints.size());
     Eigen::Matrix<float,3,3> k_invert =  m_intrinsicParams.inverse();
  
     std::vector<Eigen::Vector3f> buffer_vector; 
@@ -95,7 +96,7 @@ FrameworkReturnCode PoseEstimationSACP3PGao::estimate(const std::vector<SRef<Poi
     ransac.computeModel();
     
     ///get the indices of the points defined as inliers
-    //LOG_INFO( "the number of inliers is: " << ransac.inliers_.size());
+    LOG_INFO( "the number of inliers is:  \n {}", ransac.inliers_.size());
 
     imagePoints_inlier.resize(ransac.inliers_.size());
     worldPoints_inlier.resize(ransac.inliers_.size());
@@ -106,6 +107,8 @@ FrameworkReturnCode PoseEstimationSACP3PGao::estimate(const std::vector<SRef<Poi
         worldPoints_inlier[kc] = xpcf::utils::make_shared<SolAR::Point3Df>(worldPoints[kc]->getX(), worldPoints[kc]->getY(), worldPoints[kc]->getZ());
     }
 
+    LOG_INFO("Ransac model coefficients : \n {}",ransac.model_coefficients_);
+       
     pose(0, 0) = ransac.model_coefficients_(0, 0);
     pose(0, 1) = ransac.model_coefficients_(0, 1);
     pose(0, 2) = ransac.model_coefficients_(0, 2);
@@ -128,6 +131,8 @@ FrameworkReturnCode PoseEstimationSACP3PGao::estimate(const std::vector<SRef<Poi
 
 void PoseEstimationSACP3PGao::setCameraParameters(const CamCalibration &intrinsicParams, const CamDistortion &distorsionParams)
 {
+    m_intrinsicParams = intrinsicParams;
+    m_distorsionParams =distorsionParams;
 }
 
 } // namespace OPENGV

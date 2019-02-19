@@ -48,7 +48,7 @@ FrameworkReturnCode PoseEstimationP3PKneip::estimate( const std::vector<SRef<Poi
                                                             Transform3Df & pose,
                                                             const Transform3Df initialPose) {
     
-    if ( imagePoints.size() != 3 ||  worldPoints.size() !=3){
+    if ( imagePoints.size() < 3 ||  worldPoints.size() < 3){
          return FrameworkReturnCode::_ERROR_;
     }
 
@@ -60,14 +60,23 @@ FrameworkReturnCode PoseEstimationP3PKneip::estimate( const std::vector<SRef<Poi
     opengv::bearingVectors_t bearing_buffer;
     opengv::points_t points;
 
-    //TO DO APPLY UNDISTORSION
-    for(unsigned int k =0; k <3/* imagePoints.size()*/; k++){
+
+    for(unsigned int k =0; k < imagePoints.size(); k++){
 
         points.push_back( opengv::point_t( worldPoints[k]->getX(), worldPoints[k]->getY(), worldPoints[k]->getZ()));
+
+        //without distorsion
         
         Eigen::Vector3f tmp = k_invert*Eigen::Vector3f(imagePoints[k]->getX(), imagePoints[k]->getY(), 1.0f);
         bearing_buffer.push_back(opengv::point_t( tmp[0], tmp[1],tmp[2]));
         bearing_buffer[k] /=tmp.norm();
+        
+    
+        Eigen::Vector3f upoint(xu,yu, 1.0f);
+        Eigen::Vector3f tmp = m_intrinsicParams*upoint;
+        bearing_buffer.push_back(opengv::point_t( tmp[0], tmp[1],tmp[2]));
+        bearing_buffer[k] /=tmp.norm();
+        
     }  
 
     opengv::rotation_t rotationgv;
@@ -84,21 +93,21 @@ FrameworkReturnCode PoseEstimationP3PKneip::estimate( const std::vector<SRef<Poi
     //epnp_transformation.data();
 
     //for now, I just get the first result provided
-    if (epnp_transformation.size() > 0)
+    if (epnp_transformation.size() > 1)
     {
 
-        pose(0, 0) = epnp_transformation[0](0, 0);
-        pose(0, 1) = epnp_transformation[0](0, 1);
-        pose(0, 2) = epnp_transformation[0](0, 2);
-        pose(0, 3) = epnp_transformation[0](0, 3);
-        pose(1, 0) = epnp_transformation[0](1, 0);
-        pose(1, 1) = epnp_transformation[0](1, 1);
-        pose(1, 2) = epnp_transformation[0](1, 2);
-        pose(1, 3) = epnp_transformation[0](1, 3);
-        pose(2, 0) = epnp_transformation[0](2, 0);
-        pose(2, 1) = epnp_transformation[0](2, 1);
-        pose(2, 2) = epnp_transformation[0](2, 2);
-        pose(2, 3) = epnp_transformation[0](2, 3);
+        pose(0, 0) =   epnp_transformation[0](0, 0);
+        pose(0, 1) =   epnp_transformation[0](0, 1);
+        pose(0, 2) =   epnp_transformation[0](0, 2);
+        pose(0, 3) =   epnp_transformation[0](0, 3);
+        pose(1, 0) =   epnp_transformation[0](1, 0);
+        pose(1, 1) =   epnp_transformation[0](1, 1);
+        pose(1, 2) =   epnp_transformation[0](1, 2);
+        pose(1, 3) =   epnp_transformation[0](1, 3);
+        pose(2, 0) =   epnp_transformation[0](2, 0);
+        pose(2, 1) =   epnp_transformation[0](2, 1);
+        pose(2, 2) =   epnp_transformation[0](2, 2);
+        pose(2, 3) =   epnp_transformation[0](2, 3);
         pose(3, 0) = 0;
         pose(3, 1) = 0;
         pose(3, 2) = 0;

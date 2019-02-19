@@ -61,13 +61,16 @@ FrameworkReturnCode PoseEstimationEPnp::estimate( const std::vector<SRef<Point2D
     opengv::bearingVectors_t bearing_buffer;
     opengv::points_t points;
 
+    bearing_buffer.resize( imagePoints.size() ) ;
+    points.resize( imagePoints.size() );
+
     //TO DO APPLY UNDISTORSION
     for(unsigned int k =0; k < imagePoints.size(); k++){
 
-        points.push_back( opengv::point_t( worldPoints[k]->getX(), worldPoints[k]->getY(), worldPoints[k]->getZ()));
+        points[k] = opengv::point_t( worldPoints[k]->getX(), worldPoints[k]->getY(), worldPoints[k]->getZ());
         
         Eigen::Vector3f tmp = k_invert*Eigen::Vector3f(imagePoints[k]->getX(), imagePoints[k]->getY(), 1.0f);
-        bearing_buffer.push_back(opengv::point_t( tmp[0], tmp[1],tmp[2]));
+        bearing_buffer[k] = (opengv::point_t( tmp[0], tmp[1],tmp[2]));
         bearing_buffer[k] /=tmp.norm();
     }  
 
@@ -78,10 +81,15 @@ FrameworkReturnCode PoseEstimationEPnp::estimate( const std::vector<SRef<Point2D
     
     size_t iterations = 50;
 
+    std::vector<int> indices; indices.resize(bearing_buffer.size() );
+    for(unsigned int kc =0; kc <bearing_buffer.size();kc++){
+        indices[kc] =kc;
+    }
+
     for (size_t i = 0; i < iterations; i++)
     {
-
-        epnp_transformation = opengv::absolute_pose::epnp(adapter);
+        
+        epnp_transformation = opengv::absolute_pose::epnp(adapter,indices);
     }
 
     pose(0, 0) = epnp_transformation(0, 0);
