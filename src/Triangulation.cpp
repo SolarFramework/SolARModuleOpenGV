@@ -16,6 +16,8 @@
 
 #include "Triangulation.h"
 #include "SolARModuleOpengv_traits.h"
+#include "core/Log.h"
+
 #include <opengv/triangulation/methods.hpp>
 #include <opengv/relative_pose/CentralRelativeAdapter.hpp>
 
