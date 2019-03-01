@@ -17,6 +17,7 @@
 
 #include "PoseEstimationP3PGao.h"
 #include "SolARModuleOpengv_traits.h"
+#include "core/Log.h"
 
 #include <opengv/absolute_pose/methods.hpp>
 #include <opengv/absolute_pose/CentralAbsoluteAdapter.hpp>
