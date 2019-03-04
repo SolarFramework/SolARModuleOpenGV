@@ -17,7 +17,7 @@
 #include <iostream>
 #include <string>
 #include <vector>
-//#include <boost/log/core.hpp>
+#include <boost/log/core.hpp>
 #include "xpcf/xpcf.h"
 
 // ADD COMPONENTS HEADERS HERE
@@ -26,7 +26,7 @@
 #include "api/solver/map/ITriangulator.h"
 #include "api/input/devices/ICamera.h"
 #include <opengv/types.hpp>
-
+#include <core/Log.h>
 #include <opengv/triangulation/methods.hpp>
 #include <opengv/relative_pose/CentralRelativeAdapter.hpp>
 
@@ -67,7 +67,7 @@ SRef<xpcf::IComponentManager> xpcfComponentManager = xpcf::getComponentManagerIn
 #endif
 
     //instantiate a triangulation
-    SRef<solver::map::ITriangulator> triangulator_opengv = xpcfComponentManager->create<SolAR::MODULES::OPENGV::SolARTriangulationOpengv>()->bindTo<solver::map::ITriangulator>();
+    SRef<solver::map::ITriangulator> triangulator_opengv = xpcfComponentManager->create<SolAR::MODULES::OPENGV::Triangulation>()->bindTo<solver::map::ITriangulator>();
    
 
     opengv::translation_t position1 = Eigen::Vector3d::Zero();

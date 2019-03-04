@@ -49,7 +49,7 @@ using namespace opengv;
 #include "api/solver/pose/I3DTransformFinderFrom2D2D.h"
 #include "api/solver/pose/I3DTransformFinderFrom2D3D.h"
 #include "api/solver/pose/I3DTransformSACFinderFrom2D3D.h"
-
+#include <core/Log.h>
 #include "api/solver/map/ITriangulator.h"
 #include "api/solver/map/IMapFilter.h"
 #include "api/display/IMatchesOverlay.h"
