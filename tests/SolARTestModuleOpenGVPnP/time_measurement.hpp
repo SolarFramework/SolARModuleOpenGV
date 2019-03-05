@@ -28,25 +28,26 @@
  * SUCH DAMAGE.                                                               *
  ******************************************************************************/
 
-#ifndef OPENGV_RANDOM_GENERATORS_HPP_
-#define OPENGV_RANDOM_GENERATORS_HPP_
+#ifndef OPENGV_TIME_MEASUREMENT_HPP_
+#define OPENGV_TIME_MEASUREMENT_HPP_
 
 #include <stdlib.h>
-#include <vector>
-#include <Eigen/Eigen>
+#include <stdio.h>
 
-namespace opengv
-{
+#ifdef WIN32
+  struct timeval {
+    int tv_sec;
+    int tv_usec;
+  };
 
-void initializeRandomSeed();
-Eigen::Vector3d generateRandomPoint( double maximumDepth, double minimumDepth );
-Eigen::Vector3d generateRandomPointPlane();
-Eigen::Vector3d addNoise( double noiseLevel, Eigen::Vector3d cleanPoint );
-Eigen::Vector3d generateRandomTranslation( double maximumParallax );
-Eigen::Vector3d generateRandomDirectionTranslation( double parallax );
-Eigen::Matrix3d generateRandomRotation( double maxAngle );
-Eigen::Matrix3d generateRandomRotation();
+  void gettimeofday( timeval * timeofday, int dummy);
+#else
+  #include <sys/time.h>
+#endif
 
-}
+#define TIMETODOUBLE(x) ( x.tv_sec + x.tv_usec * 1e-6 )
 
-#endif /* OPENGV_RANDOM_GENERATORS_HPP_ */
+timeval
+timeval_minus( const struct timeval &t1, const struct timeval &t2 );
+
+#endif /* OPENGV_TIME_MEASUREMENT_HPP_ */

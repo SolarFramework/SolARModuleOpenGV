@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<xpcf-registry>
+	<module uuid="1fd044d1-8e45-4380-b3df-2b8e997c1588" name="SolARModuleOpenGV" description="SolARModuleOpenGV" path="$BCOMDEVROOT/bcomBuild/SolARModuleOpenGV/0.5.0/lib/x86_64/shared">
+	
+        <component uuid="bb7dac37-499a-4bc4-9b57-3e010a94ed30" name="Triangulation" description="SolARTriangulationOpengv">
+                <interface uuid="125f2007-1bf9-421d-9367-fbdc1210d006" name="IComponentIntrospect" description="IComponentIntrospect"/>
+                <interface uuid="3a01b0e9-9a76-43f5-97b3-85bb6979b953" name="ITriangulator" description="ITriangulator"/>
+        </component>
+
+        <component uuid="22007c73-6847-48aa-a2c1-d2ff59baf92f" name="PoseEstimationEPnp" description="SolARPoseEstimation EPnp implemented in OpenGV.">
+                <interface uuid="125f2007-1bf9-421d-9367-fbdc1210d006" name="IComponentIntrospect" description="IComponentIntrospect"/>
+                <interface uuid="77281cda-47c2-4bb7-bde6-5b0d02e75dae" name="I3DTransformFinderFrom2D3D" description="I3DTransformFinderFrom2D3D"/>
+        </component>
+
+        <component uuid="6efb890b-8e90-487b-a34a-50e7373444cf" name="PoseEstimationP3PGao" description="RPoseEstimation P3P by Gao implemented in OpenGV">
+                <interface uuid="125f2007-1bf9-421d-9367-fbdc1210d006" name="IComponentIntrospect" description="IComponentIntrospect"/>
+                <interface uuid="77281cda-47c2-4bb7-bde6-5b0d02e75dae" name="I3DTransformFinderFrom2D3D" description="I3DTransformFinderFrom2D3D"/>
+        </component>
+
+        <component uuid="473faa6a-e023-49ac-9c48-f00ef9d79af3" name="PoseEstimationP3PKneip" description="PoseEstimation P3P by Kneip implemented in OpenGV">
+                <interface uuid="125f2007-1bf9-421d-9367-fbdc1210d006" name="IComponentIntrospect" description="IComponentIntrospect"/>
+                <interface uuid="77281cda-47c2-4bb7-bde6-5b0d02e75dae" name="I3DTransformFinderFrom2D3D" description="I3DTransformFinderFrom2D3D"/>
+        </component>
+
+        <component uuid="922e9db6-e424-4518-ad26-31201471ff00" name="PoseEstimationUPnp" description="PoseEstimation UPnp implemented in OpenGV">
+                <interface uuid="125f2007-1bf9-421d-9367-fbdc1210d006" name="IComponentIntrospect" description="IComponentIntrospect"/>
+                <interface uuid="77281cda-47c2-4bb7-bde6-5b0d02e75dae" name="I3DTransformFinderFrom2D3D" description="I3DTransformFinderFrom2D3D"/>
+        </component>
+
+	  <component uuid="a2c38e05-40d9-47fc-aad4-1ea2255333d5" name="PoseEstimationSACEPnp" description="PoseEstimationSACEPnp  implemented in OpenGV">
+                <interface uuid="125f2007-1bf9-421d-9367-fbdc1210d006" name="IComponentIntrospect" description="IComponentIntrospect"/>
+                <interface uuid="8dd889c5-e8e6-4b3b-92e4-34cf7442f272" name="I3DTransformSACFinderFrom2D3D" description="I3DTransformSACFinderFrom2D3D"/>
+        </component>
+
+        <component uuid="76329985-5faf-46e0-9179-0aedacedb6e2" name="PoseEstimationSACP3PGao" description="PoseEstimationSACEPnp  implemented in OpenGV">
+                <interface uuid="125f2007-1bf9-421d-9367-fbdc1210d006" name="IComponentIntrospect" description="IComponentIntrospect"/>
+                <interface uuid="8dd889c5-e8e6-4b3b-92e4-34cf7442f272" name="I3DTransformSACFinderFrom2D3D" description="I3DTransformSACFinderFrom2D3D"/>
+        </component>
+
+        <component uuid="97045e96-506f-41f8-bb78-b966b4f8d435" name="PoseEstimationSACP3PKneip" description="PoseEstimationSACEPnp  implemented in OpenGV">
+                <interface uuid="125f2007-1bf9-421d-9367-fbdc1210d006" name="IComponentIntrospect" description="IComponentIntrospect"/>
+                <interface uuid="8dd889c5-e8e6-4b3b-92e4-34cf7442f272" name="I3DTransformSACFinderFrom2D3D" description="I3DTransformSACFinderFrom2D3D"/>
+        </component>
+	
+    </module>
+	
+    <module uuid="15e1990b-86b2-445c-8194-0cbe80ede970" name="SolARModuleOpenCV" path="$BCOMDEVROOT/bcomBuild/SolARModuleOpenCV/0.5.0/lib/x86_64/shared" description="OpenCV modules">0
+         <component uuid="5B7396F4-A804-4F3C-A0EB-FB1D56042BB4" description="SolARCameraOpencv" name="SolARCameraOpencv">
+                <interface uuid="125f2007-1bf9-421d-9367-fbdc1210d006" description="IComponentIntrospect" name="IComponentIntrospect"/>
+                <interface uuid="5DDC7DF0-8377-437F-9C81-3643F7676A5B" description="ICamera" name="ICamera"/>
+        </component>
+		<component uuid="e42d6526-9eb1-4f8a-bb68-53e06f09609c" description="SolARImageLoaderOpencv" name="SolARImageLoaderOpencv">
+                <interface uuid="125f2007-1bf9-421d-9367-fbdc1210d006" description="IComponentIntrospect" name="IComponentIntrospect"/>
+                <interface uuid="6FCDAA8D-6EA9-4C3F-97B0-46CD11B67A9B" description="IImageLoader" name="IImageLoader"/>
+        </component>
+		<component uuid="e81c7e4e-7da6-476a-8eba-078b43071272" description="SolARKeypointDetectorOpencv" name="SolARKeypointDetectorOpencv">
+                <interface uuid="125f2007-1bf9-421d-9367-fbdc1210d006" description="IComponentIntrospect" name="IComponentIntrospect"/>
+                <interface uuid="0eadc8b7-1265-434c-a4c6-6da8a028e06e" description="IKeypointDetector" name="IKeypointDetector"/>
+        </component>
+		<component uuid="21238c00-26dd-11e8-b467-0ed5f89f718b" description="SolARDescriptorsExtractorAKAZE2Opencv" name="SolARDescriptorsExtractorAKAZE2Opencv">
+                <interface uuid="125f2007-1bf9-421d-9367-fbdc1210d006" description="IComponentIntrospect" name="IComponentIntrospect"/>
+                <interface uuid="c0e49ff1-0696-4fe6-85a8-9b2c1e155d2e" description="IDescriptorsExtractor" name="IDescriptorsExtractor"/>
+        </component>
+		<component uuid="7823dac8-1597-41cf-bdef-59aa22f3d40a" description="SolARDescriptorMatcherKNNOpencv" name="SolARDescriptorMatcherKNNOpencv">
+                <interface uuid="125f2007-1bf9-421d-9367-fbdc1210d006" description="IComponentIntrospect" name="IComponentIntrospect"/>
+                <interface uuid="dda38a40-c50a-4e7d-8433-0f04c7c98518" description="IDescriptorMatcher" name="IDescriptorMatcher"/>
+        </component>
+		<component uuid="52babb5e-9d33-11e8-98d0-529269fb1459" description="SolARPoseFinderFrom2D2DOpencv" name="SolARPoseFinderFrom2D2DOpencv">
+                <interface uuid="125f2007-1bf9-421d-9367-fbdc1210d006" description="IComponentIntrospect" name="IComponentIntrospect"/>
+                <interface uuid="6063a606-9d30-11e8-98d0-529269fb1459" description="I3DTransformFinderFrom2D2D" name="I3DTransformFinderFrom2D2D"/>
+        </component>
+		<component uuid="85274ecd-2914-4f12-96de-37c6040633a4" description="SolARSVDTriangulationOpencv" name="SolARSVDTriangulationOpencv">
+                <interface uuid="125f2007-1bf9-421d-9367-fbdc1210d006" description="IComponentIntrospect" name="IComponentIntrospect"/>
+                <interface uuid="3a01b0e9-9a76-43f5-97b3-85bb6979b953" description="ITriangulator" name="ITriangulator"/>
+        </component>
+		<component uuid="e95302be-3fe1-44e0-97bf-a98380464af9" description="SolARMatchesOverlayOpencv" name="SolARMatchesOverlayOpencv">
+                <interface uuid="125f2007-1bf9-421d-9367-fbdc1210d006" description="IComponentIntrospect" name="IComponentIntrospect"/>
+                <interface uuid="a801354a-3e00-467c-b390-48c76fa8c53a" description="IMatchesOverlay" name="IMatchesOverlay"/>
+        </component>
+		<component uuid="19ea4e13-7085-4e3f-92ca-93f200ffb01b" description="SolARImageViewerOpencv" name="SolARImageViewerOpencv">
+                <interface uuid="125f2007-1bf9-421d-9367-fbdc1210d006" description="IComponentIntrospect" name="IComponentIntrospect"/>
+                <interface uuid="b05f3dbb-f93d-465c-aee1-fb58e1480c42" description="IImageViewer" name="IImageViewer"/>
+        </component>
+    </module>
+	
+	 <module uuid="6e960df6-9a36-11e8-9eb6-529269fb1459" name="SolARModuleOpenGL" path="$BCOMDEVROOT/bcomBuild/SolARModuleOpenGL/0.5.0/lib/x86_64/shared" description="Module OpenGL">
+        <component uuid="afd38ea0-9a46-11e8-9eb6-529269fb1459" description="SolAR3DPointsViewerOpengl" name="SolAR3DPointsViewerOpengl">
+                <interface uuid="125f2007-1bf9-421d-9367-fbdc1210d006" description="IComponentIntrospect" name="IComponentIntrospect"/>
+                <interface uuid="575d365a-9a27-11e8-9eb6-529269fb1459" description="I3DPointsViewer" name="I3DPointsViewer"/>
+        </component>
+    </module> 
+    
+	<module uuid="28b89d39-41bd-451d-b19e-d25a3d7c5797" name="SolARModuleTools"  path="$BCOMDEVROOT/bcomBuild/SolARModuleTools/0.5.0/lib/x86_64/shared" description="Module Tools">
+		<component uuid="09205b96-7cba-4415-bc61-64744bc26222" description="SolARMapFilterOpencv" name="SolARMapFilterOpencv">
+                <interface uuid="125f2007-1bf9-421d-9367-fbdc1210d006" description="IComponentIntrospect" name="IComponentIntrospect"/>
+                <interface uuid="e0d6cc82-6af2-493d-901a-2384fca0b16f" description="IMapFilter" name="IMapFilter"/>
+        </component>
+	</module>
+	
+	<configuration>
+		<component uuid="5B7396F4-A804-4F3C-A0EB-FB1D56042BB4"> <!-- SolARCameraOpencv -->
+			<property name="calibrationFile" type="string" value="camera_calibration.yml"/>
+			<property name="deviceID" type="UnsignedInteger" value="0"/>
+		</component>
+		<component uuid="e42d6526-9eb1-4f8a-bb68-53e06f09609c" name="image1"> <!-- SolARImageLoaderOpencv -->
+			<property name="filePath" type="string" value="Image1.png"/>
+		</component>
+		<component uuid="e42d6526-9eb1-4f8a-bb68-53e06f09609c" name="image2"> <!-- SolARImageLoaderOpencv -->
+			<property name="filePath" type="string" value="Image2.png"/>
+		</component>
+		<component uuid="e81c7e4e-7da6-476a-8eba-078b43071272"> <!-- SolARKeypointDetectorOpencv -->
+			<property name="type" type="string" value="AKAZE2"/>
+			<property name="imageRatio" type="Float" value="1.0"/>
+			<property name="nbDescriptors" type="Integer" value="-1"/>
+        </component>
+		<component uuid="21238c00-26dd-11e8-b467-0ed5f89f718b"> <!-- SolARDescriptorsExtractorAKAZE2Opencv -->
+            <property name="threshold" type="Float" value="3e-4"/>
+        </component>
+		<component uuid="7823dac8-1597-41cf-bdef-59aa22f3d40a"> <!-- SolARDescriptorMatcherKNNOpencv -->
+			<property name="distanceRatio" type="Float" value="0.65"/>
+		</component>
+		<component uuid="52babb5e-9d33-11e8-98d0-529269fb1459"> <!-- SolARPoseFinderFrom2D2DOpencv -->
+			<property name="confidence" type="Float" value="0.99"/>
+			<property name="outlierDistanceRatio" type="Float" value="0.0005"/>
+		</component>
+		<component uuid="09205b96-7cba-4415-bc61-64744bc26222"> <!-- SolARMapFilterOpencv -->
+			<property name="reprojErrorThreshold" type="float" value="2.5"/>
+			<property name="cheiralityCheck" type="integer" value ="1"/>
+		</component>
+		<component uuid="e95302be-3fe1-44e0-97bf-a98380464af9"> <!-- SolARMatchesOverlayOpencv -->
+            <property name="thickness" type="UnsignedInteger" value="3"/>
+			<property name="mode" type="string" value="RANDOM"/>
+			<property name="color"  type="UnsignedInteger">
+				<value>0</value>
+				<value>0</value>
+				<value>255</value>
+			</property>
+			<property name="maxMatches" type="UnsignedInteger" value="-1"/>	
+        </component>	
+		<component uuid="19ea4e13-7085-4e3f-92ca-93f200ffb01b"> <!-- SolARImageViewerOpencv -->
+			<property name="title" type="string" value=""/>
+			<property name="exitKey" type="Integer" value="27"/>
+			<property name="width" type="Integer" value="1280"/>
+			<property name="height" type="Integer" value="480"/>
+		</component>
+		<component uuid="afd38ea0-9a46-11e8-9eb6-529269fb1459"> <!-- SolAR3DPointsViewerOpengl -->
+            <property name="title" type="string" value="Points Cloud"/>
+			<property name="width" type="UnsignedInteger" value="1280"/>
+			<property name="height" type="UnsignedInteger" value="960"/>
+			<property name="backgroundColor" type="UnsignedInteger">
+				<value>0</value>
+				<value>0</value>
+				<value>0</value>
+			</property>
+			<property name="fixedPointsColor" type="UnsignedInteger" value="1"/>
+			<property name="pointsColor" type="UnsignedInteger">
+				<value>0</value>
+				<value>255</value>
+				<value>0</value>
+			</property>
+			<property name="cameraColor" type="UnsignedInteger">
+				<value>255</value>
+				<value>255</value>
+				<value>255</value>
+			</property>
+			<property name="drawCameraAxis" type="UnsignedInteger" value="1"/>
+			<property name="drawSceneAxis" type="UnsignedInteger" value="1"/>
+			<property name="drawWorldAxis" type="UnsignedInteger" value="1"/>
+			<property name="axisScale" type="Float" value="1.0"/>
+			<property name="pointSize" type="Float" value="3.0"/>
+			<property name="cameraScale" type="Float" value="1.0"/>
+			<property name="zoomSensitivity" type="Float" value="10.0"/>
+			<property name="exitKey" type="Integer" value="27"/>
+        </component>
+    </configuration>
+
+</xpcf-registry>
