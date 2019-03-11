@@ -28,8 +28,8 @@
  * SUCH DAMAGE.                                                               *
  ******************************************************************************/
 
-#ifndef SolARPoseEstimationP3PKneip_H
-#define SolARPoseEstimationP3PKneip_H
+#ifndef SolARPoseEstimationEPnpOpengv_H
+#define SolARPoseEstimationEPnpOpengv_H
 #include <vector>
 #include "api/solver/pose/I3DTransformFinderFrom2D3D.h"
 #include "datastructure/Image.h"
@@ -41,17 +41,17 @@ namespace SolAR {
     namespace MODULES {
         namespace OPENGV {
         /**
-         * @class SolARPoseEstimationP3PKneip
+         * @class PoseEstimationEPnp
          * @brief Finds the camera pose of 2D-3D points correspondaces based on opengv pnp algorithm.
          */   
-            class SOLAROPENGV_EXPORT_API SolARPoseEstimationP3PKneip : public org::bcom::xpcf::ConfigurableBase,
+            class SOLAROPENGV_EXPORT_API PoseEstimationEPnp : public org::bcom::xpcf::ConfigurableBase,
                 public api::solver::pose::I3DTransformFinderFrom2D3D
             {
             public:
-                ///@brief SolARPoseEstimationP3PKneip constructor;
-                SolARPoseEstimationP3PKneip();
-                ///@brief SolARPoseEstimationP3PKneip destructor;
-                ~SolARPoseEstimationP3PKneip();
+                ///@brief PoseEstimationEPnp constructor;
+                PoseEstimationEPnp();
+                ///@brief PoseEstimationEPnp destructor;
+                ~PoseEstimationEPnp();
 
                 /// @brief Estimates camera pose from a set of 2D image points of their corresponding 3D  world points.
                 /// @param[in] imagePoints, set of 2d_points seen in view_1.
@@ -62,15 +62,6 @@ namespace SolAR {
                                          const std::vector<SRef<Point3Df>> & worldPoints,
                                          Transform3Df & pose,
                                          const Transform3Df initialPose = Transform3Df::Identity()) override;
-
-                /// @brief Not implemented... the interface should be split
-                FrameworkReturnCode estimate(const std::vector<SRef<Point2Df>> & imagePoints,
-                                         const std::vector<SRef<Point3Df>> & worldPoints,
-                                         std::vector<SRef<Point2Df>>&imagePoints_inlier,
-                                         std::vector<SRef<Point3Df>>&worldPoints_inlier,
-                                         Transform3Df & pose,
-                                         const Transform3Df initialPose = Transform3Df::Identity()) override;
-
 
                 /// @brief this method is used to set intrinsic parameters and distorsion of the camera
                 /// @param[in] Camera calibration matrix parameters.
@@ -90,4 +81,4 @@ namespace SolAR {
 }
 }
 
-#endif // SolARPoseEstimationP3PKneip_H
+#endif // PoseEstimationEPnp_H

@@ -1,4 +1,4 @@
-= SolARContainerOpenCV demo application
+= SolARContainerOpenGV tests
 
-This application demonstrates the SolARContainerOpenCV container.
+This demonstrates the SolARContainerOpenGV tests.
 

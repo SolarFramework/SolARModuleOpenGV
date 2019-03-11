@@ -29,8 +29,8 @@
  ******************************************************************************/
 
 
-#ifndef SOLARTRIANGULATIONOPENGV_H
-#define SOLARTRIANGULATIONOPENGV_H
+#ifndef TRIANGULATIONOPENGV_H
+#define TRIANGULATIONOPENGV_H
 
 #include "xpcf/component/ComponentBase.h"
 #include "SolAROpengvAPI.h"
@@ -47,18 +47,18 @@ using namespace datastructure;
 namespace MODULES {
 namespace OPENGV {
 /**
-* @class SolARTriangulationOpengv
+* @class Triangulation
 * @brief Triangulates set of corresponding 2D-2D points correspondances with known respective camera poses based on opengv.
 */
-class SOLAROPENGV_EXPORT_API SolARTriangulationOpengv : public org::bcom::xpcf::ComponentBase,
+class SOLAROPENGV_EXPORT_API Triangulation : public org::bcom::xpcf::ComponentBase,
     public api::solver::map::ITriangulator {
 public:
 
-    ///@brief SolARTriangulationOpengv constructor.
-    SolARTriangulationOpengv();
+    ///@brief Triangulation constructor.
+    Triangulation();
 
-    ///@brief SolARTriangulationOpengv destructor.
-   ~SolARTriangulationOpengv();
+    ///@brief Triangulation destructor.
+   ~Triangulation();
 
     /// @brief this method is used to set intrinsic parameters and distorsion of the camera
     /// @param[in] Camera calibration matrix parameters.

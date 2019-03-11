@@ -1,15 +1,45 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
 <xpcf-registry>
 	<module uuid="1fd044d1-8e45-4380-b3df-2b8e997c1588" name="SolARModuleOpenGV" description="SolARModuleOpenGV" path="$BCOMDEVROOT/bcomBuild/SolARModuleOpenGV/0.5.0/lib/x86_64/shared">
-
-		<component uuid="bb7dac37-499a-4bc4-9b57-3e010a94ed30" name="SolARTriangulationOpengv" description="SolARTriangulationOpengv">
+	
+        <component uuid="bb7dac37-499a-4bc4-9b57-3e010a94ed30" name="Triangulation" description="SolARTriangulationOpengv">
                 <interface uuid="125f2007-1bf9-421d-9367-fbdc1210d006" name="IComponentIntrospect" description="IComponentIntrospect"/>
                 <interface uuid="3a01b0e9-9a76-43f5-97b3-85bb6979b953" name="ITriangulator" description="ITriangulator"/>
-        </component> 	
+        </component>
 
-	  <component uuid="22007c73-6847-48aa-a2c1-d2ff59baf92f" name="SolARPoseEstimationP3PKneip" description="SolARPoseEstimationP3PKneip">
+        <component uuid="22007c73-6847-48aa-a2c1-d2ff59baf92f" name="PoseEstimationEPnp" description="SolARPoseEstimation EPnp implemented in OpenGV.">
                 <interface uuid="125f2007-1bf9-421d-9367-fbdc1210d006" name="IComponentIntrospect" description="IComponentIntrospect"/>
                 <interface uuid="77281cda-47c2-4bb7-bde6-5b0d02e75dae" name="I3DTransformFinderFrom2D3D" description="I3DTransformFinderFrom2D3D"/>
+        </component>
+
+        <component uuid="6efb890b-8e90-487b-a34a-50e7373444cf" name="PoseEstimationP3PGao" description="RPoseEstimation P3P by Gao implemented in OpenGV">
+                <interface uuid="125f2007-1bf9-421d-9367-fbdc1210d006" name="IComponentIntrospect" description="IComponentIntrospect"/>
+                <interface uuid="77281cda-47c2-4bb7-bde6-5b0d02e75dae" name="I3DTransformFinderFrom2D3D" description="I3DTransformFinderFrom2D3D"/>
+        </component>
+
+        <component uuid="473faa6a-e023-49ac-9c48-f00ef9d79af3" name="PoseEstimationP3PKneip" description="PoseEstimation P3P by Kneip implemented in OpenGV">
+                <interface uuid="125f2007-1bf9-421d-9367-fbdc1210d006" name="IComponentIntrospect" description="IComponentIntrospect"/>
+                <interface uuid="77281cda-47c2-4bb7-bde6-5b0d02e75dae" name="I3DTransformFinderFrom2D3D" description="I3DTransformFinderFrom2D3D"/>
+        </component>
+
+        <component uuid="922e9db6-e424-4518-ad26-31201471ff00" name="PoseEstimationUPnp" description="PoseEstimation UPnp implemented in OpenGV">
+                <interface uuid="125f2007-1bf9-421d-9367-fbdc1210d006" name="IComponentIntrospect" description="IComponentIntrospect"/>
+                <interface uuid="77281cda-47c2-4bb7-bde6-5b0d02e75dae" name="I3DTransformFinderFrom2D3D" description="I3DTransformFinderFrom2D3D"/>
+        </component>
+
+	  <component uuid="a2c38e05-40d9-47fc-aad4-1ea2255333d5" name="PoseEstimationSACEPnp" description="PoseEstimationSACEPnp  implemented in OpenGV">
+                <interface uuid="125f2007-1bf9-421d-9367-fbdc1210d006" name="IComponentIntrospect" description="IComponentIntrospect"/>
+                <interface uuid="8dd889c5-e8e6-4b3b-92e4-34cf7442f272" name="I3DTransformSACFinderFrom2D3D" description="I3DTransformSACFinderFrom2D3D"/>
+        </component>
+
+        <component uuid="76329985-5faf-46e0-9179-0aedacedb6e2" name="PoseEstimationSACP3PGao" description="PoseEstimationSACEPnp  implemented in OpenGV">
+                <interface uuid="125f2007-1bf9-421d-9367-fbdc1210d006" name="IComponentIntrospect" description="IComponentIntrospect"/>
+                <interface uuid="8dd889c5-e8e6-4b3b-92e4-34cf7442f272" name="I3DTransformSACFinderFrom2D3D" description="I3DTransformSACFinderFrom2D3D"/>
+        </component>
+
+        <component uuid="97045e96-506f-41f8-bb78-b966b4f8d435" name="PoseEstimationSACP3PKneip" description="PoseEstimationSACEPnp  implemented in OpenGV">
+                <interface uuid="125f2007-1bf9-421d-9367-fbdc1210d006" name="IComponentIntrospect" description="IComponentIntrospect"/>
+                <interface uuid="8dd889c5-e8e6-4b3b-92e4-34cf7442f272" name="I3DTransformSACFinderFrom2D3D" description="I3DTransformSACFinderFrom2D3D"/>
         </component>
 	
     </module>

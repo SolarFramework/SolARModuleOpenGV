@@ -1,4 +1,4 @@
-TARGET = testOpenGVLink
+TARGET = TARGET = SolARTestModuleOpenGVPnP
 VERSION=1.0.0
 
 CONFIG += c++1z
@@ -31,6 +31,7 @@ SOURCES += 	experiment_helpers.cpp\
 random_generators.cpp \
 time_measurement.cpp \
 main.cpp
+
 
 unix {
     LIBS += -ldl    

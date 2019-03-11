@@ -14,32 +14,34 @@
  * limitations under the License.
  */
 
-#include "SolARTriangulationOpengv.h"
+#include "Triangulation.h"
 #include "SolARModuleOpengv_traits.h"
+#include "core/Log.h"
+
 #include <opengv/triangulation/methods.hpp>
 #include <opengv/relative_pose/CentralRelativeAdapter.hpp>
 
 
 namespace xpcf  = org::bcom::xpcf;
 
-XPCF_DEFINE_FACTORY_CREATE_INSTANCE(SolAR::MODULES::OPENGV::SolARTriangulationOpengv);
+XPCF_DEFINE_FACTORY_CREATE_INSTANCE(SolAR::MODULES::OPENGV::Triangulation);
 
 namespace SolAR {
 using namespace datastructure;
 namespace MODULES {
 namespace OPENGV {
 
-SolARTriangulationOpengv::SolARTriangulationOpengv():ComponentBase(xpcf::toUUID<SolARTriangulationOpengv>())
+Triangulation::Triangulation():ComponentBase(xpcf::toUUID<Triangulation>())
 {
    addInterface<api::solver::map::ITriangulator>(this);
-   LOG_DEBUG(" SolARTriangulationOpengv constructor");
+   LOG_DEBUG(" Triangulation constructor");
 }
 
-SolARTriangulationOpengv::~SolARTriangulationOpengv(){
+Triangulation::~Triangulation(){
 
 }
 
-double SolARTriangulationOpengv::triangulate(const std::vector<SRef<Point2Df>>& pointsView1,
+double Triangulation::triangulate(const std::vector<SRef<Point2Df>>& pointsView1,
                                                 const std::vector<SRef<Point2Df>>& pointsView2,
                                                 const std::vector<DescriptorMatch> &matches,
                                                 const std::pair<unsigned int,unsigned int>&working_views,
@@ -181,7 +183,7 @@ double SolARTriangulationOpengv::triangulate(const std::vector<SRef<Point2Df>>& 
 }
 
 
-double SolARTriangulationOpengv::triangulate(const std::vector<SRef<Keypoint>>& pointsView1,
+double Triangulation::triangulate(const std::vector<SRef<Keypoint>>& pointsView1,
                                                 const std::vector<SRef<Keypoint>>& pointsView2,
                                                 const std::vector<DescriptorMatch> &matches,
                                                 const std::pair<unsigned int,unsigned int>&working_views,
@@ -321,7 +323,7 @@ double SolARTriangulationOpengv::triangulate(const std::vector<SRef<Keypoint>>& 
     return (double)reproj_error/(double)numberPoints;
 }
 
-double SolARTriangulationOpengv::triangulate(	const SRef<Keyframe> &curKeyframe,
+double Triangulation::triangulate(	const SRef<Keyframe> &curKeyframe,
                                                 const std::vector<DescriptorMatch>&matches,
                                                 std::vector<SRef<CloudPoint>>& pcloud) {
 
@@ -331,7 +333,7 @@ return triangulate( curKeyframe->getKeypoints(),curKeyframe->getReferenceKeyfram
 
 }
 
-void SolARTriangulationOpengv::setCameraParameters(const CamCalibration & intrinsicParams, const CamDistortion & distorsionParams) {
+void Triangulation::setCameraParameters(const CamCalibration & intrinsicParams, const CamDistortion & distorsionParams) {
 
    m_intrinsicParams  = intrinsicParams;
    m_distorsionParams = distorsionParams;

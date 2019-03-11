@@ -6,10 +6,12 @@ CONFIG -= qt
 TARGET = SolARModuleOpenGV
 INSTALLSUBDIR = bcomBuild
 FRAMEWORK = $$TARGET
-VERSION=0.5.0
+VERSION=0.5.1
 
 DEFINES += MYVERSION=$${VERSION}
-CONFIG += c++1z
+DEFINES += TEMPLATE_LIBRARY
+CONFIG += Cpp11
+CONFIG += c++11
 
 
 CONFIG(debug,debug|release) {
@@ -38,21 +40,32 @@ INCLUDEPATH += interfaces
 HEADERS += interfaces/SolARModuleOpengv_traits.h \
 interfaces/SolAROpengvAPI.h \
 interfaces/SolAROpenGVHelper.h \
-interfaces/SolARPoseEstimationP3PKneip.h \
-interfaces/SolARPoseEstimationPnpOpengv.h \
-interfaces/SolARTriangulationOpengv.h 
+interfaces/PoseEstimationEPnp.h \
+interfaces/PoseEstimationP3PGao.h \
+interfaces/PoseEstimationP3PKneip.h \
+interfaces/PoseEstimationUPnp.h \
+interfaces/PoseEstimationSACEPnp.h\
+interfaces/PoseEstimationSACP3PGao.h \
+interfaces/PoseEstimationSACP3PKneip.h \
+interfaces/Triangulation.h 
+
 
 
 SOURCES += src/SolARModuleOpengv.cpp \
-src/SolARPoseEstimationP3PKneip.cpp \
-src/SolARPoseEstimationPnpOpengv.cpp \
-src/SolARTriangulationOpengv.cpp 
+src/PoseEstimationEPnp.cpp \
+src/PoseEstimationP3PGao.cpp \
+src/PoseEstimationP3PKneip.cpp \
+src/PoseEstimationUPnp.cpp \
+src/PoseEstimationSACEPnp.cpp\
+src/PoseEstimationSACP3PGao.cpp \
+src/PoseEstimationSACP3PKneip.cpp \
+src/Triangulation.cpp 
 
 
 unix {
     QMAKE_CXXFLAGS += -Wignored-qualifiers
-    QMAKE_CXX = clang++
-    QMAKE_LINK = clang++	
+#    QMAKE_CXX = clang++
+#    QMAKE_LINK = clang++	
 }
 
 macx {
