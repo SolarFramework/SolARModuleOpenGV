@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.7.2)
 
 ##################################################
-set (VERSION_NUMBER "0.5.1")
+set (VERSION_NUMBER "0.5.2")
 project("SolARModuleOpenGV")
 set (SOURCES 
 	src/SolARModuleOpengv.cpp
