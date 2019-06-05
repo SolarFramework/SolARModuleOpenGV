@@ -46,10 +46,14 @@ namespace SolAR {
 using namespace datastructure;
 namespace MODULES {
 namespace OPENGV {
+
 /**
-* @class Triangulation
-* @brief Triangulates set of corresponding 2D-2D points correspondances with known respective camera poses based on opengv.
-*/
+ * @class Triangulation
+ * @brief <B>Triangulates set of corresponding 2D-2D points correspondances with known respective camera poses based on opengv.</B>
+ * <TT>UUID: bb7dac37-499a-4bc4-9b57-3e010a94ed30</TT>
+ *
+ */
+
 class SOLAROPENGV_EXPORT_API Triangulation : public org::bcom::xpcf::ComponentBase,
     public api::solver::map::ITriangulator {
 public:

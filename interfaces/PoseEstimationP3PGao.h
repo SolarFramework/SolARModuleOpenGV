@@ -37,47 +37,52 @@
 #include "xpcf/component/ConfigurableBase.h"
 
 namespace SolAR {
-    using namespace datastructure;
-    namespace MODULES {
-        namespace OPENGV {
-        /**
-         * @class SolARPoseEstimationP3PGao
-         * @brief Finds the camera pose of 2D-3D points correspondaces based on opengv pnp algorithm.
-         */   
-            class SOLAROPENGV_EXPORT_API PoseEstimationP3PGao : public org::bcom::xpcf::ConfigurableBase,
-                public api::solver::pose::I3DTransformFinderFrom2D3D
-            {
-            public:
-                ///@brief SolARPoseEstimationP3PGao constructor;
-                PoseEstimationP3PGao();
-                ///@brief SolARPoseEstimationP3PGao destructor;
-                ~PoseEstimationP3PGao();
+using namespace datastructure;
+namespace MODULES {
+namespace OPENGV {
 
-                /// @brief Estimates camera pose from a set of 2D image points of their corresponding 3D  world points.
-                /// @param[in] imagePoints, set of 2d_points seen in view_1.
-                /// @param[in]  worldPoints, set of 3d_points corresponding to view_1.
-                /// @param[out] pose, camera pose (pose the camera defined in world corrdinate system) expressed as a Transform3D.
-                /// @param[in] initialPose (Optional), a tranfsform3D to initialize the pose (reducing the convergence time and improving its success). If your world points are planar, do not use this argument.
-                FrameworkReturnCode estimate(const std::vector<SRef<Point2Df>> & imagePoints,
-                                         const std::vector<SRef<Point3Df>> & worldPoints,
-                                         Transform3Df & pose,
-                                         const Transform3Df initialPose = Transform3Df::Identity()) override;
+/**
+ * @class PoseEstimationP3PGao
+ * @brief <B>Finds the camera pose of three 2D-3D points correspondences based on opengv GAO P3P algorithm.</B>
+ * <TT>UUID: 6efb890b-8e90-487b-a34a-50e7373444cf</TT>
+ *
+ */
 
+class SOLAROPENGV_EXPORT_API PoseEstimationP3PGao : public org::bcom::xpcf::ConfigurableBase,
+    public api::solver::pose::I3DTransformFinderFrom2D3D
+{
+public:
+    ///@brief SolARPoseEstimationP3PGao constructor;
+    PoseEstimationP3PGao();
+    ///@brief SolARPoseEstimationP3PGao destructor;
+    ~PoseEstimationP3PGao();
 
-                /// @brief this method is used to set intrinsic parameters and distorsion of the camera
-                /// @param[in] Camera calibration matrix parameters.
-                /// @param[in] Camera distorsion parameters.
-                void setCameraParameters(const CamCalibration & intrinsicParams,
-                                         const CamDistortion & distorsionParams)  override;
-
-                void unloadComponent () override final;
-
-            private:
+    /// @brief Estimates camera pose from a set of 2D image points of their corresponding 3D  world points.
+    /// @param[in] imagePoints, set of 2d_points seen in view_1.
+    /// @param[in]  worldPoints, set of 3d_points corresponding to view_1.
+    /// @param[out] pose, camera pose (pose the camera defined in world corrdinate system) expressed as a Transform3D.
+    /// @param[in] initialPose (Optional), a tranfsform3D to initialize the pose (reducing the convergence time and improving its success). If your world points are planar, do not use this argument.
+    FrameworkReturnCode estimate(const std::vector<SRef<Point2Df>> & imagePoints,
+                             const std::vector<SRef<Point3Df>> & worldPoints,
+                             Transform3Df & pose,
+                             const Transform3Df initialPose = Transform3Df::Identity()) override;
 
 
-                CamCalibration m_intrinsicParams;
-                CamDistortion  m_distorsionParams;
-            };
+    /// @brief this method is used to set intrinsic parameters and distorsion of the camera
+    /// @param[in] Camera calibration matrix parameters.
+    /// @param[in] Camera distorsion parameters.
+    void setCameraParameters(const CamCalibration & intrinsicParams,
+                             const CamDistortion & distorsionParams)  override;
+
+    void unloadComponent () override final;
+
+private:
+
+
+    CamCalibration m_intrinsicParams;
+    CamDistortion  m_distorsionParams;
+};
+
 }
 }
 }
