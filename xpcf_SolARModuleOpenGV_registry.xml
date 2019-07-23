@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
 <xpcf-registry>
-    <module uuid="9f5f0fb9-a8c8-4532-bddf-f988052f63c3" name="SolARModuleOpenGV" description="SolARModuleOpenGV" path="$BCOMDEVROOT/bcomBuild/SolARModuleOpenGV/0.5.2/lib/x86_64/shared">
+    <module uuid="9f5f0fb9-a8c8-4532-bddf-f988052f63c3" name="SolARModuleOpenGV" description="SolARModuleOpenGV" path="$REMAKENROOT/SolARModuleOpenGV/0.5.2/lib/x86_64/shared">
 		
         <component uuid="bb7dac37-499a-4bc4-9b57-3e010a94ed30" name="Triangulation" description="SolARTriangulationOpengv">
                 <interface uuid="125f2007-1bf9-421d-9367-fbdc1210d006" name="IComponentIntrospect" description="IComponentIntrospect"/>

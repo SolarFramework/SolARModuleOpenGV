@@ -44,10 +44,10 @@ PoseEstimationUPnp::~PoseEstimationUPnp(){
 
 }
 
-FrameworkReturnCode PoseEstimationUPnp::estimate( const std::vector<SRef<Point2Df>> & imagePoints,
-                                                            const std::vector<SRef<Point3Df>> & worldPoints,
-                                                            Transform3Df & pose,
-                                                            const Transform3Df initialPose) {
+FrameworkReturnCode PoseEstimationUPnp::estimate( const std::vector<Point2Df> & imagePoints,
+                                                  const std::vector<Point3Df> & worldPoints,
+                                                  Transform3Df & pose,
+                                                  const Transform3Df initialPose) {
     
     if (imagePoints.size() < 3 || worldPoints.size() < 3 || worldPoints.size() != imagePoints.size()){
         return FrameworkReturnCode::_ERROR_;
@@ -65,9 +65,9 @@ FrameworkReturnCode PoseEstimationUPnp::estimate( const std::vector<SRef<Point2D
     //TO DO APPLY UNDISTORSION
     for(unsigned int k =0; k < imagePoints.size(); k++){
 
-        points.push_back( opengv::point_t( worldPoints[k]->getX(), worldPoints[k]->getY(), worldPoints[k]->getZ()));
+        points.push_back( opengv::point_t( worldPoints[k].getX(), worldPoints[k].getY(), worldPoints[k].getZ()));
         
-        Eigen::Vector3f tmp = k_invert*Eigen::Vector3f(imagePoints[k]->getX(), imagePoints[k]->getY(), 1.0f);
+        Eigen::Vector3f tmp = k_invert*Eigen::Vector3f(imagePoints[k].getX(), imagePoints[k].getY(), 1.0f);
         bearing_buffer.push_back(opengv::point_t( tmp[0], tmp[1],tmp[2]));
         bearing_buffer[k] /=tmp.norm();
     }  

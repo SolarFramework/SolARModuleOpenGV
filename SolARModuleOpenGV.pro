@@ -4,7 +4,6 @@ CONFIG -= qt
 
 ## global defintions : target lib name, version
 TARGET = SolARModuleOpenGV
-
 FRAMEWORK = $$TARGET
 VERSION=0.5.2
 
@@ -33,7 +32,7 @@ msvc {
 DEFINES += "_BCOM_SHARED=__declspec(dllexport)"
 }
 
-INCLUDEPATH += interfaces
+INCLUDEPATH += interfaces/
 
 HEADERS += interfaces/SolARModuleOpengv_traits.h \
 interfaces/SolAROpengvAPI.h \

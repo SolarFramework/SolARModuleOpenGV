@@ -41,13 +41,13 @@ Triangulation::~Triangulation(){
 
 }
 
-double Triangulation::triangulate(const std::vector<SRef<Point2Df>>& pointsView1,
-                                                const std::vector<SRef<Point2Df>>& pointsView2,
+double Triangulation::triangulate(const std::vector<Point2Df> & pointsView1,
+                                                const std::vector<Point2Df> & pointsView2,
                                                 const std::vector<DescriptorMatch> &matches,
                                                 const std::pair<unsigned int,unsigned int>&working_views,
                                                 const Transform3Df& poseView1,
                                                 const Transform3Df& poseView2,
-                                                std::vector<SRef<CloudPoint>>& pcloud ){
+                                                std::vector<CloudPoint> & pcloud ){
 
 
     opengv::translation_t position1 = Eigen::Vector3d(poseView1(0,3), poseView1(1,3) ,poseView1(2,3));
@@ -97,11 +97,11 @@ double Triangulation::triangulate(const std::vector<SRef<Point2Df>>& pointsView1
 
      for (size_t i = 0; i<numberPoints; i++) {
 
-        buffer_vector_A[i] = k_invert*Vector3f( (float)pointsView1[matches[i].getIndexInDescriptorA()]->getX(), (float)pointsView1[matches[i].getIndexInDescriptorA()]->getY(), 1.0);
+        buffer_vector_A[i] = k_invert*Vector3f( (float)pointsView1[matches[i].getIndexInDescriptorA()].getX(), (float)pointsView1[matches[i].getIndexInDescriptorA()].getY(), 1.0);
         bearingVectors1.push_back(opengv::point_t( buffer_vector_A[i][0],buffer_vector_A[i][1],buffer_vector_A[i][2]));
         bearingVectors1[i] /= bearingVectors1[i].norm();
 
-        buffer_vector_B[i] = k_invert*Vector3f( (float)pointsView2[matches[i].getIndexInDescriptorB()]->getX(), (float)pointsView2[matches[i].getIndexInDescriptorB()]->getY(), 1.0);
+        buffer_vector_B[i] = k_invert*Vector3f( (float)pointsView2[matches[i].getIndexInDescriptorB()].getX(), (float)pointsView2[matches[i].getIndexInDescriptorB()].getY(), 1.0);
         bearingVectors2.push_back(opengv::point_t( buffer_vector_B[i][0],buffer_vector_B[i][1],buffer_vector_B[i][2]));
         bearingVectors2[i] /= bearingVectors1[i].norm();
      }
@@ -127,15 +127,12 @@ double Triangulation::triangulate(const std::vector<SRef<Point2Df>>& pointsView1
 #if NDEBUG   
     LOG_INFO(" FOR NOW ITS REPROJECTION ERROR IS SET TO 0...:" );
 #endif
-        xpcf::utils::shared_ptr<CloudPoint> cp = xpcf::utils::make_shared<CloudPoint>();
-
         std::map<unsigned int, unsigned int> visibility;
 
         visibility[working_views.first]  = matches[k].getIndexInDescriptorA();
         visibility[working_views.second] = matches[k].getIndexInDescriptorB();
 
         Eigen::Vector4f tmp_vec_to_reproj= Eigen::Vector4f(  triangulate_results.col(k)[0], triangulate_results.col(k)[1], triangulate_results.col(k)[2],1.0f);
-
 
         Eigen::Matrix<float,4,4> tmp_transform;
         tmp_transform(0,0) = poseView1(0,0);
@@ -162,7 +159,7 @@ double Triangulation::triangulate(const std::vector<SRef<Point2Df>>& pointsView1
 
         Eigen::Vector2d  reprojected_point_2d = Eigen::Vector2d(reprojected_point_3d[0]/reprojected_point_3d[2], reprojected_point_3d[1]/reprojected_point_3d[2]);
 
-        Eigen::Vector3f undistort_point =  k_invert* Eigen::Vector3f((float)pointsView1[matches[k].getIndexInDescriptorA()]->getX(),(float)pointsView1[matches[k].getIndexInDescriptorA()]->getY(),1.0f);
+        Eigen::Vector3f undistort_point =  k_invert* Eigen::Vector3f((float)pointsView1[matches[k].getIndexInDescriptorA()].getX(),(float)pointsView1[matches[k].getIndexInDescriptorA()].getY(),1.0f);
 #if NDEBUG          
         //TO DO : Apply undirstorsion
         LOG_INFO("  Apply undirstorsion ");
@@ -174,7 +171,7 @@ double Triangulation::triangulate(const std::vector<SRef<Point2Df>>& pointsView1
         reproj_error += reprj_err;
 
         Eigen::Vector3d tmp_vec = triangulate_results.col(k);
-        cp = xpcf::utils::make_shared<CloudPoint>(tmp_vec(0), tmp_vec(1), tmp_vec(2) ,0.0f,0.0f,0.0f, reprj_err, visibility);
+        CloudPoint cp = CloudPoint(tmp_vec(0), tmp_vec(1), tmp_vec(2) ,0.0f,0.0f,0.0f, reprj_err, visibility);
         pcloud.push_back(cp);
 
     }
@@ -183,13 +180,13 @@ double Triangulation::triangulate(const std::vector<SRef<Point2Df>>& pointsView1
 }
 
 
-double Triangulation::triangulate(const std::vector<SRef<Keypoint>>& pointsView1,
-                                                const std::vector<SRef<Keypoint>>& pointsView2,
+double Triangulation::triangulate(const std::vector<Keypoint> & pointsView1,
+                                                const std::vector<Keypoint> & pointsView2,
                                                 const std::vector<DescriptorMatch> &matches,
                                                 const std::pair<unsigned int,unsigned int>&working_views,
                                                 const Transform3Df& poseView1,
                                                 const Transform3Df& poseView2,
-                                                std::vector<SRef<CloudPoint>>& pcloud){
+                                                std::vector<CloudPoint> & pcloud){
 
     opengv::translation_t position1 = Eigen::Vector3d(poseView1(0,3), poseView1(1,3) ,poseView1(2,3));
     opengv::rotation_t rotation1;// = Eigen::Matrix<double, 3, 3, Eigen::ColMajor>();
@@ -238,11 +235,11 @@ double Triangulation::triangulate(const std::vector<SRef<Keypoint>>& pointsView1
 
      for (size_t i = 0; i<numberPoints; i++) {
 
-        buffer_vector_A[i] = k_invert*Vector3f( (float)pointsView1[matches[i].getIndexInDescriptorA()]->getX(), (float)pointsView1[matches[i].getIndexInDescriptorA()]->getY(), 1.0);
+        buffer_vector_A[i] = k_invert*Vector3f( (float)pointsView1[matches[i].getIndexInDescriptorA()].getX(), (float)pointsView1[matches[i].getIndexInDescriptorA()].getY(), 1.0);
         bearingVectors1.push_back(opengv::point_t( buffer_vector_A[i][0],buffer_vector_A[i][1],buffer_vector_A[i][2]));
         bearingVectors1[i] /= bearingVectors1[i].norm();
 
-        buffer_vector_B[i] = k_invert*Vector3f( (float)pointsView2[matches[i].getIndexInDescriptorB()]->getX(), (float)pointsView2[matches[i].getIndexInDescriptorB()]->getY(), 1.0);
+        buffer_vector_B[i] = k_invert*Vector3f( (float)pointsView2[matches[i].getIndexInDescriptorB()].getX(), (float)pointsView2[matches[i].getIndexInDescriptorB()].getY(), 1.0);
         bearingVectors2.push_back(opengv::point_t( buffer_vector_B[i][0],buffer_vector_B[i][1],buffer_vector_B[i][2]));
         bearingVectors2[i] /= bearingVectors1[i].norm();
      }
@@ -268,15 +265,12 @@ double Triangulation::triangulate(const std::vector<SRef<Keypoint>>& pointsView1
 #if NDEBUG   
     LOG_INFO(" FOR NOW ITS REPROJECTION ERROR IS SET TO 0...:" );
 #endif
-        xpcf::utils::shared_ptr<CloudPoint> cp = xpcf::utils::make_shared<CloudPoint>();
-
         std::map<unsigned int, unsigned int> visibility;
 
         visibility[working_views.first]  = matches[k].getIndexInDescriptorA();
         visibility[working_views.second] = matches[k].getIndexInDescriptorB();
 
         Eigen::Vector4f tmp_vec_to_reproj= Eigen::Vector4f(  triangulate_results.col(k)[0], triangulate_results.col(k)[1], triangulate_results.col(k)[2],1.0f);
-
 
         Eigen::Matrix<float,4,4> tmp_transform;
         tmp_transform(0,0) = poseView1(0,0);
@@ -303,7 +297,7 @@ double Triangulation::triangulate(const std::vector<SRef<Keypoint>>& pointsView1
 
         Eigen::Vector2d  reprojected_point_2d = Eigen::Vector2d(reprojected_point_3d[0]/reprojected_point_3d[2], reprojected_point_3d[1]/reprojected_point_3d[2]);
 
-        Eigen::Vector3f undistort_point =  k_invert* Eigen::Vector3f((float)pointsView1[matches[k].getIndexInDescriptorA()]->getX(),(float)pointsView1[matches[k].getIndexInDescriptorA()]->getY(),1.0f);
+        Eigen::Vector3f undistort_point =  k_invert* Eigen::Vector3f((float)pointsView1[matches[k].getIndexInDescriptorA()].getX(),(float)pointsView1[matches[k].getIndexInDescriptorA()].getY(),1.0f);
 #if NDEBUG          
         //TO DO : Apply undirstorsion
         LOG_INFO("  Apply undirstorsion ");
@@ -315,7 +309,7 @@ double Triangulation::triangulate(const std::vector<SRef<Keypoint>>& pointsView1
         reproj_error += reprj_err;
 
         Eigen::Vector3d tmp_vec = triangulate_results.col(k);
-        cp = xpcf::utils::make_shared<CloudPoint>(tmp_vec(0), tmp_vec(1), tmp_vec(2) ,0.0f,0.0f,0.0f, reprj_err, visibility);
+        CloudPoint cp = CloudPoint(tmp_vec(0), tmp_vec(1), tmp_vec(2) ,0.0f,0.0f,0.0f, reprj_err, visibility);
         pcloud.push_back(cp);
 
     }
@@ -323,9 +317,9 @@ double Triangulation::triangulate(const std::vector<SRef<Keypoint>>& pointsView1
     return (double)reproj_error/(double)numberPoints;
 }
 
-double Triangulation::triangulate(	const SRef<Keyframe> &curKeyframe,
-                                                const std::vector<DescriptorMatch>&matches,
-                                                std::vector<SRef<CloudPoint>>& pcloud) {
+double Triangulation::triangulate(const SRef<Keyframe> & curKeyframe,
+                                  const std::vector<DescriptorMatch>&matches,
+                                  std::vector<CloudPoint> & pcloud) {
 
 return triangulate( curKeyframe->getKeypoints(),curKeyframe->getReferenceKeyframe()->getKeypoints(), matches,
                            std::make_pair<unsigned int,unsigned int>((unsigned int)(curKeyframe->m_idx),(unsigned int)(curKeyframe->getReferenceKeyframe()->m_idx)),

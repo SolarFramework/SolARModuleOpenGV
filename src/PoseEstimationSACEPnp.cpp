@@ -43,10 +43,10 @@ PoseEstimationSACEPnp::~PoseEstimationSACEPnp(){
 
 }
 
-FrameworkReturnCode PoseEstimationSACEPnp::estimate( const std::vector<SRef<Point2Df>> & imagePoints,
-                                                            const std::vector<SRef<Point3Df>> & worldPoints,
-                                                            std::vector<SRef<Point2Df>>&imagePoints_inlier,
-                                                            std::vector<SRef<Point3Df>>&worldPoints_inlier,
+FrameworkReturnCode PoseEstimationSACEPnp::estimate( const std::vector<Point2Df> & imagePoints,
+                                                            const std::vector<Point3Df> & worldPoints,
+                                                            std::vector<Point2Df> & imagePoints_inlier,
+                                                            std::vector<Point3Df> & worldPoints_inlier,
                                                             Transform3Df & pose,
                                                             const Transform3Df initialPose) {
 
@@ -72,9 +72,9 @@ FrameworkReturnCode PoseEstimationSACEPnp::estimate( const std::vector<SRef<Poin
     //TO DO APPLY UNDISTORSION
     for(unsigned int k =0; k < imagePoints.size(); k++){
 
-        points.push_back( opengv::point_t( worldPoints[k]->getX(), worldPoints[k]->getY(), worldPoints[k]->getZ()));
+        points.push_back( opengv::point_t( worldPoints[k].getX(), worldPoints[k].getY(), worldPoints[k].getZ()));
         
-        Eigen::Vector3f tmp = k_invert*Eigen::Vector3f(imagePoints[k]->getX(), imagePoints[k]->getY(), 1.0f);
+        Eigen::Vector3f tmp = k_invert*Eigen::Vector3f(imagePoints[k].getX(), imagePoints[k].getY(), 1.0f);
         bearingVectors.push_back(opengv::point_t( tmp[0], tmp[1],tmp[2]));
         bearingVectors[k] /=tmp.norm();
     }  
@@ -106,8 +106,8 @@ FrameworkReturnCode PoseEstimationSACEPnp::estimate( const std::vector<SRef<Poin
 
     for (unsigned int kc = 0; kc < ransac.inliers_.size(); kc++)
     {
-        imagePoints_inlier[kc] = xpcf::utils::make_shared<SolAR::Point2Df>(imagePoints[kc]->getX(), imagePoints[kc]->getY());
-        worldPoints_inlier[kc] = xpcf::utils::make_shared<SolAR::Point3Df>(worldPoints[kc]->getX(), worldPoints[kc]->getY(), worldPoints[kc]->getZ());
+        imagePoints_inlier[kc] = SolAR::Point2Df(imagePoints[kc].getX(), imagePoints[kc].getY());
+        worldPoints_inlier[kc] = SolAR::Point3Df(worldPoints[kc].getX(), worldPoints[kc].getY(), worldPoints[kc].getZ());
     }
 
     pose(0, 0) = ransac.model_coefficients_(0, 0);
