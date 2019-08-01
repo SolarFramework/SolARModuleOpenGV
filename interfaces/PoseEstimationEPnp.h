@@ -55,7 +55,7 @@ public:
     ///@brief PoseEstimationEPnp constructor;
     PoseEstimationEPnp();
     ///@brief PoseEstimationEPnp destructor;
-    ~PoseEstimationEPnp();
+    ~PoseEstimationEPnp() override;
 
     /// @brief Estimates camera pose from a set of 2D image points of their corresponding 3D  world points.
     /// @param[in] imagePoints, set of 2d_points seen in view_1.
@@ -73,7 +73,7 @@ public:
     void setCameraParameters(const CamCalibration & intrinsicParams,
                              const CamDistortion & distorsionParams)  override;
 
-    void unloadComponent () override final;
+    void unloadComponent () final;
 
 private:
     CamCalibration m_intrinsicParams;

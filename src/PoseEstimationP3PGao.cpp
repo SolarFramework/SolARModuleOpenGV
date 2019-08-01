@@ -40,9 +40,7 @@ PoseEstimationP3PGao::PoseEstimationP3PGao():ConfigurableBase(xpcf::toUUID<PoseE
     LOG_DEBUG(" PoseEstimationP3PGao constructor");
 }
 
-PoseEstimationP3PGao::~PoseEstimationP3PGao(){
-
-}
+PoseEstimationP3PGao::~PoseEstimationP3PGao() = default;
 
 FrameworkReturnCode PoseEstimationP3PGao::estimate( const std::vector<Point2Df> & imagePoints,
                                                     const std::vector<Point3Df> & worldPoints,
@@ -84,7 +82,7 @@ FrameworkReturnCode PoseEstimationP3PGao::estimate( const std::vector<Point2Df> 
     }
 
     //for now, I just get the first result provided
-    if (gao_transformation.size() > 0)
+    if (!gao_transformation.empty())
     {
 
         pose(0, 0) = gao_transformation[0](0, 0);

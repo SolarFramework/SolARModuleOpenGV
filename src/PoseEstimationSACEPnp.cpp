@@ -39,9 +39,7 @@ PoseEstimationSACEPnp::PoseEstimationSACEPnp():ConfigurableBase(xpcf::toUUID<Pos
     addInterface<api::solver::pose::I3DTransformSACFinderFrom2D3D>(this);
 }
 
-PoseEstimationSACEPnp::~PoseEstimationSACEPnp(){
-
-}
+PoseEstimationSACEPnp::~PoseEstimationSACEPnp() = default;
 
 FrameworkReturnCode PoseEstimationSACEPnp::estimate( const std::vector<Point2Df> & imagePoints,
                                                             const std::vector<Point3Df> & worldPoints,

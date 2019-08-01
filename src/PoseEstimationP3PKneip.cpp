@@ -40,9 +40,7 @@ PoseEstimationP3PKneip::PoseEstimationP3PKneip():ConfigurableBase(xpcf::toUUID<P
     LOG_DEBUG(" SolARPoseEstimationOpengv constructor");
 }
 
-PoseEstimationP3PKneip::~PoseEstimationP3PKneip(){
-
-}
+PoseEstimationP3PKneip::~PoseEstimationP3PKneip() = default;
 
 FrameworkReturnCode PoseEstimationP3PKneip::estimate( const std::vector<Point2Df> & imagePoints,
                                                       const std::vector<Point3Df> & worldPoints,

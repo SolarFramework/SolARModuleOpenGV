@@ -55,7 +55,7 @@ public:
     ///@brief SolARPoseEstimationSACP3PKneip constructor;
     PoseEstimationSACP3PKneip();
     ///@brief SolARPoseEstimationSACP3PKneip destructor;
-    ~PoseEstimationSACP3PKneip();
+    ~PoseEstimationSACP3PKneip() override;
 
     /// @brief Estimates camera pose from a set of 2D image points of their corresponding 3D  world points.
     /// @param[in] imagePoints, set of 2d_points seen in view_1.
@@ -67,7 +67,7 @@ public:
                                     std::vector<Point2Df> & imagePoints_inlier,
                                     std::vector<Point3Df> & worldPoints_inlier,
                                     Transform3Df & pose,
-                                    const Transform3Df initialPose);
+                                    const Transform3Df initialPose) override;
 
     /// @brief this method is used to set intrinsic parameters and distorsion of the camera
     /// @param[in] Camera calibration matrix parameters.
@@ -75,7 +75,7 @@ public:
     void setCameraParameters(const CamCalibration & intrinsicParams,
                              const CamDistortion & distorsionParams)  override;
 
-    void unloadComponent () override final;
+    void unloadComponent () final;
 
 private:
 

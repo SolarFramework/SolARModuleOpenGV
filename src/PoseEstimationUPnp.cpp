@@ -40,9 +40,7 @@ PoseEstimationUPnp::PoseEstimationUPnp():ConfigurableBase(xpcf::toUUID<PoseEstim
     LOG_DEBUG(" SolARPoseEstimationOpengv constructor");
 }
 
-PoseEstimationUPnp::~PoseEstimationUPnp(){
-
-}
+PoseEstimationUPnp::~PoseEstimationUPnp()= default;
 
 FrameworkReturnCode PoseEstimationUPnp::estimate( const std::vector<Point2Df> & imagePoints,
                                                   const std::vector<Point3Df> & worldPoints,
@@ -84,7 +82,7 @@ FrameworkReturnCode PoseEstimationUPnp::estimate( const std::vector<Point2Df> & 
         upnp_transformation = opengv::absolute_pose::upnp(adapter);
     }
 
-    if (upnp_transformation.size() > 0)
+    if (!upnp_transformation.empty())
     {
 
         pose(0, 0) = upnp_transformation[0](0, 0);

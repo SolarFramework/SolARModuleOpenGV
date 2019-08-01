@@ -41,9 +41,7 @@ PoseEstimationSACP3PGao::PoseEstimationSACP3PGao() : ConfigurableBase(xpcf::toUU
     addInterface<api::solver::pose::I3DTransformSACFinderFrom2D3D>(this);
 }
 
-PoseEstimationSACP3PGao::~PoseEstimationSACP3PGao()
-{
-}
+PoseEstimationSACP3PGao::~PoseEstimationSACP3PGao() = default;
 
 FrameworkReturnCode PoseEstimationSACP3PGao::estimate(const std::vector<Point2Df> & imagePoints,
                                                       const std::vector<Point3Df> & worldPoints,

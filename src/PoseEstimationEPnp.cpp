@@ -40,9 +40,7 @@ PoseEstimationEPnp::PoseEstimationEPnp():ConfigurableBase(xpcf::toUUID<PoseEstim
     LOG_DEBUG(" SolARPoseEstimationOpengv constructor");
 }
 
-PoseEstimationEPnp::~PoseEstimationEPnp(){
-
-}
+PoseEstimationEPnp::~PoseEstimationEPnp() = default;
 
 FrameworkReturnCode PoseEstimationEPnp::estimate( const std::vector<Point2Df> & imagePoints,
                                                   const std::vector<Point3Df> & worldPoints,

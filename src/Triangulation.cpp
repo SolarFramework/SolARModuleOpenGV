@@ -37,9 +37,7 @@ Triangulation::Triangulation():ComponentBase(xpcf::toUUID<Triangulation>())
    LOG_DEBUG(" Triangulation constructor");
 }
 
-Triangulation::~Triangulation(){
-
-}
+Triangulation::~Triangulation() = default;
 
 double Triangulation::triangulate(const std::vector<Point2Df> & pointsView1,
                                                 const std::vector<Point2Df> & pointsView2,

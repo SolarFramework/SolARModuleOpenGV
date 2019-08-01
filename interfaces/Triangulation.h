@@ -62,7 +62,7 @@ public:
     Triangulation();
 
     ///@brief Triangulation destructor.
-   ~Triangulation();
+   ~Triangulation() override;
 
     /// @brief this method is used to set intrinsic parameters and distorsion of the camera
     /// @param[in] Camera calibration matrix parameters.
@@ -104,7 +104,7 @@ public:
                         const std::vector<DescriptorMatch> & matches,
                         std::vector<CloudPoint> & pcloud) override;
 
-    void unloadComponent () override final;
+    void unloadComponent () final;
 
  private:
    // Camera calibration matrix
