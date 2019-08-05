@@ -93,16 +93,18 @@ double Triangulation::triangulate(const std::vector<Point2Df> & pointsView1,
     buffer_vector_A.resize(numberPoints);
     buffer_vector_B.resize(numberPoints);
 
-     for (size_t i = 0; i<numberPoints; i++) {
+    bearingVectors1.reserve(numberPoints);
+    bearingVectors2.reserve(numberPoints);
+    for (size_t i = 0; i<numberPoints; i++) {
 
-        buffer_vector_A[i] = k_invert*Vector3f( (float)pointsView1[matches[i].getIndexInDescriptorA()].getX(), (float)pointsView1[matches[i].getIndexInDescriptorA()].getY(), 1.0);
-        bearingVectors1.push_back(opengv::point_t( buffer_vector_A[i][0],buffer_vector_A[i][1],buffer_vector_A[i][2]));
+        buffer_vector_A[i] = k_invert*Vector3f( (float)pointsView1[matches[i].getIndexInDescriptorA()].x(), (float)pointsView1[matches[i].getIndexInDescriptorA()].y(), 1.0);
+        bearingVectors1.emplace_back(buffer_vector_A[i][0],buffer_vector_A[i][1],buffer_vector_A[i][2]);
         bearingVectors1[i] /= bearingVectors1[i].norm();
 
-        buffer_vector_B[i] = k_invert*Vector3f( (float)pointsView2[matches[i].getIndexInDescriptorB()].getX(), (float)pointsView2[matches[i].getIndexInDescriptorB()].getY(), 1.0);
-        bearingVectors2.push_back(opengv::point_t( buffer_vector_B[i][0],buffer_vector_B[i][1],buffer_vector_B[i][2]));
+        buffer_vector_B[i] = k_invert*Vector3f( (float)pointsView2[matches[i].getIndexInDescriptorB()].x(), (float)pointsView2[matches[i].getIndexInDescriptorB()].y(), 1.0);
+        bearingVectors2.emplace_back(buffer_vector_B[i][0],buffer_vector_B[i][1],buffer_vector_B[i][2]);
         bearingVectors2[i] /= bearingVectors1[i].norm();
-     }
+    }
 
     //create a central relative adapter and pass the relative pose
     opengv::relative_pose::CentralRelativeAdapter adapter = opengv::relative_pose::CentralRelativeAdapter( bearingVectors1,
@@ -157,7 +159,7 @@ double Triangulation::triangulate(const std::vector<Point2Df> & pointsView1,
 
         Eigen::Vector2d  reprojected_point_2d = Eigen::Vector2d(reprojected_point_3d[0]/reprojected_point_3d[2], reprojected_point_3d[1]/reprojected_point_3d[2]);
 
-        Eigen::Vector3f undistort_point =  k_invert* Eigen::Vector3f((float)pointsView1[matches[k].getIndexInDescriptorA()].getX(),(float)pointsView1[matches[k].getIndexInDescriptorA()].getY(),1.0f);
+        Eigen::Vector3f undistort_point =  k_invert* Eigen::Vector3f((float)pointsView1[matches[k].getIndexInDescriptorA()].x(),(float)pointsView1[matches[k].getIndexInDescriptorA()].y(),1.0f);
 #if NDEBUG          
         //TO DO : Apply undirstorsion
         LOG_INFO("  Apply undirstorsion ");
@@ -169,8 +171,7 @@ double Triangulation::triangulate(const std::vector<Point2Df> & pointsView1,
         reproj_error += reprj_err;
 
         Eigen::Vector3d tmp_vec = triangulate_results.col(k);
-        CloudPoint cp = CloudPoint(tmp_vec(0), tmp_vec(1), tmp_vec(2) ,0.0f,0.0f,0.0f, reprj_err, visibility);
-        pcloud.push_back(cp);
+        pcloud.emplace_back(tmp_vec(0), tmp_vec(1), tmp_vec(2) ,0.0f,0.0f,0.0f, reprj_err, visibility);
 
     }
     
@@ -231,16 +232,18 @@ double Triangulation::triangulate(const std::vector<Keypoint> & pointsView1,
     buffer_vector_A.resize(numberPoints);
     buffer_vector_B.resize(numberPoints);
 
-     for (size_t i = 0; i<numberPoints; i++) {
+    bearingVectors1.reserve(numberPoints);
+    bearingVectors2.reserve(numberPoints);
+    for (size_t i = 0; i<numberPoints; i++) {
 
-        buffer_vector_A[i] = k_invert*Vector3f( (float)pointsView1[matches[i].getIndexInDescriptorA()].getX(), (float)pointsView1[matches[i].getIndexInDescriptorA()].getY(), 1.0);
-        bearingVectors1.push_back(opengv::point_t( buffer_vector_A[i][0],buffer_vector_A[i][1],buffer_vector_A[i][2]));
+        buffer_vector_A[i] = k_invert*Vector3f( (float)pointsView1[matches[i].getIndexInDescriptorA()].x(), (float)pointsView1[matches[i].getIndexInDescriptorA()].y(), 1.0);
+        bearingVectors1.emplace_back(buffer_vector_A[i][0],buffer_vector_A[i][1],buffer_vector_A[i][2]);
         bearingVectors1[i] /= bearingVectors1[i].norm();
 
-        buffer_vector_B[i] = k_invert*Vector3f( (float)pointsView2[matches[i].getIndexInDescriptorB()].getX(), (float)pointsView2[matches[i].getIndexInDescriptorB()].getY(), 1.0);
-        bearingVectors2.push_back(opengv::point_t( buffer_vector_B[i][0],buffer_vector_B[i][1],buffer_vector_B[i][2]));
+        buffer_vector_B[i] = k_invert*Vector3f( (float)pointsView2[matches[i].getIndexInDescriptorB()].x(), (float)pointsView2[matches[i].getIndexInDescriptorB()].y(), 1.0);
+        bearingVectors2.emplace_back(buffer_vector_B[i][0],buffer_vector_B[i][1],buffer_vector_B[i][2]);
         bearingVectors2[i] /= bearingVectors1[i].norm();
-     }
+    }
 
     //create a central relative adapter and pass the relative pose
     opengv::relative_pose::CentralRelativeAdapter adapter = opengv::relative_pose::CentralRelativeAdapter( bearingVectors1,
@@ -295,7 +298,7 @@ double Triangulation::triangulate(const std::vector<Keypoint> & pointsView1,
 
         Eigen::Vector2d  reprojected_point_2d = Eigen::Vector2d(reprojected_point_3d[0]/reprojected_point_3d[2], reprojected_point_3d[1]/reprojected_point_3d[2]);
 
-        Eigen::Vector3f undistort_point =  k_invert* Eigen::Vector3f((float)pointsView1[matches[k].getIndexInDescriptorA()].getX(),(float)pointsView1[matches[k].getIndexInDescriptorA()].getY(),1.0f);
+        Eigen::Vector3f undistort_point =  k_invert* Eigen::Vector3f((float)pointsView1[matches[k].getIndexInDescriptorA()].x(),(float)pointsView1[matches[k].getIndexInDescriptorA()].y(),1.0f);
 #if NDEBUG          
         //TO DO : Apply undirstorsion
         LOG_INFO("  Apply undirstorsion ");
@@ -307,8 +310,7 @@ double Triangulation::triangulate(const std::vector<Keypoint> & pointsView1,
         reproj_error += reprj_err;
 
         Eigen::Vector3d tmp_vec = triangulate_results.col(k);
-        CloudPoint cp = CloudPoint(tmp_vec(0), tmp_vec(1), tmp_vec(2) ,0.0f,0.0f,0.0f, reprj_err, visibility);
-        pcloud.push_back(cp);
+        pcloud.emplace_back(tmp_vec(0), tmp_vec(1), tmp_vec(2) ,0.0f,0.0f,0.0f, reprj_err, visibility);
 
     }
     

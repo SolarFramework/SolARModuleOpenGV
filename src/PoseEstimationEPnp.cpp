@@ -66,9 +66,9 @@ FrameworkReturnCode PoseEstimationEPnp::estimate( const std::vector<Point2Df> & 
     //TO DO APPLY UNDISTORSION
     for(unsigned int k =0; k < imagePoints.size(); k++){
 
-        points[k] = opengv::point_t( worldPoints[k].getX(), worldPoints[k].getY(), worldPoints[k].getZ());
+        points[k] = opengv::point_t( worldPoints[k].x(), worldPoints[k].y(), worldPoints[k].z());
         
-        Eigen::Vector3f tmp = k_invert*Eigen::Vector3f(imagePoints[k].getX(), imagePoints[k].getY(), 1.0f);
+        Eigen::Vector3f tmp = k_invert*Eigen::Vector3f(imagePoints[k].x(), imagePoints[k].y(), 1.0f);
         bearing_buffer[k] = (opengv::point_t( tmp[0], tmp[1],tmp[2]));
         bearing_buffer[k] /=tmp.norm();
     }  

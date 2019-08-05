@@ -66,12 +66,14 @@ FrameworkReturnCode PoseEstimationSACP3PKneip::estimate( const std::vector<Point
     opengv::rotation_t rotation;
 
     //TO DO APPLY UNDISTORSION
+    points.reserve(imagePoints.size());
+    bearingVectors.reserve(imagePoints.size());
     for(unsigned int k =0; k < imagePoints.size(); k++){
 
-        points.push_back( opengv::point_t( worldPoints[k].getX(), worldPoints[k].getY(), worldPoints[k].getZ()));
+        points.emplace_back(worldPoints[k].x(), worldPoints[k].y(), worldPoints[k].z());
         
-        Eigen::Vector3f tmp = k_invert*Eigen::Vector3f(imagePoints[k].getX(), imagePoints[k].getY(), 1.0f);
-        bearingVectors.push_back(opengv::point_t( tmp[0], tmp[1],tmp[2]));
+        Eigen::Vector3f tmp = k_invert*Eigen::Vector3f(imagePoints[k].x(), imagePoints[k].y(), 1.0f);
+        bearingVectors.emplace_back(tmp[0], tmp[1], tmp[2]);
         bearingVectors[k] /=tmp.norm();
     }  
 
@@ -102,8 +104,8 @@ FrameworkReturnCode PoseEstimationSACP3PKneip::estimate( const std::vector<Point
 
     for (unsigned int kc = 0; kc < ransac.inliers_.size(); kc++)
     {
-        imagePoints_inlier[kc] = SolAR::Point2Df(imagePoints[kc].getX(), imagePoints[kc].getY());
-        worldPoints_inlier[kc] = SolAR::Point3Df(worldPoints[kc].getX(), worldPoints[kc].getY(), worldPoints[kc].getZ());
+        imagePoints_inlier[kc] = SolAR::Point2Df(imagePoints[kc].x(), imagePoints[kc].y());
+        worldPoints_inlier[kc] = SolAR::Point3Df(worldPoints[kc].x(), worldPoints[kc].y(), worldPoints[kc].z());
     }
 
     pose(0, 0) = ransac.model_coefficients_(0, 0);
