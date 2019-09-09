@@ -48,7 +48,7 @@ double Triangulation::triangulate(const std::vector<Point2Df> & pointsView1,
                                                 const Transform3Df& poseView1,
                                                 const Transform3Df& poseView2,
                                                 std::vector<CloudPoint> & pcloud ){
-
+    pcloud.clear();
 
     opengv::translation_t position1 = Eigen::Vector3d(poseView1(0,3), poseView1(1,3) ,poseView1(2,3));
     opengv::rotation_t rotation1;// = Eigen::Matrix<double, 3, 3, Eigen::ColMajor>();
@@ -189,6 +189,7 @@ double Triangulation::triangulate(const std::vector<Keypoint>& keypointsView1,
                                                 const Transform3Df & poseView2,
                                                 std::vector<CloudPoint>& pcloud)
 {
+    pcloud.clear();
     opengv::translation_t position1 = Eigen::Vector3d(poseView1(0,3), poseView1(1,3) ,poseView1(2,3));
     opengv::rotation_t rotation1;// = Eigen::Matrix<double, 3, 3, Eigen::ColMajor>();
 
@@ -354,6 +355,8 @@ double Triangulation::triangulate(const std::vector<Keypoint> & pointsView1,
                                                 const Transform3Df& poseView1,
                                                 const Transform3Df& poseView2,
                                                 std::vector<CloudPoint> & pcloud){
+
+    pcloud.clear();
 
     opengv::translation_t position1 = Eigen::Vector3d(poseView1(0,3), poseView1(1,3) ,poseView1(2,3));
     opengv::rotation_t rotation1;// = Eigen::Matrix<double, 3, 3, Eigen::ColMajor>();
