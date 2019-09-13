@@ -317,8 +317,8 @@ double Triangulation::triangulate(const std::vector<Keypoint>& keypointsView1,
         SRef<DescriptorBuffer> descBufferMean;
         if (descriptor1->getDescriptorDataType() == DescriptorDataType::TYPE_8U){
 
-            Descriptor8U desc_1 = descriptor1->getDescriptor<DescriptorDataType::TYPE_8U>(matches[k].getIndexInDescriptorA());
-            Descriptor8U desc_2 = descriptor1->getDescriptor<DescriptorDataType::TYPE_8U>(matches[k].getIndexInDescriptorB());
+            DescriptorView8U desc_1 = descriptor1->getDescriptor<DescriptorDataType::TYPE_8U>(matches[k].getIndexInDescriptorA());
+            DescriptorView8U desc_2 = descriptor1->getDescriptor<DescriptorDataType::TYPE_8U>(matches[k].getIndexInDescriptorB());
 
             Maths::Matrix<unsigned char, 1, Maths::Dynamic> desc1 = Maths::Map<Maths::Matrix<unsigned char, 1, Maths::Dynamic>>((unsigned char*)desc_1.data(), 1, desc_1.length());
             Maths::Matrix<unsigned char, 1, Maths::Dynamic> desc2 = Maths::Map<Maths::Matrix<unsigned char, 1, Maths::Dynamic>>((unsigned char*)desc_2.data(), 1, desc_2.length());
@@ -330,8 +330,8 @@ double Triangulation::triangulate(const std::vector<Keypoint>& keypointsView1,
         }
         else {
 
-            Descriptor32F desc_1 = descriptor1->getDescriptor<DescriptorDataType::TYPE_32F>(matches[k].getIndexInDescriptorA());
-            Descriptor32F desc_2 = descriptor1->getDescriptor<DescriptorDataType::TYPE_32F>(matches[k].getIndexInDescriptorB());
+            DescriptorView32F desc_1 = descriptor1->getDescriptor<DescriptorDataType::TYPE_32F>(matches[k].getIndexInDescriptorA());
+            DescriptorView32F desc_2 = descriptor1->getDescriptor<DescriptorDataType::TYPE_32F>(matches[k].getIndexInDescriptorB());
 
             // calculate the mean of two features
             Maths::MatrixXf desc1 = Maths::Map<Maths::MatrixXf>((float*)desc_1.data(), 1, desc_1.length());
