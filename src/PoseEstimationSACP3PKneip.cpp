@@ -55,10 +55,6 @@ FrameworkReturnCode PoseEstimationSACP3PKneip::estimate( const std::vector<Point
     }
 
     Eigen::Matrix<float,3,3> k_invert =  m_intrinsicParams.inverse();
- 
-    std::cout<<k_invert(0,0)<<" "<<k_invert(0,1)<<" "<<k_invert(0,2)<<std::endl;
-    std::cout<<k_invert(1,0)<<" "<<k_invert(1,1)<<" "<<k_invert(1,2)<<std::endl;
-    std::cout<<k_invert(2,0)<<" "<<k_invert(2,1)<<" "<<k_invert(2,2)<<std::endl;
 
     std::vector<Eigen::Vector3f> buffer_vector; 
     buffer_vector.resize( imagePoints.size());

@@ -57,7 +57,6 @@ FrameworkReturnCode PoseEstimationSACP3PGao::estimate(const std::vector<Point2Df
         return FrameworkReturnCode::_ERROR_;
     }
  
-    LOG_INFO("Tne number of 2D-3D correspondence in input to estimate the pose : \n {}", imagePoints.size());
     Eigen::Matrix<float,3,3> k_invert =  m_intrinsicParams.inverse();
  
     std::vector<Eigen::Vector3f> buffer_vector; 
