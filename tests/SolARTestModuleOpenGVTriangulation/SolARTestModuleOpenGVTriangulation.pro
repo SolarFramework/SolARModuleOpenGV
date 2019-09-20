@@ -13,6 +13,7 @@ CONFIG(debug,debug|release) {
 }
 
 CONFIG(release,debug|release) {
+    DEFINES += _NDEBUG=1
     DEFINES += NDEBUG=1
 }
 
