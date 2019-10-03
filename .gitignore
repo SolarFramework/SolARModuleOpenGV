@@ -67,6 +67,9 @@ x64*
 doc/
 doxygen/
 
+
+tests/bin
+
 test/build*
 
 *InstallDependencies.bat

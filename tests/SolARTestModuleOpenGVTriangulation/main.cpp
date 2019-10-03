@@ -76,17 +76,17 @@ int main(){
 
         SRef<xpcf::IComponentManager> xpcfComponentManager = xpcf::getComponentManagerInstance();
 
-        if(xpcfComponentManager->load("conf_Triangulation.xml")!=org::bcom::xpcf::_SUCCESS)
+        if(xpcfComponentManager->load("SolAROpenGVTriangulation_conf.xml")!=org::bcom::xpcf::_SUCCESS)
         {
-            LOG_ERROR("Failed to load the configuration file conf_Triangulation.xml")
+            LOG_ERROR("Failed to load the configuration file SolAROpenGVTriangulation_conf.xml")
             return -1;
         }
 
         SRef<input::devices::ICamera> camera =xpcfComponentManager->resolve<input::devices::ICamera>();
         SRef<image::IImageLoader> imageLoader1 =xpcfComponentManager->resolve<image::IImageLoader>();
-        imageLoader1->bindTo<xpcf::IConfigurable>()->configure("conf_Triangulation.xml", "image1");
+        imageLoader1->bindTo<xpcf::IConfigurable>()->configure("SolAROpenGVTriangulation_conf.xml", "image1");
         SRef<image::IImageLoader> imageLoader2 =xpcfComponentManager->resolve<image::IImageLoader>();
-        imageLoader2->bindTo<xpcf::IConfigurable>()->configure("conf_Triangulation.xml", "image2");
+        imageLoader2->bindTo<xpcf::IConfigurable>()->configure("SolAROpenGVTriangulation_conf.xml", "image2");
         SRef<features::IKeypointDetector> keypointsDetector =xpcfComponentManager->resolve<features::IKeypointDetector>();
         SRef<features::IDescriptorsExtractor> descriptorExtractor =xpcfComponentManager->resolve<features::IDescriptorsExtractor>();
         SRef<features::IDescriptorMatcher> matcher =xpcfComponentManager->resolve<features::IDescriptorMatcher>();
