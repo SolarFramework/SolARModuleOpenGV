@@ -58,7 +58,6 @@ build/
 .vs*
 x64*
 
-*.txt
 *.log
 *.tlog
 *.TMP
