@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
 <xpcf-registry>
-	<module uuid="1fd044d1-8e45-4380-b3df-2b8e997c1588" name="SolARModuleOpenGV" description="SolARModuleOpenGV" path="$SolARBuild/SolARModuleOpenGV/0.6.0/lib/x86_64/shared">
+	<module uuid="1fd044d1-8e45-4380-b3df-2b8e997c1588" name="SolARModuleOpenGV" description="SolARModuleOpenGV" path="$SolARBuild/SolARModuleOpenGV/0.7.0/lib/x86_64/shared">
 
 		<component uuid="bb7dac37-499a-4bc4-9b57-3e010a94ed30" name="SolARTriangulationOpengv" description="SolARTriangulationOpengv">
                 <interface uuid="125f2007-1bf9-421d-9367-fbdc1210d006" name="IComponentIntrospect" description="IComponentIntrospect"/>
@@ -8,7 +8,7 @@
         </component> 	
     </module>
 	
-    <module uuid="15e1990b-86b2-445c-8194-0cbe80ede970" name="SolARModuleOpenCV" path="$SolARBuild/SolARModuleOpenCV/0.6.0/lib/x86_64/shared" description="OpenCV modules">0
+    <module uuid="15e1990b-86b2-445c-8194-0cbe80ede970" name="SolARModuleOpenCV" path="$SolARBuild/SolARModuleOpenCV/0.7.0/lib/x86_64/shared" description="OpenCV modules">0
          <component uuid="5B7396F4-A804-4F3C-A0EB-FB1D56042BB4" description="SolARCameraOpencv" name="SolARCameraOpencv">
                 <interface uuid="125f2007-1bf9-421d-9367-fbdc1210d006" description="IComponentIntrospect" name="IComponentIntrospect"/>
                 <interface uuid="5DDC7DF0-8377-437F-9C81-3643F7676A5B" description="ICamera" name="ICamera"/>
@@ -43,14 +43,14 @@
         </component>
     </module>
 	
-	 <module uuid="6e960df6-9a36-11e8-9eb6-529269fb1459" name="SolARModuleOpenGL" path="$SolARBuild/SolARModuleOpenGL/0.6.0/lib/x86_64/shared" description="Module OpenGL">
+	 <module uuid="6e960df6-9a36-11e8-9eb6-529269fb1459" name="SolARModuleOpenGL" path="$SolARBuild/SolARModuleOpenGL/0.7.0/lib/x86_64/shared" description="Module OpenGL">
         <component uuid="afd38ea0-9a46-11e8-9eb6-529269fb1459" description="SolAR3DPointsViewerOpengl" name="SolAR3DPointsViewerOpengl">
                 <interface uuid="125f2007-1bf9-421d-9367-fbdc1210d006" description="IComponentIntrospect" name="IComponentIntrospect"/>
                 <interface uuid="575d365a-9a27-11e8-9eb6-529269fb1459" description="I3DPointsViewer" name="I3DPointsViewer"/>
         </component>
     </module> 
     
-	<module uuid="28b89d39-41bd-451d-b19e-d25a3d7c5797" name="SolARModuleTools"  path="$SolARBuild/SolARModuleTools/0.6.0/lib/x86_64/shared" description="Module Tools">
+	<module uuid="28b89d39-41bd-451d-b19e-d25a3d7c5797" name="SolARModuleTools"  path="$SolARBuild/SolARModuleTools/0.7.0/lib/x86_64/shared" description="Module Tools">
 		<component uuid="09205b96-7cba-4415-bc61-64744bc26222" description="SolARMapFilterOpencv" name="SolARMapFilterOpencv">
                 <interface uuid="125f2007-1bf9-421d-9367-fbdc1210d006" description="IComponentIntrospect" name="IComponentIntrospect"/>
                 <interface uuid="e0d6cc82-6af2-493d-901a-2384fca0b16f" description="IMapFilter" name="IMapFilter"/>
@@ -59,14 +59,14 @@
 	
 	<configuration>
 		<component uuid="5B7396F4-A804-4F3C-A0EB-FB1D56042BB4"> <!-- SolARCameraOpencv -->
-			<property name="calibrationFile" type="string" value="../data/camera_calibration.yml"/>
+			<property name="calibrationFile" type="string" value="../../data/camera_calibration.yml"/>
 			<property name="deviceID" type="UnsignedInteger" value="0"/>
 		</component>
 		<component uuid="e42d6526-9eb1-4f8a-bb68-53e06f09609c" name="image1"> <!-- SolARImageLoaderOpencv -->
-			<property name="filePath" type="string" value="../data/Image1.png"/>
+			<property name="filePath" type="string" value="../../data/Image1.png"/>
 		</component>
 		<component uuid="e42d6526-9eb1-4f8a-bb68-53e06f09609c" name="image2"> <!-- SolARImageLoaderOpencv -->
-			<property name="filePath" type="string" value="../data/Image2.png"/>
+			<property name="filePath" type="string" value="../../data/Image2.png"/>
 		</component>
 		<component uuid="e81c7e4e-7da6-476a-8eba-078b43071272"> <!-- SolARKeypointDetectorOpencv -->
 			<property name="type" type="string" value="AKAZE2"/>
