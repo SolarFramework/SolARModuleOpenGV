@@ -53,7 +53,7 @@ class SOLAROPENGV_EXPORT_API PoseEstimationP3PGao : public org::bcom::xpcf::Conf
 {
 public:
     ///@brief SolARPoseEstimationP3PGao constructor;
-    PoseEstimationP3PGao();
+    PoseEstimationP3PGao() ;
     ///@brief SolARPoseEstimationP3PGao destructor;
     ~PoseEstimationP3PGao();
 
@@ -62,10 +62,10 @@ public:
     /// @param[in]  worldPoints, set of 3d_points corresponding to view_1.
     /// @param[out] pose, camera pose (pose the camera defined in world corrdinate system) expressed as a Transform3D.
     /// @param[in] initialPose (Optional), a tranfsform3D to initialize the pose (reducing the convergence time and improving its success). If your world points are planar, do not use this argument.
-    FrameworkReturnCode estimate(const std::vector<SRef<Point2Df>> & imagePoints,
-                             const std::vector<SRef<Point3Df>> & worldPoints,
-                             Transform3Df & pose,
-                             const Transform3Df initialPose = Transform3Df::Identity()) override;
+    FrameworkReturnCode estimate(   const std::vector<Point2Df> & imagePoints,
+                                    const std::vector<Point3Df> & worldPoints,
+                                    Transform3Df & pose,
+                                    const Transform3Df initialPose = Transform3Df::Identity()) override;
 
 
     /// @brief this method is used to set intrinsic parameters and distorsion of the camera
@@ -77,8 +77,6 @@ public:
     void unloadComponent () override final;
 
 private:
-
-
     CamCalibration m_intrinsicParams;
     CamDistortion  m_distorsionParams;
 };

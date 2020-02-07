@@ -45,11 +45,11 @@ PoseEstimationSACP3PGao::~PoseEstimationSACP3PGao()
 {
 }
 
-FrameworkReturnCode PoseEstimationSACP3PGao::estimate(const std::vector<SRef<Point2Df>> &imagePoints,
-                                                      const std::vector<SRef<Point3Df>> &worldPoints,
-                                                      std::vector<SRef<Point2Df>> &imagePoints_inlier,
-                                                      std::vector<SRef<Point3Df>> &worldPoints_inlier,
-                                                      Transform3Df &pose,
+FrameworkReturnCode PoseEstimationSACP3PGao::estimate(const std::vector<Point2Df> & imagePoints,
+                                                      const std::vector<Point3Df> & worldPoints,
+                                                      std::vector<Point2Df> & imagePoints_inlier,
+                                                      std::vector<Point3Df> & worldPoints_inlier,
+                                                      Transform3Df & pose,
                                                       const Transform3Df initialPose)
 {
 
@@ -57,7 +57,6 @@ FrameworkReturnCode PoseEstimationSACP3PGao::estimate(const std::vector<SRef<Poi
         return FrameworkReturnCode::_ERROR_;
     }
  
-    LOG_INFO("Tne number of 2D-3D correspondence in input to estimate the pose : \n {}", imagePoints.size());
     Eigen::Matrix<float,3,3> k_invert =  m_intrinsicParams.inverse();
  
     std::vector<Eigen::Vector3f> buffer_vector; 
@@ -70,9 +69,9 @@ FrameworkReturnCode PoseEstimationSACP3PGao::estimate(const std::vector<SRef<Poi
     //TO DO APPLY UNDISTORSION
     for(unsigned int k =0; k < imagePoints.size(); k++){
 
-        points.push_back( opengv::point_t( worldPoints[k]->getX(), worldPoints[k]->getY(), worldPoints[k]->getZ()));
+        points.push_back( opengv::point_t( worldPoints[k].getX(), worldPoints[k].getY(), worldPoints[k].getZ()));
         
-        Eigen::Vector3f tmp = k_invert*Eigen::Vector3f(imagePoints[k]->getX(), imagePoints[k]->getY(), 1.0f);
+        Eigen::Vector3f tmp = k_invert*Eigen::Vector3f(imagePoints[k].getX(), imagePoints[k].getY(), 1.0f);
         bearingVectors.push_back(opengv::point_t( tmp[0], tmp[1],tmp[2]));
         bearingVectors[k] /=tmp.norm();
     }  
@@ -104,8 +103,8 @@ FrameworkReturnCode PoseEstimationSACP3PGao::estimate(const std::vector<SRef<Poi
 
     for (unsigned int kc = 0; kc < ransac.inliers_.size(); kc++)
     {
-        imagePoints_inlier[kc] = xpcf::utils::make_shared<SolAR::Point2Df>(imagePoints[kc]->getX(), imagePoints[kc]->getY());
-        worldPoints_inlier[kc] = xpcf::utils::make_shared<SolAR::Point3Df>(worldPoints[kc]->getX(), worldPoints[kc]->getY(), worldPoints[kc]->getZ());
+        imagePoints_inlier[kc] = SolAR::Point2Df(imagePoints[kc].getX(), imagePoints[kc].getY());
+        worldPoints_inlier[kc] = SolAR::Point3Df(worldPoints[kc].getX(), worldPoints[kc].getY(), worldPoints[kc].getZ());
     }
 
     LOG_INFO("Ransac model coefficients : \n {}",ransac.model_coefficients_);

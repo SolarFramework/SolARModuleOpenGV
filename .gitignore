@@ -58,7 +58,6 @@ build/
 .vs*
 x64*
 
-*.txt
 *.log
 *.tlog
 *.TMP
@@ -68,4 +67,13 @@ x64*
 doc/
 doxygen/
 
+
+tests/bin
+
 test/build*
+
+*InstallDependencies.bat
+*debug.bat
+*release.bat
+*remakeninfo.txt
+*.pc

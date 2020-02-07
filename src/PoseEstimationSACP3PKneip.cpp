@@ -43,22 +43,18 @@ PoseEstimationSACP3PKneip::~PoseEstimationSACP3PKneip(){
 
 }
 
-FrameworkReturnCode PoseEstimationSACP3PKneip::estimate( const std::vector<SRef<Point2Df>> & imagePoints,
-                                                            const std::vector<SRef<Point3Df>> & worldPoints,
-                                                            std::vector<SRef<Point2Df>>&imagePoints_inlier,
-                                                            std::vector<SRef<Point3Df>>&worldPoints_inlier,
-                                                            Transform3Df & pose,
-                                                            const Transform3Df initialPose) {
+FrameworkReturnCode PoseEstimationSACP3PKneip::estimate( const std::vector<Point2Df> & imagePoints,
+                                                         const std::vector<Point3Df> & worldPoints,
+                                                         std::vector<Point2Df> & imagePoints_inlier,
+                                                         std::vector<Point3Df> & worldPoints_inlier,
+                                                         Transform3Df & pose,
+                                                         const Transform3Df initialPose) {
 
     if ( imagePoints.size() < 3 || worldPoints.size() < 3  || worldPoints.size() != imagePoints.size() ){
         return FrameworkReturnCode::_ERROR_;
     }
 
     Eigen::Matrix<float,3,3> k_invert =  m_intrinsicParams.inverse();
- 
-    std::cout<<k_invert(0,0)<<" "<<k_invert(0,1)<<" "<<k_invert(0,2)<<std::endl;
-    std::cout<<k_invert(1,0)<<" "<<k_invert(1,1)<<" "<<k_invert(1,2)<<std::endl;
-    std::cout<<k_invert(2,0)<<" "<<k_invert(2,1)<<" "<<k_invert(2,2)<<std::endl;
 
     std::vector<Eigen::Vector3f> buffer_vector; 
     buffer_vector.resize( imagePoints.size());
@@ -70,9 +66,9 @@ FrameworkReturnCode PoseEstimationSACP3PKneip::estimate( const std::vector<SRef<
     //TO DO APPLY UNDISTORSION
     for(unsigned int k =0; k < imagePoints.size(); k++){
 
-        points.push_back( opengv::point_t( worldPoints[k]->getX(), worldPoints[k]->getY(), worldPoints[k]->getZ()));
+        points.push_back( opengv::point_t( worldPoints[k].getX(), worldPoints[k].getY(), worldPoints[k].getZ()));
         
-        Eigen::Vector3f tmp = k_invert*Eigen::Vector3f(imagePoints[k]->getX(), imagePoints[k]->getY(), 1.0f);
+        Eigen::Vector3f tmp = k_invert*Eigen::Vector3f(imagePoints[k].getX(), imagePoints[k].getY(), 1.0f);
         bearingVectors.push_back(opengv::point_t( tmp[0], tmp[1],tmp[2]));
         bearingVectors[k] /=tmp.norm();
     }  
@@ -104,8 +100,8 @@ FrameworkReturnCode PoseEstimationSACP3PKneip::estimate( const std::vector<SRef<
 
     for (unsigned int kc = 0; kc < ransac.inliers_.size(); kc++)
     {
-        imagePoints_inlier[kc] = xpcf::utils::make_shared<SolAR::Point2Df>(imagePoints[kc]->getX(), imagePoints[kc]->getY());
-        worldPoints_inlier[kc] = xpcf::utils::make_shared<SolAR::Point3Df>(worldPoints[kc]->getX(), worldPoints[kc]->getY(), worldPoints[kc]->getZ());
+        imagePoints_inlier[kc] = SolAR::Point2Df(imagePoints[kc].getX(), imagePoints[kc].getY());
+        worldPoints_inlier[kc] = SolAR::Point3Df(worldPoints[kc].getX(), worldPoints[kc].getY(), worldPoints[kc].getZ());
     }
 
     pose(0, 0) = ransac.model_coefficients_(0, 0);
