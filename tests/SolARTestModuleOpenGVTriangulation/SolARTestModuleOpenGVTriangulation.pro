@@ -1,11 +1,16 @@
-TARGET = SolAROpenGVTriangulation
-VERSION=0.7.0
-
-CONFIG += c++1z
+## remove Qt dependencies
+QT       -= core gui
 CONFIG -= qt
-CONFIG += console
+
+## global defintions : target lib name, version
+TARGET = SolAROpenGVTriangulation
+VERSION= 0.7.0
 
 DEFINES += MYVERSION=$${VERSION}
+CONFIG += c++1z
+CONFIG += console
+
+include(findremakenrules.pri)
 
 CONFIG(debug,debug|release) {
 	TARGETDEPLOYDIR = $${PWD}/../bin/Debug
@@ -27,8 +32,8 @@ win32:CONFIG += shared
 ## Configuration for Visual Studio to install binaries and dependencies. Work also for QT Creator by replacing QMAKE_INSTALL
 PROJECTCONFIG = QTVS
 
-#NOTE : CONFIG as staticlib or sharedlib, DEPENDENCIESCONFIG as staticlib or sharedlib, QMAKE_TARGET.arch and TARGETDEPLOYDIR MUST BE DEFINED BEFORE templatelibconfig.pri inclusion
-include ($$shell_quote($$shell_path($$(REMAKEN_RULES_ROOT)/qmake/templateappconfig.pri))) # Shell_quote & shell_path required for visual on windows
+#NOTE : CONFIG as staticlib or sharedlib, DEPENDENCIESCONFIG as staticlib or sharedlib, QMAKE_TARGET.arch and PROJECTDEPLOYDIR MUST BE DEFINED BEFORE templatelibconfig.pri inclusion
+include ($$shell_quote($$shell_path($${QMAKE_REMAKEN_RULES_ROOT}/templateappconfig.pri)))  # Shell_quote & shell_path required for visual on windows
 
 HEADERS += \
 
@@ -65,4 +70,4 @@ configfile.files = $${PWD}/SolAROpenGVTriangulation_conf.xml
 INSTALLS += configfile
 
 #NOTE : Must be placed at the end of the .pro
-include ($$shell_quote($$shell_path($$(REMAKEN_RULES_ROOT)/qmake/remaken_install_target.pri))) # Shell_quote & shell_path required for visual on windows
+include ($$shell_quote($$shell_path($${QMAKE_REMAKEN_RULES_ROOT}/remaken_install_target.pri)))) # Shell_quote & shell_path required for visual on windows
