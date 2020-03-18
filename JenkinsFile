@@ -93,7 +93,7 @@ pipeline {
                 }                
                 prepareRelease("SolARBuild","linux-gcc","SolARModuleOpenGV")                
                 withCredentials([string(credentialsId: 'github-token', variable: 'token')]) {
-                    release("SolARModuleOpenGV","${version}","${WORKSPACE}/artifactory/x86_64_shared_release/SolARModuleOpenGV_${version}_x86_64_shared_release.zip ${WORKSPACE}/artifactory/x86_64_shared_debug/SolARModuleOpenGV_${version}_x86_64_shared_debug.zip",token);
+                    release("SolARModuleOpenGV","SolARModuleOpenGV/${version}/linux","SolARModuleOpenGV Version ${version} for Linux","${WORKSPACE}/artifactory/x86_64_shared_release/SolARModuleOpenGV_${version}_x86_64_shared_release.zip ${WORKSPACE}/artifactory/x86_64_shared_debug/SolARModuleOpenGV_${version}_x86_64_shared_debug.zip",token);
                 }
             }   
         }          
