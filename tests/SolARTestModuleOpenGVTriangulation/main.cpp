@@ -116,8 +116,8 @@ int main(){
         Transform3Df                    poseFrame2;
 
         // initialize components requiring the camera intrinsic parameters (please refeer to the use of intrinsic parameters file)
-        poseFinderFrom2D2D->setCameraParameters(camera->getIntrinsicsParameters(), camera->getDistorsionParameters());
-        triangulator_opengv->setCameraParameters(camera->getIntrinsicsParameters(), camera->getDistorsionParameters());
+        poseFinderFrom2D2D->setCameraParameters(camera->getIntrinsicsParameters(), camera->getDistortionParameters());
+        triangulator_opengv->setCameraParameters(camera->getIntrinsicsParameters(), camera->getDistortionParameters());
 
         // Get first image
         if (imageLoader1->getImage(image1) != FrameworkReturnCode::_SUCCESS){

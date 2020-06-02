@@ -107,12 +107,12 @@ int main()
         intrinsicParams(1,0) = 0; intrinsicParams(1,1) = 1; intrinsicParams(1,2) = 0;
         intrinsicParams(2,0) = 0; intrinsicParams(2,1) = 0; intrinsicParams(2,2) = 1;
 
-        CamDistortion   distorsionParams;
-        distorsionParams(0,0) =0;
-        distorsionParams(1,0) =0;
-        distorsionParams(2,0) =0;
-        distorsionParams(3,0) =0;
-        distorsionParams(4,0) =0;
+        CamDistortion   distortionParams;
+        distortionParams(0,0) =0;
+        distortionParams(1,0) =0;
+        distortionParams(2,0) =0;
+        distortionParams(3,0) =0;
+        distortionParams(4,0) =0;
 
         auto poseEstimation_p3p_kneip = xpcfComponentManager->resolve<solver::pose::I3DTransformFinderFrom2D3D>("OpenGVP3PKNEIP");
         auto poseEstimation_p3p_epnp  = xpcfComponentManager->resolve<solver::pose::I3DTransformFinderFrom2D3D>("OpenGVEPNP");
@@ -124,13 +124,13 @@ int main()
         auto poseEstimation_p3p_sac_kneip  = xpcfComponentManager->resolve<solver::pose::I3DTransformSACFinderFrom2D3D>("OpenGVSACP3PKNEIP");
 
         // initialize pose estimation components with camera paremeters
-        poseEstimation_p3p_kneip->setCameraParameters(  intrinsicParams, distorsionParams);
-        poseEstimation_p3p_gao->setCameraParameters(    intrinsicParams, distorsionParams);
-        poseEstimation_p3p_epnp->setCameraParameters(   intrinsicParams, distorsionParams);
-        poseEstimation_p3p_upnp->setCameraParameters(   intrinsicParams, distorsionParams);
-        poseEstimation_epnp_sac->setCameraParameters(   intrinsicParams, distorsionParams);
-        poseEstimation_p3p_sac_gao->setCameraParameters(   intrinsicParams, distorsionParams);
-        poseEstimation_p3p_sac_kneip->setCameraParameters(   intrinsicParams, distorsionParams);
+        poseEstimation_p3p_kneip->setCameraParameters(  intrinsicParams, distortionParams);
+        poseEstimation_p3p_gao->setCameraParameters(    intrinsicParams, distortionParams);
+        poseEstimation_p3p_epnp->setCameraParameters(   intrinsicParams, distortionParams);
+        poseEstimation_p3p_upnp->setCameraParameters(   intrinsicParams, distortionParams);
+        poseEstimation_epnp_sac->setCameraParameters(   intrinsicParams, distortionParams);
+        poseEstimation_p3p_sac_gao->setCameraParameters(   intrinsicParams, distortionParams);
+        poseEstimation_p3p_sac_kneip->setCameraParameters(   intrinsicParams, distortionParams);
 
 
          //synthetize 2d points and 3d points to test the components.
