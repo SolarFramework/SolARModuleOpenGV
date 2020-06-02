@@ -47,7 +47,7 @@ double Triangulation::triangulate(const std::vector<Point2Df> & pointsView1,
                                                 const std::pair<unsigned int,unsigned int>&working_views,
                                                 const Transform3Df& poseView1,
                                                 const Transform3Df& poseView2,
-                                                std::vector<CloudPoint> & pcloud ){
+                                                std::vector<SRef<CloudPoint>> & pcloud ){
     pcloud.clear();
 
     opengv::translation_t position1 = Eigen::Vector3d(poseView1(0,3), poseView1(1,3) ,poseView1(2,3));
@@ -171,7 +171,7 @@ double Triangulation::triangulate(const std::vector<Point2Df> & pointsView1,
         reproj_error += reprj_err;
 
         Eigen::Vector3d tmp_vec = triangulate_results.col(k);
-        CloudPoint cp = CloudPoint(tmp_vec(0), tmp_vec(1), tmp_vec(2) ,0.0f,0.0f,0.0f, reprj_err, visibility);
+        SRef<CloudPoint> cp = xpcf::utils::make_shared<CloudPoint>(tmp_vec(0), tmp_vec(1), tmp_vec(2) ,0.0f,0.0f,0.0f, reprj_err, visibility);
         pcloud.push_back(cp);
 
     }
@@ -187,7 +187,7 @@ double Triangulation::triangulate(const std::vector<Keypoint>& keypointsView1,
                                                 const std::pair<unsigned int, unsigned int>& working_views,
                                                 const Transform3Df & poseView1,
                                                 const Transform3Df & poseView2,
-                                                std::vector<CloudPoint>& pcloud)
+                                                std::vector<SRef<CloudPoint>>& pcloud)
 {
     pcloud.clear();
     opengv::translation_t position1 = Eigen::Vector3d(poseView1(0,3), poseView1(1,3) ,poseView1(2,3));
@@ -340,7 +340,7 @@ double Triangulation::triangulate(const std::vector<Keypoint>& keypointsView1,
             Maths::MatrixXf descMean = (desc1 + desc2) / 2;
             descBufferMean = xpcf::utils::make_shared<DescriptorBuffer>((unsigned char*)descMean.data(), descriptor1->getDescriptorType(), descriptor1->getDescriptorDataType(), descriptor1->getNbElements(), 1);
         }
-        CloudPoint cp = CloudPoint(tmp_vec(0), tmp_vec(1), tmp_vec(2) ,0.0f,0.0f,0.0f, reprj_err, visibility, descBufferMean);
+        SRef<CloudPoint> cp = xpcf::utils::make_shared<CloudPoint>(tmp_vec(0), tmp_vec(1), tmp_vec(2) ,0.0f,0.0f,0.0f, reprj_err, visibility, descBufferMean);
         pcloud.push_back(cp);
     }
 
@@ -354,7 +354,7 @@ double Triangulation::triangulate(const std::vector<Keypoint> & pointsView1,
                                                 const std::pair<unsigned int,unsigned int>&working_views,
                                                 const Transform3Df& poseView1,
                                                 const Transform3Df& poseView2,
-                                                std::vector<CloudPoint> & pcloud){
+                                                std::vector<SRef<CloudPoint>> & pcloud){
 
     pcloud.clear();
 
@@ -479,7 +479,7 @@ double Triangulation::triangulate(const std::vector<Keypoint> & pointsView1,
         reproj_error += reprj_err;
 
         Eigen::Vector3d tmp_vec = triangulate_results.col(k);
-        CloudPoint cp = CloudPoint(tmp_vec(0), tmp_vec(1), tmp_vec(2) ,0.0f,0.0f,0.0f, reprj_err, visibility);
+        SRef<CloudPoint> cp = xpcf::utils::make_shared<CloudPoint>(tmp_vec(0), tmp_vec(1), tmp_vec(2) ,0.0f,0.0f,0.0f, reprj_err, visibility);
         pcloud.push_back(cp);
 
     }
@@ -489,11 +489,11 @@ double Triangulation::triangulate(const std::vector<Keypoint> & pointsView1,
 
 double Triangulation::triangulate(const SRef<Keyframe> & curKeyframe,
                                   const std::vector<DescriptorMatch>&matches,
-                                  std::vector<CloudPoint> & pcloud) {
+                                  std::vector<SRef<CloudPoint>> & pcloud) {
 
 return triangulate( curKeyframe->getKeypoints(),curKeyframe->getReferenceKeyframe()->getKeypoints(), matches,
-                           std::make_pair<unsigned int,unsigned int>((unsigned int)(curKeyframe->m_idx),(unsigned int)(curKeyframe->getReferenceKeyframe()->m_idx)),
-                           curKeyframe->getReferenceKeyframe()->getPose(),  curKeyframe->getPose(), pcloud);
+                    std::make_pair<unsigned int,unsigned int>((unsigned int)(curKeyframe->getId()),(unsigned int)(curKeyframe->getReferenceKeyframe()->getId())),
+                    curKeyframe->getReferenceKeyframe()->getPose(),  curKeyframe->getPose(), pcloud);
 
 }
 

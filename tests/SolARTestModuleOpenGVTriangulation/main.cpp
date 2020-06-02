@@ -108,8 +108,7 @@ int main(){
         SRef<DescriptorBuffer>          descriptors2;
         std::vector<DescriptorMatch>    matches;
 
-        std::vector<CloudPoint>   cloud, filteredCloud;
-        std::vector<CloudPoint>   cloud_opengv;
+        std::vector<SRef<CloudPoint>>   cloud, filteredCloud;
 
         SRef<Image>                     matchesImage;
 
@@ -155,7 +154,7 @@ int main(){
         overlayMatches->draw(image1, image2, matchesImage, keypoints1, keypoints2, matches);
 
         // Triangulate the inliers keypoints which match
-        double reproj_error_opengv = triangulator_opengv->triangulate(keypoints1,keypoints2,matches,std::make_pair(0, 1),poseFrame1,poseFrame2,cloud_opengv);
+        double reproj_error_opengv = triangulator_opengv->triangulate(keypoints1,keypoints2,matches,std::make_pair(0, 1),poseFrame1,poseFrame2,cloud);
 
          std::ofstream myfile;
          myfile.open ("debug_point_position.txt");
@@ -163,9 +162,7 @@ int main(){
 
         for ( unsigned int k =0; k <  cloud.size(); k++){
 
-           myfile << cloud[k].getX()<<" "<<cloud[k].getY()<<" "<<cloud[k].getZ();
-           myfile<<"    :     :";
-           myfile << cloud_opengv[k].getX()<<" "<<cloud_opengv[k].getY()<<" "<<cloud_opengv[k].getZ();
+           myfile << cloud[k]->getX()<<" "<<cloud[k]->getY()<<" "<<cloud[k]->getZ();
            myfile<<"\n";
         };
 
@@ -174,11 +171,11 @@ int main(){
         //    LOG_DEBUG("Reprojection error: {}", reproj_error);
         LOG_INFO("\n\n Reprojection error using opengv: {}\n\n", reproj_error_opengv);
 
-        mapFilter->filter(poseFrame1, poseFrame2, cloud_opengv, filteredCloud);
+        mapFilter->filter(poseFrame1, poseFrame2, cloud, filteredCloud);
 
         // Display the matches and the 3D point cloudfilteredCloud
         while (true){
-            if (viewer3DPoints->display(cloud_opengv, poseFrame2) == FrameworkReturnCode::_STOP ||
+            if (viewer3DPoints->display(cloud, poseFrame2) == FrameworkReturnCode::_STOP ||
                 viewerMatches->display(matchesImage) == FrameworkReturnCode::_STOP  ){
 
                 LOG_DEBUG("End of Triangulation sample");

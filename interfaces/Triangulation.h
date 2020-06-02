@@ -84,7 +84,7 @@ public:
                         const std::pair<unsigned int,unsigned int> & working_views,
                         const Transform3Df & poseView1,
                         const Transform3Df & poseView2,
-                        std::vector<CloudPoint> & pcloud) override;
+                        std::vector<SRef<CloudPoint>> & pcloud) override;
 
     /// @brief triangulate pairs of points 2d captured from two views with differents poses (with respect to the camera instrinsic parameters).
     /// @param[in] pointsView1, set of keypoints seen in view_1.
@@ -101,7 +101,7 @@ public:
                        const std::pair<unsigned int,unsigned int> & working_views,
                        const Transform3Df & poseView1,
                        const Transform3Df & poseView2,
-                       std::vector<CloudPoint> & pcloud) override;
+                       std::vector<SRef<CloudPoint>> & pcloud) override;
 
     /// @brief triangulate pairs of points 2d captured from two views with differents poses (with respect to the camera instrinsic parameters).
     /// @param[in] pointsView1, set of keypoints seen in view_1.
@@ -122,7 +122,7 @@ public:
                                 const std::pair<unsigned int, unsigned int> & working_views,
                                 const Transform3Df & poseView1,
                                 const Transform3Df & poseView2,
-                                std::vector<CloudPoint> & pcloud) override;
+                                std::vector<SRef<CloudPoint>> & pcloud) override;
 
 	/// @brief triangulate pairs of points 2d captured from current keyframe with its reference keyframe using their poses (with respect to the camera instrinsic parameters).
 	/// @param[in] curKeyframe, current keyframe.
@@ -131,7 +131,7 @@ public:
 	/// @return the mean re-projection error (mean distance in pixels between the original 2D points and the projection of the reconstructed 3D points)
     double triangulate(	const SRef<Keyframe> & curKeyframe,
                         const std::vector<DescriptorMatch> & matches,
-                        std::vector<CloudPoint> & pcloud) override;
+                        std::vector<SRef<CloudPoint>> & pcloud) override;
 
     void unloadComponent () override final;
 
