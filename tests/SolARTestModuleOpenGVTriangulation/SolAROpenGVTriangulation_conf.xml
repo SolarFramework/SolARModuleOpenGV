@@ -49,41 +49,41 @@
         <module uuid="28b89d39-41bd-451d-b19e-d25a3d7c5797" name="SolARModuleTools"  path="$REMAKEN_PKG_ROOT/packages/SolARBuild/win-cl-14.1/SolARModuleTools/0.8.1/lib/x86_64/shared" description="Module Tools">
 		<component uuid="09205b96-7cba-4415-bc61-64744bc26222" description="SolARMapFilterOpencv" name="SolARMapFilterOpencv">
                 <interface uuid="125f2007-1bf9-421d-9367-fbdc1210d006" description="IComponentIntrospect" name="IComponentIntrospect"/>
-                <interface uuid="e0d6cc82-6af2-493d-901a-2384fca0b16f" description="IMapFilter" name="IMapFilter"/>
+                <interface uuid="68dc9152-5199-11ea-8d77-2e728ce88125" description="IMapFilter" name="IMapFilter"/>
         </component>
 	</module>
 	
-	<properties>
-		<configuration component="SolARCameraOpencv">
-			<property name="calibrationFile" type="string" value="../../data/camera_calibration.yml"/>
+    <properties>
+		<configure component="SolARCameraOpencv">
+			<property name="calibrationFile" type="string" value="../../Data/camera_calibration.yml"/>
 			<property name="deviceID" type="UnsignedInteger" value="0"/>
-		</configuration>
-		<configuration component="SolARImageLoaderOpencv" name="image1">
-			<property name="filePath" type="string" value="../../data/Image1.png"/>
-		</configuration>
-		<configuration component="SolARImageLoaderOpencv" name="image2">
-			<property name="filePath" type="string" value="../../data/Image2.png"/>
-		</configuration>
-		<configuration component="SolARKeypointDetectorOpencv">
+		</configure>
+		<configure component="SolARImageLoaderOpencv" name="image1">
+			<property name="filePath" type="string" value="../../Data/Image1.png"/>
+		</configure>
+		<configure component="SolARImageLoaderOpencv" name="image2">
+			<property name="filePath" type="string" value="../../Data/Image2.png"/>
+		</configure>
+		<configure component="SolARKeypointDetectorOpencv">
 			<property name="type" type="string" value="AKAZE2"/>
 			<property name="imageRatio" type="Float" value="1.0"/>
 			<property name="nbDescriptors" type="Integer" value="-1"/>
-        </configuration>
-		<configuration component="SolARDescriptorsExtractorAKAZE2Opencv">
+        </configure>
+		<configure component="SolARDescriptorsExtractorAKAZE2Opencv">
             <property name="threshold" type="Float" value="3e-4"/>
-        </configuration>
-		<configuration component="SolARDescriptorMatcherKNNOpencv">
+        </configure>
+		<configure component="SolARDescriptorMatcherKNNOpencv">
 			<property name="distanceRatio" type="Float" value="0.65"/>
-		</configuration>
-		<configuration component="SolARPoseFinderFrom2D2DOpencv">
+		</configure>
+		<configure component="SolARPoseFinderFrom2D2DOpencv">
 			<property name="confidence" type="Float" value="0.99"/>
 			<property name="outlierDistanceRatio" type="Float" value="0.0005"/>
-		</configuration>
-		<configuration component="SolARMapFilterOpencv">
+		</configure>
+		<configure component="SolARMapFilterOpencv">
 			<property name="reprojErrorThreshold" type="float" value="2.5"/>
 			<property name="cheiralityCheck" type="integer" value ="1"/>
-		</configuration>
-		<configuration component="SolARMatchesOverlayOpencv">
+		</configure>
+		<configure component="SolARMatchesOverlayOpencv">
             <property name="thickness" type="UnsignedInteger" value="3"/>
 			<property name="mode" type="string" value="RANDOM"/>
 			<property name="color"  type="UnsignedInteger">
@@ -92,14 +92,14 @@
 				<value>255</value>
 			</property>
 			<property name="maxMatches" type="UnsignedInteger" value="-1"/>	
-        </configuration>	
-		<configuration component="SolARImageViewerOpencv">
+        </configure>	
+		<configure component="SolARImageViewerOpencv">
 		<property name="title" type="string" value=""/>
 			<property name="exitKey" type="Integer" value="27"/>
 			<property name="width" type="Integer" value="1280"/>
 			<property name="height" type="Integer" value="480"/>
-		</configuration>
-		<configuration component="SolAR3DPointsViewerOpengl">
+		</configure>
+		<configure component="SolAR3DPointsViewerOpengl">
             <property name="title" type="string" value="Points Cloud"/>
 			<property name="width" type="UnsignedInteger" value="1280"/>
 			<property name="height" type="UnsignedInteger" value="960"/>
@@ -127,7 +127,7 @@
 			<property name="cameraScale" type="Float" value="1.0"/>
 			<property name="zoomSensitivity" type="Float" value="10.0"/>
 			<property name="exitKey" type="Integer" value="27"/>
-        </configuration>
+        </configure>
     </properties>
 
 </xpcf-registry>
