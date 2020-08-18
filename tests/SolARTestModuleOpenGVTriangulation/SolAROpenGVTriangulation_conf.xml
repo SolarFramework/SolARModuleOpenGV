@@ -52,16 +52,21 @@
                 <interface uuid="68dc9152-5199-11ea-8d77-2e728ce88125" description="IMapFilter" name="IMapFilter"/>
         </component>
 	</module>
-	
+    <factory>
+        <bindings>
+            <bind name="image1" interface="IImageLoader" to="SolARImageLoaderOpencv" properties="image1_prop"/>
+            <bind name="image2" interface="IImageLoader" to="SolARImageLoaderOpencv" properties="image2_prop"/>
+        </bindings>
+    </factory>
     <properties>
 		<configure component="SolARCameraOpencv">
 			<property name="calibrationFile" type="string" value="../../Data/camera_calibration.yml"/>
 			<property name="deviceID" type="UnsignedInteger" value="0"/>
 		</configure>
-		<configure component="SolARImageLoaderOpencv" name="image1">
+        <configure component="SolARImageLoaderOpencv" name="image1_prop">
 			<property name="filePath" type="string" value="../../Data/Image1.png"/>
 		</configure>
-		<configure component="SolARImageLoaderOpencv" name="image2">
+        <configure component="SolARImageLoaderOpencv" name="image2_prop">
 			<property name="filePath" type="string" value="../../Data/Image2.png"/>
 		</configure>
 		<configure component="SolARKeypointDetectorOpencv">
@@ -94,13 +99,13 @@
 			<property name="maxMatches" type="UnsignedInteger" value="-1"/>	
         </configure>	
 		<configure component="SolARImageViewerOpencv">
-		<property name="title" type="string" value=""/>
+        <property name="title" type="string" value="Matches (Press esc to Quit)"/>
 			<property name="exitKey" type="Integer" value="27"/>
 			<property name="width" type="Integer" value="1280"/>
 			<property name="height" type="Integer" value="480"/>
 		</configure>
 		<configure component="SolAR3DPointsViewerOpengl">
-            <property name="title" type="string" value="Points Cloud"/>
+            <property name="title" type="string" value="Points Cloud (Press esc to Quit)"/>
 			<property name="width" type="UnsignedInteger" value="1280"/>
 			<property name="height" type="UnsignedInteger" value="960"/>
 			<property name="backgroundColor" type="UnsignedInteger">

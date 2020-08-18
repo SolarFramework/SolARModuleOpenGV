@@ -83,10 +83,8 @@ int main(){
         }
 
         SRef<input::devices::ICamera> camera =xpcfComponentManager->resolve<input::devices::ICamera>();
-        SRef<image::IImageLoader> imageLoader1 =xpcfComponentManager->resolve<image::IImageLoader>();
-        imageLoader1->bindTo<xpcf::IConfigurable>()->configure("SolAROpenGVTriangulation_conf.xml", "image1");
-        SRef<image::IImageLoader> imageLoader2 =xpcfComponentManager->resolve<image::IImageLoader>();
-        imageLoader2->bindTo<xpcf::IConfigurable>()->configure("SolAROpenGVTriangulation_conf.xml", "image2");
+        SRef<image::IImageLoader> imageLoader1 =xpcfComponentManager->resolve<image::IImageLoader>("image1");
+        SRef<image::IImageLoader> imageLoader2 =xpcfComponentManager->resolve<image::IImageLoader>("image2");
         SRef<features::IKeypointDetector> keypointsDetector =xpcfComponentManager->resolve<features::IKeypointDetector>();
         SRef<features::IDescriptorsExtractor> descriptorExtractor =xpcfComponentManager->resolve<features::IDescriptorsExtractor>();
         SRef<features::IDescriptorMatcher> matcher =xpcfComponentManager->resolve<features::IDescriptorMatcher>();
