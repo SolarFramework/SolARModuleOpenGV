@@ -1,4 +1,5 @@
 SolArModulePipeline {
     moduleName="SolARModuleOpenGV"
     dirName="SolARBuild"
+	makeTarget="install_deps"
 }
