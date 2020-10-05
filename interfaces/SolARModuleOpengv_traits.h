@@ -22,8 +22,8 @@
 namespace SolAR {
 namespace MODULES {
 /**
- * @namespace OPENGV
- * @brief <B>Provides triangultion and PnP components based on OpenGV library: https://laurentkneip.github.io/opengv/</B>
+ * @namespace SolAR::MODULES::OPENGV
+ * @brief <B>Provides triangulation and PnP components based on OpenGV library: https://laurentkneip.github.io/opengv/</B>
  * <TT>UUID: 9f5f0fb9-a8c8-4532-bddf-f988052f63c3</TT>
  *
  */
