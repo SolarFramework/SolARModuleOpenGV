@@ -43,13 +43,11 @@ PoseEstimationSACEPnp::~PoseEstimationSACEPnp(){
 
 }
 
-FrameworkReturnCode PoseEstimationSACEPnp::estimate( const std::vector<Point2Df> & imagePoints,
-                                                            const std::vector<Point3Df> & worldPoints,
-                                                            std::vector<Point2Df> & imagePoints_inlier,
-                                                            std::vector<Point3Df> & worldPoints_inlier,
-                                                            Transform3Df & pose,
-                                                            const Transform3Df initialPose) {
-
+FrameworkReturnCode PoseEstimationSACEPnp::estimate(const std::vector<Point2Df> & imagePoints,
+                                                    const std::vector<Point3Df> & worldPoints,
+                                                    std::vector<uint32_t> & inliers,
+                                                    Transform3Df & pose,
+                                                    const Transform3Df initialPose) {
 
     if ( imagePoints.size() < 3 || worldPoints.size() < 3  || worldPoints.size() != imagePoints.size() ){
         return FrameworkReturnCode::_ERROR_;
@@ -96,13 +94,9 @@ FrameworkReturnCode PoseEstimationSACEPnp::estimate( const std::vector<Point2Df>
     ///get the indices of the points defined as inliers
     //LOG_INFO( "the number of inliers is: " << ransac.inliers_.size());
 
-    imagePoints_inlier.resize( ransac.inliers_.size());
-    worldPoints_inlier.resize( ransac.inliers_.size());
-
-    for (unsigned int kc = 0; kc < ransac.inliers_.size(); kc++)
-    {
-        imagePoints_inlier[kc] = SolAR::Point2Df(imagePoints[kc].getX(), imagePoints[kc].getY());
-        worldPoints_inlier[kc] = SolAR::Point3Df(worldPoints[kc].getX(), worldPoints[kc].getY(), worldPoints[kc].getZ());
+    inliers.clear();
+    for (unsigned int kc = 0; kc < ransac.inliers_.size(); kc++) {
+        inliers.push_pack(i);
     }
 
     pose(0, 0) = ransac.model_coefficients_(0, 0);
