@@ -91,12 +91,12 @@ FrameworkReturnCode PoseEstimationSACP3PKneip::estimate( const std::vector<Point
 
     ransac.computeModel();
     
-    ///get the indices of the points defined as inliers
+    // get the indices of the points defined as inliers
     //LOG_INFO( "the number of inliers is: " << ransac.inliers_.size());
 
     inliers.clear();
-    for (unsigned int kc = 0; kc < ransac.inliers_.size(); kc++) {
-        inliers.push_pack(i);
+    for (int kc = 0; kc < ransac.inliers_.size(); kc++) {
+        inliers.push_back(kc);
     }
 
     pose(0, 0) = ransac.model_coefficients_(0, 0);
