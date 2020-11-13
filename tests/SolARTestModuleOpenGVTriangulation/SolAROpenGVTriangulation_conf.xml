@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
 <xpcf-registry autoAlias="true">
-        <module uuid="1fd044d1-8e45-4380-b3df-2b8e997c1588" name="SolARModuleOpenGV" description="SolARModuleOpenGV" path="$REMAKEN_PKG_ROOT/packages/SolARBuild/win-cl-14.1/SolARModuleOpenGV/0.8.1/lib/x86_64/shared">
+        <module uuid="1fd044d1-8e45-4380-b3df-2b8e997c1588" name="SolARModuleOpenGV" description="SolARModuleOpenGV" path="$REMAKEN_PKG_ROOT/packages/SolARBuild/win-cl-14.1/SolARModuleOpenGV/0.9.0/lib/x86_64/shared">
 		<component uuid="bb7dac37-499a-4bc4-9b57-3e010a94ed30" name="SolARTriangulationOpengv" description="SolARTriangulationOpengv">
                 <interface uuid="125f2007-1bf9-421d-9367-fbdc1210d006" name="IComponentIntrospect" description="IComponentIntrospect"/>
                 <interface uuid="3a01b0e9-9a76-43f5-97b3-85bb6979b953" name="ITriangulator" description="ITriangulator"/>
         </component> 	
     </module>
-    <module uuid="15e1990b-86b2-445c-8194-0cbe80ede970" name="SolARModuleOpenCV" path="$REMAKEN_PKG_ROOT/packages/SolARBuild/win-cl-14.1/SolARModuleOpenCV/0.8.1/lib/x86_64/shared" description="OpenCV modules">0
+    <module uuid="15e1990b-86b2-445c-8194-0cbe80ede970" name="SolARModuleOpenCV" path="$REMAKEN_PKG_ROOT/packages/SolARBuild/win-cl-14.1/SolARModuleOpenCV/0.9.0/lib/x86_64/shared" description="OpenCV modules">0
          <component uuid="5B7396F4-A804-4F3C-A0EB-FB1D56042BB4" description="SolARCameraOpencv" name="SolARCameraOpencv">
                 <interface uuid="125f2007-1bf9-421d-9367-fbdc1210d006" description="IComponentIntrospect" name="IComponentIntrospect"/>
                 <interface uuid="5DDC7DF0-8377-437F-9C81-3643F7676A5B" description="ICamera" name="ICamera"/>
@@ -40,13 +40,13 @@
                 <interface uuid="b05f3dbb-f93d-465c-aee1-fb58e1480c42" description="IImageViewer" name="IImageViewer"/>
         </component>
     </module>
-         <module uuid="6e960df6-9a36-11e8-9eb6-529269fb1459" name="SolARModuleOpenGL" path="$REMAKEN_PKG_ROOT/packages/SolARBuild/win-cl-14.1/SolARModuleOpenGL/0.8.1/lib/x86_64/shared" description="Module OpenGL">
+         <module uuid="6e960df6-9a36-11e8-9eb6-529269fb1459" name="SolARModuleOpenGL" path="$REMAKEN_PKG_ROOT/packages/SolARBuild/win-cl-14.1/SolARModuleOpenGL/0.9.0/lib/x86_64/shared" description="Module OpenGL">
         <component uuid="afd38ea0-9a46-11e8-9eb6-529269fb1459" description="SolAR3DPointsViewerOpengl" name="SolAR3DPointsViewerOpengl">
                 <interface uuid="125f2007-1bf9-421d-9367-fbdc1210d006" description="IComponentIntrospect" name="IComponentIntrospect"/>
                 <interface uuid="575d365a-9a27-11e8-9eb6-529269fb1459" description="I3DPointsViewer" name="I3DPointsViewer"/>
         </component>
     </module> 
-        <module uuid="28b89d39-41bd-451d-b19e-d25a3d7c5797" name="SolARModuleTools"  path="$REMAKEN_PKG_ROOT/packages/SolARBuild/win-cl-14.1/SolARModuleTools/0.8.1/lib/x86_64/shared" description="Module Tools">
+        <module uuid="28b89d39-41bd-451d-b19e-d25a3d7c5797" name="SolARModuleTools"  path="$REMAKEN_PKG_ROOT/packages/SolARBuild/win-cl-14.1/SolARModuleTools/0.9.0/lib/x86_64/shared" description="Module Tools">
 		<component uuid="09205b96-7cba-4415-bc61-64744bc26222" description="SolARMapFilterOpencv" name="SolARMapFilterOpencv">
                 <interface uuid="125f2007-1bf9-421d-9367-fbdc1210d006" description="IComponentIntrospect" name="IComponentIntrospect"/>
                 <interface uuid="68dc9152-5199-11ea-8d77-2e728ce88125" description="IMapFilter" name="IMapFilter"/>
