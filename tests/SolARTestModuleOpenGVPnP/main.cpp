@@ -168,14 +168,9 @@ int main()
          Transform3Df pose_p3p_gao_sac;
          Transform3Df pose_p3p_kneip_sac;
 
-         std::vector<Point2Df> imagePoints_inlier_epnp_sac;
-         std::vector<Point3Df> worldPoints_inlier_epnp_sac;
-
-         std::vector<Point2Df> imagePoints_inlier_gao_sac;
-         std::vector<Point3Df> worldPoints_inlier_gao_sac;
-
-         std::vector<Point2Df> imagePoints_inlier_kneip_sac;
-         std::vector<Point3Df> worldPoints_inlier_kneip_sac;
+         std::vector<uint32_t> inlier_epnp_sac;
+         std::vector<uint32_t> inlier_gao_sac;
+         std::vector<uint32_t> inlier_kneip_sac;
 
          //timer
          struct timeval tic;
@@ -191,7 +186,7 @@ int main()
 
          std::cout<< "********************* pose_p3p_kneip_sac **************************"<<std::endl;
          gettimeofday(&tic, 0);
-         poseEstimation_p3p_sac_kneip->estimate(imagePoints, worldPoints, imagePoints_inlier_kneip_sac, worldPoints_inlier_kneip_sac, pose_p3p_kneip_sac);
+         poseEstimation_p3p_sac_kneip->estimate(imagePoints, worldPoints, inlier_kneip_sac, pose_p3p_kneip_sac);
          std::cout<<pose_p3p_kneip_sac.matrix()<< std::endl;
          gettimeofday(&toc, 0);
          std::cout<<"Computed in "<< TIMETODOUBLE(timeval_minus(toc, tic)) <<"s"<<std::endl;
@@ -205,7 +200,7 @@ int main()
 
          std::cout<< "********************* pose_p3p_gao_sac **************************"<<std::endl;
          gettimeofday(&tic, 0);
-         poseEstimation_p3p_sac_gao->estimate(imagePoints, worldPoints, imagePoints_inlier_gao_sac, worldPoints_inlier_gao_sac, pose_p3p_gao_sac);
+         poseEstimation_p3p_sac_gao->estimate(imagePoints, worldPoints, inlier_gao_sac, pose_p3p_gao_sac);
          std::cout<<pose_p3p_gao_sac.matrix()<< std::endl;
          gettimeofday(&toc, 0);
          std::cout<<"Computed in "<< TIMETODOUBLE(timeval_minus(toc, tic)) <<"s"<<std::endl;
@@ -219,7 +214,7 @@ int main()
 
          std::cout<< "********************* pose_p3p_epnp_sac **************************"<<std::endl;
          gettimeofday(&tic, 0);
-         poseEstimation_epnp_sac->estimate(imagePoints, worldPoints, imagePoints_inlier_epnp_sac, worldPoints_inlier_epnp_sac, pose_p3p_epnp_sac);
+         poseEstimation_epnp_sac->estimate(imagePoints, worldPoints, inlier_epnp_sac, pose_p3p_epnp_sac);
          std::cout<<pose_p3p_epnp_sac.matrix()<< std::endl;
          gettimeofday(&toc, 0);
          std::cout<<"Computed in "<< TIMETODOUBLE(timeval_minus(toc, tic)) <<"s"<<std::endl;
