@@ -61,7 +61,7 @@
     <properties>
 		<configure component="SolARCameraOpencv">
 			<property name="calibrationFile" type="string" value="../../Data/camera_calibration.yml"/>
-			<property name="deviceID" type="UnsignedInteger" value="0"/>
+            <property name="deviceID" type="uint" value="0"/>
 		</configure>
         <configure component="SolARImageLoaderOpencv" name="image1_prop">
 			<property name="filePath" type="string" value="../../Data/Image1.png"/>
@@ -71,67 +71,67 @@
 		</configure>
 		<configure component="SolARKeypointDetectorOpencv">
 			<property name="type" type="string" value="AKAZE2"/>
-			<property name="imageRatio" type="Float" value="1.0"/>
-			<property name="nbDescriptors" type="Integer" value="-1"/>
+            <property name="imageRatio" type="float" value="1.0"/>
+            <property name="nbDescriptors" type="int" value="-1"/>
         </configure>
 		<configure component="SolARDescriptorsExtractorAKAZE2Opencv">
-            <property name="threshold" type="Float" value="3e-4"/>
+            <property name="threshold" type="float" value="3e-4"/>
         </configure>
 		<configure component="SolARDescriptorMatcherKNNOpencv">
-			<property name="distanceRatio" type="Float" value="0.65"/>
+            <property name="distanceRatio" type="float" value="0.65"/>
 		</configure>
 		<configure component="SolARPoseFinderFrom2D2DOpencv">
-			<property name="confidence" type="Float" value="0.99"/>
-			<property name="outlierDistanceRatio" type="Float" value="0.0005"/>
+            <property name="confidence" type="float" value="0.99"/>
+            <property name="outlierDistanceRatio" type="float" value="0.0005"/>
 		</configure>
 		<configure component="SolARMapFilterOpencv">
-			<property name="reprojErrorThreshold" type="float" value="2.5"/>
-			<property name="cheiralityCheck" type="integer" value ="1"/>
+            <property name="reprojErrorThreshold" type="float" value="2.5"/>
+            <property name="cheiralityCheck" type="int" value ="1"/>
 		</configure>
 		<configure component="SolARMatchesOverlayOpencv">
-            <property name="thickness" type="UnsignedInteger" value="3"/>
+            <property name="thickness" type="uint" value="3"/>
 			<property name="mode" type="string" value="RANDOM"/>
-			<property name="color"  type="UnsignedInteger">
+            <property name="color"  type="uint">
 				<value>0</value>
 				<value>0</value>
 				<value>255</value>
 			</property>
-			<property name="maxMatches" type="UnsignedInteger" value="-1"/>	
+            <property name="maxMatches" type="uint" value="-1"/>
         </configure>	
 		<configure component="SolARImageViewerOpencv">
         <property name="title" type="string" value="Matches (Press esc to Quit)"/>
-			<property name="exitKey" type="Integer" value="27"/>
-			<property name="width" type="Integer" value="1280"/>
-			<property name="height" type="Integer" value="480"/>
+            <property name="exitKey" type="int" value="27"/>
+            <property name="width" type="int" value="1280"/>
+            <property name="height" type="int" value="480"/>
 		</configure>
 		<configure component="SolAR3DPointsViewerOpengl">
             <property name="title" type="string" value="Points Cloud (Press esc to Quit)"/>
-			<property name="width" type="UnsignedInteger" value="1280"/>
-			<property name="height" type="UnsignedInteger" value="960"/>
-			<property name="backgroundColor" type="UnsignedInteger">
+            <property name="width" type="uint" value="1280"/>
+            <property name="height" type="uint" value="960"/>
+            <property name="backgroundColor" type="uint">
 				<value>0</value>
 				<value>0</value>
 				<value>0</value>
 			</property>
-			<property name="fixedPointsColor" type="UnsignedInteger" value="1"/>
-			<property name="pointsColor" type="UnsignedInteger">
+            <property name="fixedPointsColor" type="uint" value="1"/>
+            <property name="pointsColor" type="uint">
 				<value>0</value>
 				<value>255</value>
 				<value>0</value>
 			</property>
-			<property name="cameraColor" type="UnsignedInteger">
+            <property name="cameraColor" type="uint">
 				<value>255</value>
 				<value>255</value>
 				<value>255</value>
 			</property>
-			<property name="drawCameraAxis" type="UnsignedInteger" value="1"/>
-			<property name="drawSceneAxis" type="UnsignedInteger" value="1"/>
-			<property name="drawWorldAxis" type="UnsignedInteger" value="1"/>
-			<property name="axisScale" type="Float" value="1.0"/>
-			<property name="pointSize" type="Float" value="3.0"/>
-			<property name="cameraScale" type="Float" value="1.0"/>
-			<property name="zoomSensitivity" type="Float" value="10.0"/>
-			<property name="exitKey" type="Integer" value="27"/>
+            <property name="drawCameraAxis" type="uint" value="1"/>
+            <property name="drawSceneAxis" type="uint" value="1"/>
+            <property name="drawWorldAxis" type="uint" value="1"/>
+            <property name="axisScale" type="float" value="1.0"/>
+            <property name="pointSize" type="float" value="3.0"/>
+            <property name="cameraScale" type="float" value="1.0"/>
+            <property name="zoomSensitivity" type="float" value="10.0"/>
+            <property name="exitKey" type="int" value="27"/>
         </configure>
     </properties>
 
