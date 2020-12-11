@@ -37,7 +37,6 @@
 #include "xpcf/component/ConfigurableBase.h"
 
 namespace SolAR {
-using namespace datastructure;
 namespace MODULES {
 namespace OPENGV {
 
@@ -62,25 +61,25 @@ public:
     /// @param[in]  worldPoints, set of 3d_points corresponding to view_1.
     /// @param[out] pose, camera pose (pose the camera defined in world corrdinate system) expressed as a Transform3D.
     /// @param[in] initialPose (Optional), a tranfsform3D to initialize the pose (reducing the convergence time and improving its success). If your world points are planar, do not use this argument.
-    FrameworkReturnCode estimate(const std::vector<Point2Df> & imagePoints,
-                                 const std::vector<Point3Df> & worldPoints,
+    FrameworkReturnCode estimate(const std::vector<datastructure::Point2Df> & imagePoints,
+                                 const std::vector<datastructure::Point3Df> & worldPoints,
                                  std::vector<uint32_t> & inliers,
-                                 Transform3Df & pose,
-                                 const Transform3Df initialPose = Transform3Df::Identity());
+                                 datastructure::Transform3Df & pose,
+                                 const datastructure::Transform3Df initialPose = datastructure::Transform3Df::Identity());
 
     /// @brief this method is used to set intrinsic parameters and distorsion of the camera
     /// @param[in] Camera calibration matrix parameters.
     /// @param[in] Camera distorsion parameters.
-    void setCameraParameters(const CamCalibration & intrinsicParams,
-                             const CamDistortion & distorsionParams)  override;
+    void setCameraParameters(const datastructure::CamCalibration & intrinsicParams,
+                             const datastructure::CamDistortion & distorsionParams)  override;
 
     void unloadComponent () override final;
 
 private:
 
 
-    CamCalibration m_intrinsicParams;
-    CamDistortion  m_distorsionParams;
+    datastructure::CamCalibration m_intrinsicParams;
+    datastructure::CamDistortion  m_distorsionParams;
 };
 
 }
