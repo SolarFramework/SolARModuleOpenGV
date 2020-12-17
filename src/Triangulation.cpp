@@ -354,7 +354,8 @@ double Triangulation::triangulate(const std::vector<Keypoint> & pointsView1,
                                                 const std::pair<unsigned int,unsigned int>&working_views,
                                                 const Transform3Df& poseView1,
                                                 const Transform3Df& poseView2,
-                                                std::vector<SRef<CloudPoint>> & pcloud){
+                                                std::vector<SRef<CloudPoint>> & pcloud)
+{
 
     pcloud.clear();
 
@@ -432,9 +433,8 @@ double Triangulation::triangulate(const std::vector<Keypoint> & pointsView1,
 
     for(size_t k = 0; k < numberPoints; k++){
 
-#if NDEBUG   
-    LOG_INFO(" FOR NOW ITS REPROJECTION ERROR IS SET TO 0...:" );
-#endif
+        LOG_DEBUG(" FOR NOW ITS REPROJECTION ERROR IS SET TO 0...:" );
+
         std::map<unsigned int, unsigned int> visibility;
 
         visibility[working_views.first]  = matches[k].getIndexInDescriptorA();
@@ -468,10 +468,10 @@ double Triangulation::triangulate(const std::vector<Keypoint> & pointsView1,
         Eigen::Vector2d  reprojected_point_2d = Eigen::Vector2d(reprojected_point_3d[0]/reprojected_point_3d[2], reprojected_point_3d[1]/reprojected_point_3d[2]);
 
         Eigen::Vector3f undistort_point =  k_invert* Eigen::Vector3f((float)pointsView1[matches[k].getIndexInDescriptorA()].getX(),(float)pointsView1[matches[k].getIndexInDescriptorA()].getY(),1.0f);
-#if NDEBUG          
+
         //TO DO : Apply undirstorsion
-        LOG_INFO("  Apply undirstorsion ");
-#endif
+        LOG_DEBUG("  Apply undirstorsion ");
+
         Eigen::Vector2d initial_point_2d = Eigen::Vector2d(    undistort_point[0]/undistort_point.norm(),  undistort_point[1]/undistort_point.norm()   );
        
         double reprj_err =  Eigen::Vector2d(reprojected_point_2d - initial_point_2d).norm();

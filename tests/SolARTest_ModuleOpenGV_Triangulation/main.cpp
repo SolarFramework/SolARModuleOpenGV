@@ -76,9 +76,9 @@ int main(){
 
         SRef<xpcf::IComponentManager> xpcfComponentManager = xpcf::getComponentManagerInstance();
 
-        if(xpcfComponentManager->load("SolAROpenGVTriangulation_conf.xml")!=org::bcom::xpcf::_SUCCESS)
+        if(xpcfComponentManager->load("SolARTest_ModuleOpenGV_Triangulation_conf.xml")!=org::bcom::xpcf::_SUCCESS)
         {
-            LOG_ERROR("Failed to load the configuration file SolAROpenGVTriangulation_conf.xml")
+            LOG_ERROR("Failed to load the configuration file SolARTest_ModuleOpenGV_Triangulation_conf.xml")
             return -1;
         }
 
