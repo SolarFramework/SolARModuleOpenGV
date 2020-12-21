@@ -1,7 +1,7 @@
 SolArModulePipeline {
     moduleName="SolARModuleOpenGV"
     dirName="SolARBuild"
-	makeTarget="install"
+	makeTarget="install_deps"
     runTests=true
     android=false
 }
