@@ -42,8 +42,8 @@ SOURCES += \
 
 unix {
     LIBS += -ldl 
-    QMAKE_CXX = clang++
-    QMAKE_LINK = clang++
+    #QMAKE_CXX = clang++
+    #QMAKE_LINK = clang++
 	
   #  QMAKE_CXXFLAGS += DBOOST_LOG_DYN_LINK 
     
