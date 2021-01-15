@@ -41,7 +41,7 @@ INCLUDEPATH += interfaces/
 
 include (SolARModuleOpenGV.pri)
 
-unix {
+unix:!android {
     QMAKE_CXXFLAGS += -Wignored-qualifiers
 #    QMAKE_CXX = clang++
 #    QMAKE_LINK = clang++	

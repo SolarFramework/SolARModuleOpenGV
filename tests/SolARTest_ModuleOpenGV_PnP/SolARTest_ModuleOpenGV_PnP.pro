@@ -62,7 +62,11 @@ win32 {
     # Windows Kit (msvc2013 64)
     LIBS += -L$$(WINDOWSSDKDIR)lib/winv6.3/um/x64 -lshell32 -lgdi32 -lComdlg32
     INCLUDEPATH += $$(WINDOWSSDKDIR)lib/winv6.3/um/x64
-}conf_Pnp
+}
+
+android {
+    ANDROID_ABIS="arm64-v8a"
+}
 
 configfile.path = $${TARGETDEPLOYDIR}/
 configfile.files = $${PWD}/SolARTest_ModuleOpenGV_PnP_conf.xml
