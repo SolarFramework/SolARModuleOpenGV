@@ -70,6 +70,7 @@ doxygen/
 
 # Tests builds
 tests/bin
+tests/build-*
 
 # Others
 *.*pre1

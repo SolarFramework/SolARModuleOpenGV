@@ -3,7 +3,7 @@ QT       -= core gui
 CONFIG -= qt
 
 ## global defintions : target lib name, version
-TARGET = SolAROpenGVPnP
+TARGET = SolARTest_ModuleOpenGV_Triangulation
 VERSION=0.9.1
 
 DEFINES += MYVERSION=$${VERSION}
@@ -35,18 +35,18 @@ PROJECTCONFIG = QTVS
 #NOTE : CONFIG as staticlib or sharedlib, DEPENDENCIESCONFIG as staticlib or sharedlib, QMAKE_TARGET.arch and PROJECTDEPLOYDIR MUST BE DEFINED BEFORE templatelibconfig.pri inclusion
 include ($$shell_quote($$shell_path($${QMAKE_REMAKEN_RULES_ROOT}/templateappconfig.pri)))  # Shell_quote & shell_path required for visual on windows
 
-HEADERS += experiment_helpers.hpp \
-random_generators.hpp \
-time_measurement.hpp
+HEADERS += \
 
-SOURCES += 	experiment_helpers.cpp\
-random_generators.cpp \
-time_measurement.cpp \
-main.cpp
-
+SOURCES += \
+    main.cpp
 
 unix {
-    LIBS += -ldl    
+    LIBS += -ldl 
+    #QMAKE_CXX = clang++
+    #QMAKE_LINK = clang++
+	
+  #  QMAKE_CXXFLAGS += DBOOST_LOG_DYN_LINK 
+    
 }
 
 macx {
@@ -62,14 +62,14 @@ win32 {
     # Windows Kit (msvc2013 64)
     LIBS += -L$$(WINDOWSSDKDIR)lib/winv6.3/um/x64 -lshell32 -lgdi32 -lComdlg32
     INCLUDEPATH += $$(WINDOWSSDKDIR)lib/winv6.3/um/x64
-}conf_Pnp
+
+}
 
 configfile.path = $${TARGETDEPLOYDIR}/
-configfile.files = $${PWD}/SolAROpenGVPnP_conf.xml
+configfile.files = $${PWD}/SolARTest_ModuleOpenGV_Triangulation_conf.xml
 INSTALLS += configfile
 
-DISTFILES += \
-    packagedependencies.txt
+DISTFILES += packagedependencies.txt
 
 #NOTE : Must be placed at the end of the .pro
 include ($$shell_quote($$shell_path($${QMAKE_REMAKEN_RULES_ROOT}/remaken_install_target.pri)))) # Shell_quote & shell_path required for visual on windows

@@ -95,9 +95,9 @@ int main()
 
         SRef<xpcf::IComponentManager> xpcfComponentManager = xpcf::getComponentManagerInstance();
 
-        if(xpcfComponentManager->load("SolAROpenGVPnP_conf.xml")!=org::bcom::xpcf::_SUCCESS)
+        if(xpcfComponentManager->load("SolARTest_ModuleOpenGV_PnP_conf.xml")!=org::bcom::xpcf::_SUCCESS)
         {
-            LOG_ERROR("Failed to load the configuration file SolAROpenGVPnP_conf.xml")
+            LOG_ERROR("Failed to load the configuration file SolARTest_ModuleOpenGV_PnP_conf.xml")
             return -1;
         }
 
