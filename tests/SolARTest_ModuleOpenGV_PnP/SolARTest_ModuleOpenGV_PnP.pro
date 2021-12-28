@@ -2,9 +2,11 @@
 QT       -= core gui
 CONFIG -= qt
 
+QMAKE_PROJECT_DEPTH = 0
+
 ## global defintions : target lib name, version
 TARGET = SolARTest_ModuleOpenGV_PnP
-VERSION=0.9.1
+VERSION=0.10.0
 
 DEFINES += MYVERSION=$${VERSION}
 CONFIG += c++1z
@@ -49,6 +51,11 @@ unix {
     LIBS += -ldl    
 }
 
+linux {
+        QMAKE_LFLAGS += -ldl
+        LIBS += -L/home/linuxbrew/.linuxbrew/lib # temporary fix caused by grpc with -lre2 ... without -L in grpc.pc
+}
+
 macx {
     QMAKE_MAC_SDK= macosx
     QMAKE_CXXFLAGS += -fasm-blocks -x objective-c++
@@ -67,12 +74,28 @@ win32 {
 android {
     ANDROID_ABIS="arm64-v8a"
 }
+<<<<<<< HEAD
+=======
+
+linux {
+  run_install.path = $${TARGETDEPLOYDIR}
+  run_install.files = $${PWD}/../run.sh
+  CONFIG(release,debug|release) {
+    run_install.extra = cp $$files($${PWD}/../runRelease.sh) $${PWD}/../run.sh
+  }
+  CONFIG(debug,debug|release) {
+    run_install.extra = cp $$files($${PWD}/../runDebug.sh) $${PWD}/../run.sh
+  }
+  INSTALLS += run_install
+}
+>>>>>>> develop
 
 configfile.path = $${TARGETDEPLOYDIR}/
 configfile.files = $${PWD}/SolARTest_ModuleOpenGV_PnP_conf.xml
 INSTALLS += configfile
 
 DISTFILES += \
+    SolARTest_ModuleOpenGV_PnP_conf.xml \
     packagedependencies.txt
 
 #NOTE : Must be placed at the end of the .pro

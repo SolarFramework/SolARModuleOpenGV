@@ -487,14 +487,15 @@ double Triangulation::triangulate(const std::vector<Keypoint> & pointsView1,
     return (double)reproj_error/(double)numberPoints;
 }
 
-double Triangulation::triangulate(const SRef<Keyframe> & curKeyframe,
-                                  const std::vector<DescriptorMatch>&matches,
-                                  std::vector<SRef<CloudPoint>> & pcloud) {
-
-return triangulate( curKeyframe->getKeypoints(),curKeyframe->getReferenceKeyframe()->getKeypoints(), matches,
-                    std::make_pair<unsigned int,unsigned int>((unsigned int)(curKeyframe->getId()),(unsigned int)(curKeyframe->getReferenceKeyframe()->getId())),
-                    curKeyframe->getReferenceKeyframe()->getPose(),  curKeyframe->getPose(), pcloud);
-
+double Triangulation::triangulate(SRef<SolAR::datastructure::Frame> frame1,
+                                  SRef<SolAR::datastructure::Frame> frame2,
+                                  const std::vector<SolAR::datastructure::DescriptorMatch> &matches,
+                                  const std::pair<uint32_t, uint32_t> & working_views,
+                                  std::vector<SRef<SolAR::datastructure::CloudPoint>> & pcloud,
+                                  const bool& onlyDepth)
+{
+    LOG_WARNING("Not implemented");
+    return 0.0;
 }
 
 void Triangulation::setCameraParameters(const CamCalibration & intrinsicParams, const CamDistortion & distorsionParams) {
