@@ -74,8 +74,6 @@ win32 {
 android {
     ANDROID_ABIS="arm64-v8a"
 }
-<<<<<<< HEAD
-=======
 
 linux {
   run_install.path = $${TARGETDEPLOYDIR}
@@ -88,7 +86,6 @@ linux {
   }
   INSTALLS += run_install
 }
->>>>>>> develop
 
 configfile.path = $${TARGETDEPLOYDIR}/
 configfile.files = $${PWD}/SolARTest_ModuleOpenGV_PnP_conf.xml
