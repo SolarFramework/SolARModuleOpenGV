@@ -1,2 +1,2 @@
 SolARFramework|1.0.0|SolARFramework|SolARBuild@github|https://github.com/SolarFramework/SolarFramework/releases/download
-opengv|master|opengv|conan-solar@conan|conan-solar|static
+opengv|1.0.0|opengv|thirdParties@github|https://github.com/SolarFramework/SolarFramework/releases/download|static
