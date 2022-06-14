@@ -1,2 +1,2 @@
-SolARFramework|0.11.0|SolARFramework|SolARBuild@github|https://github.com/SolarFramework/SolarFramework/releases/download
-opengv|1.0.0|opengv|thirdParties@github|https://github.com/SolarFramework/binaries/releases/download|static
+SolARFramework|1.0.0|SolARFramework|SolARBuild@github|https://github.com/SolarFramework/SolarFramework/releases/download
+opengv|1.0.0|opengv|thirdParties@github|https://github.com/SolarFramework/SolarFramework/releases/download|static
