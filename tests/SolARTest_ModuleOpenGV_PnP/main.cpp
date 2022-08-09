@@ -114,6 +114,10 @@ int main()
         distortionParams(3,0) =0;
         distortionParams(4,0) =0;
 
+		CameraParameters camParams;
+		camParams.intrinsic = intrinsicParams;
+		camParams.distortion = distortionParams;
+
         auto poseEstimation_p3p_kneip = xpcfComponentManager->resolve<solver::pose::I3DTransformFinderFrom2D3D>("OpenGVP3PKNEIP");
         auto poseEstimation_p3p_epnp  = xpcfComponentManager->resolve<solver::pose::I3DTransformFinderFrom2D3D>("OpenGVEPNP");
         auto poseEstimation_p3p_gao   = xpcfComponentManager->resolve<solver::pose::I3DTransformFinderFrom2D3D>("OpenGVP3PGAO");
@@ -122,16 +126,6 @@ int main()
         auto poseEstimation_epnp_sac = xpcfComponentManager->resolve<solver::pose::I3DTransformSACFinderFrom2D3D>("OpenGVSACEPNP");
         auto poseEstimation_p3p_sac_gao = xpcfComponentManager->resolve<solver::pose::I3DTransformSACFinderFrom2D3D>("OpenGVSACP3PGAO");
         auto poseEstimation_p3p_sac_kneip  = xpcfComponentManager->resolve<solver::pose::I3DTransformSACFinderFrom2D3D>("OpenGVSACP3PKNEIP");
-
-        // initialize pose estimation components with camera paremeters
-        poseEstimation_p3p_kneip->setCameraParameters(  intrinsicParams, distortionParams);
-        poseEstimation_p3p_gao->setCameraParameters(    intrinsicParams, distortionParams);
-        poseEstimation_p3p_epnp->setCameraParameters(   intrinsicParams, distortionParams);
-        poseEstimation_p3p_upnp->setCameraParameters(   intrinsicParams, distortionParams);
-        poseEstimation_epnp_sac->setCameraParameters(   intrinsicParams, distortionParams);
-        poseEstimation_p3p_sac_gao->setCameraParameters(   intrinsicParams, distortionParams);
-        poseEstimation_p3p_sac_kneip->setCameraParameters(   intrinsicParams, distortionParams);
-
 
          //synthetize 2d points and 3d points to test the components.
          std::vector<Point2Df>  imagePoints;
@@ -179,49 +173,49 @@ int main()
 
          std::cout<< "********************* pose_p3p_kneip **************************"<<std::endl;
          gettimeofday(&tic, 0);
-         poseEstimation_p3p_kneip->estimate(imagePoints, worldPoints, pose_p3p_kneip);
+         poseEstimation_p3p_kneip->estimate(imagePoints, worldPoints, camParams, pose_p3p_kneip);
          std::cout<<pose_p3p_kneip.matrix()<< std::endl;
          gettimeofday(&toc, 0);
          std::cout<<"Computed in "<< TIMETODOUBLE(timeval_minus(toc, tic)) <<"s"<<std::endl;
 
          std::cout<< "********************* pose_p3p_kneip_sac **************************"<<std::endl;
          gettimeofday(&tic, 0);
-         poseEstimation_p3p_sac_kneip->estimate(imagePoints, worldPoints, inlier_kneip_sac, pose_p3p_kneip_sac);
+         poseEstimation_p3p_sac_kneip->estimate(imagePoints, worldPoints, camParams, inlier_kneip_sac, pose_p3p_kneip_sac);
          std::cout<<pose_p3p_kneip_sac.matrix()<< std::endl;
          gettimeofday(&toc, 0);
          std::cout<<"Computed in "<< TIMETODOUBLE(timeval_minus(toc, tic)) <<"s"<<std::endl;
 
          std::cout<< "********************* pose_p3p_gao **************************"<<std::endl;
          gettimeofday(&tic, 0);
-         poseEstimation_p3p_gao->estimate(imagePoints, worldPoints, pose_p3p_gao);
+         poseEstimation_p3p_gao->estimate(imagePoints, worldPoints, camParams, pose_p3p_gao);
          std::cout<<pose_p3p_kneip_sac.matrix()<< std::endl;
          gettimeofday(&toc, 0);
          std::cout<<"Computed in "<< TIMETODOUBLE(timeval_minus(toc, tic)) <<"s"<<std::endl;
 
          std::cout<< "********************* pose_p3p_gao_sac **************************"<<std::endl;
          gettimeofday(&tic, 0);
-         poseEstimation_p3p_sac_gao->estimate(imagePoints, worldPoints, inlier_gao_sac, pose_p3p_gao_sac);
+         poseEstimation_p3p_sac_gao->estimate(imagePoints, worldPoints, camParams, inlier_gao_sac, pose_p3p_gao_sac);
          std::cout<<pose_p3p_gao_sac.matrix()<< std::endl;
          gettimeofday(&toc, 0);
          std::cout<<"Computed in "<< TIMETODOUBLE(timeval_minus(toc, tic)) <<"s"<<std::endl;
 
          std::cout<< "********************* pose_p3p_epnp **************************"<<std::endl;
          gettimeofday(&tic, 0);
-         poseEstimation_p3p_epnp->estimate(imagePoints, worldPoints, pose_p3p_epnp);
+         poseEstimation_p3p_epnp->estimate(imagePoints, worldPoints, camParams, pose_p3p_epnp);
          std::cout<<pose_p3p_epnp.matrix()<< std::endl;
          gettimeofday(&toc, 0);
          std::cout<<"Computed in "<< TIMETODOUBLE(timeval_minus(toc, tic)) <<"s"<<std::endl;
 
          std::cout<< "********************* pose_p3p_epnp_sac **************************"<<std::endl;
          gettimeofday(&tic, 0);
-         poseEstimation_epnp_sac->estimate(imagePoints, worldPoints, inlier_epnp_sac, pose_p3p_epnp_sac);
+         poseEstimation_epnp_sac->estimate(imagePoints, worldPoints, camParams, inlier_epnp_sac, pose_p3p_epnp_sac);
          std::cout<<pose_p3p_epnp_sac.matrix()<< std::endl;
          gettimeofday(&toc, 0);
          std::cout<<"Computed in "<< TIMETODOUBLE(timeval_minus(toc, tic)) <<"s"<<std::endl;
 
          std::cout<< "********************* pose_p3p_upnp **************************"<<std::endl;
          gettimeofday(&tic, 0);
-         poseEstimation_p3p_upnp->estimate(imagePoints, worldPoints, pose_p3p_upnp);
+         poseEstimation_p3p_upnp->estimate(imagePoints, worldPoints, camParams, pose_p3p_upnp);
          std::cout<<pose_p3p_upnp.matrix()<< std::endl;
          gettimeofday(&toc, 0);
          std::cout<<"Computed in "<< TIMETODOUBLE(timeval_minus(toc, tic)) <<"s"<<std::endl;
