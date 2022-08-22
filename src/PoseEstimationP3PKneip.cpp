@@ -44,16 +44,17 @@ PoseEstimationP3PKneip::~PoseEstimationP3PKneip(){
 
 }
 
-FrameworkReturnCode PoseEstimationP3PKneip::estimate( const std::vector<Point2Df> & imagePoints,
-                                                      const std::vector<Point3Df> & worldPoints,
-                                                      Transform3Df & pose,
-                                                      const Transform3Df initialPose) {
-    
+FrameworkReturnCode PoseEstimationP3PKneip::estimate(const std::vector<SolAR::datastructure::Point2Df> & imagePoints,
+                                                     const std::vector<SolAR::datastructure::Point3Df> & worldPoints,
+                                                     const SolAR::datastructure::CameraParameters & camParams,
+                                                     SolAR::datastructure::Transform3Df & pose,
+                                                     const SolAR::datastructure::Transform3Df initialPose)
+{
     if ( imagePoints.size() < 3 ||  worldPoints.size() < 3){
          return FrameworkReturnCode::_ERROR_;
     }
 
-    Eigen::Matrix<float,3,3> k_invert =  m_intrinsicParams.inverse();
+    Eigen::Matrix<float,3,3> k_invert =  camParams.intrinsic.inverse();
  
     std::vector<Eigen::Vector3f> buffer_vector; 
     buffer_vector.resize( imagePoints.size());
@@ -111,12 +112,6 @@ FrameworkReturnCode PoseEstimationP3PKneip::estimate( const std::vector<Point2Df
     }
 
     return FrameworkReturnCode::_SUCCESS;
-}
-
-
-void PoseEstimationP3PKneip::setCameraParameters(const CamCalibration & intrinsicParams, const CamDistortion & distorsionParams) {
-    m_intrinsicParams = intrinsicParams;
-    m_distorsionParams =distorsionParams;
 }
 
 }

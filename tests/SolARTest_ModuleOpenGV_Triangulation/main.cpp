@@ -113,10 +113,6 @@ int main(){
         Transform3Df                    poseFrame1 = Transform3Df::Identity();
         Transform3Df                    poseFrame2;
 
-        // initialize components requiring the camera intrinsic parameters (please refeer to the use of intrinsic parameters file)
-        poseFinderFrom2D2D->setCameraParameters(camera->getIntrinsicsParameters(), camera->getDistortionParameters());
-        triangulator_opengv->setCameraParameters(camera->getIntrinsicsParameters(), camera->getDistortionParameters());
-
         // Get first image
         if (imageLoader1->getImage(image1) != FrameworkReturnCode::_SUCCESS){
 
@@ -144,7 +140,7 @@ int main(){
         int nbMatches = (int)matches.size();
 
         // Estimate the pose of the second frame (the first frame being the reference of our coordinate system)
-        poseFinderFrom2D2D->estimate(keypoints1, keypoints2, poseFrame1, poseFrame2, matches);
+        poseFinderFrom2D2D->estimate(keypoints1, keypoints2, camera->getParameters(), poseFrame1, poseFrame2, matches);
         LOG_DEBUG("Number of matches used for triangulation {}//{}", matches.size(), nbMatches);
         LOG_DEBUG("Estimated pose of the camera for the frame 2: \n {}", poseFrame2.matrix());
 
@@ -152,7 +148,8 @@ int main(){
         overlayMatches->draw(image1, image2, matchesImage, keypoints1, keypoints2, matches);
 
         // Triangulate the inliers keypoints which match
-        double reproj_error_opengv = triangulator_opengv->triangulate(keypoints1,keypoints2,matches,std::make_pair(0, 1),poseFrame1,poseFrame2,cloud);
+        double reproj_error_opengv = triangulator_opengv->triangulate(keypoints1,keypoints2,matches,
+			std::make_pair(0, 1),poseFrame1,poseFrame2, camera->getParameters(), camera->getParameters(),cloud);
 
          std::ofstream myfile;
          myfile.open ("debug_point_position.txt");
