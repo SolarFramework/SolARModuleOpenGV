@@ -96,14 +96,10 @@ FrameworkReturnCode PoseEstimationSACP3PGao::estimate(const std::vector<SolAR::d
     ransac.computeModel();
     
     ///get the indices of the points defined as inliers
-    LOG_INFO( "the number of inliers is:  \n {}", ransac.inliers_.size());
-
     inliers.clear();
     for (int kc = 0; kc < ransac.inliers_.size(); kc++) {
-        inliers.push_back(kc);
+        inliers.push_back(ransac.inliers_[kc]);
     }
-
-    LOG_INFO("Ransac model coefficients : \n {}",ransac.model_coefficients_);
        
     pose(0, 0) = ransac.model_coefficients_(0, 0);
     pose(0, 1) = ransac.model_coefficients_(0, 1);

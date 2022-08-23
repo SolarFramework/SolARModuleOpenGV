@@ -97,7 +97,7 @@ FrameworkReturnCode PoseEstimationSACEPnp::estimate(const std::vector<SolAR::dat
 
     inliers.clear();
     for (int kc = 0; kc < ransac.inliers_.size(); kc++) {
-        inliers.push_back(kc);
+        inliers.push_back(ransac.inliers_[kc]);
     }
 
     pose(0, 0) = ransac.model_coefficients_(0, 0);
