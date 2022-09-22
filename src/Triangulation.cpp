@@ -500,6 +500,8 @@ double Triangulation::triangulate(SRef<SolAR::datastructure::Frame> frame1,
                                   SRef<SolAR::datastructure::Frame> frame2,
                                   const std::vector<SolAR::datastructure::DescriptorMatch> &matches,
                                   const std::pair<uint32_t, uint32_t> & working_views,
+                                  const SolAR::datastructure::CameraParameters & camParams1,
+                                  const SolAR::datastructure::CameraParameters & camParams2,
                                   std::vector<SRef<SolAR::datastructure::CloudPoint>> & pcloud,
                                   const bool& onlyDepth)
 {
