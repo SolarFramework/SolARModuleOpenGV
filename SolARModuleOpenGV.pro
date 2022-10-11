@@ -26,7 +26,7 @@ CONFIG(release,debug|release) {
     DEFINES += NDEBUG=1
 }
 
-DEPENDENCIESCONFIG = shared install_recurse
+DEPENDENCIESCONFIG = shared install recurse
 
 ## Configuration for Visual Studio to install binaries and dependencies. Work also for QT Creator by replacing QMAKE_INSTALL
 PROJECTCONFIG = QTVS
@@ -45,7 +45,7 @@ include (SolARModuleOpenGV.pri)
 
 unix {
     # Avoids adding install steps manually. To be commented to have a better control over them.
-    QMAKE_POST_LINK += "make install install_deps"
+    QMAKE_POST_LINK += "make install"
 }
 
 unix:!android {
@@ -87,7 +87,8 @@ INSTALLS += header_files
 INSTALLS += xpcf_xml_files
 
 OTHER_FILES += \
-    packagedependencies.txt
+    packagedependencies.txt \
+    packageignoreinstall.txt
 
 #NOTE : Must be placed at the end of the .pro
 include ($$shell_quote($$shell_path($${QMAKE_REMAKEN_RULES_ROOT}/remaken_install_target.pri)))) # Shell_quote & shell_path required for visual on windows
