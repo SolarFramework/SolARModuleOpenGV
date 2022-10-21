@@ -60,14 +60,14 @@
     </factory>
     <properties>
 		<configure component="SolARCameraOpencv">
-                        <property name="calibrationFile" type="string" value="../../../../data/camera_calibration.yml"/>
+                        <property name="calibrationFile" type="string" value="../../../../../data/camera_calibration.yml"/>
             <property name="deviceID" type="uint" value="0"/>
 		</configure>
         <configure component="SolARImageLoaderOpencv" name="image1_prop">
-                        <property name="filePath" type="string" value="../../../../data/Image1.png"/>
+                        <property name="filePath" type="string" value="../../../../../data/Image1.png"/>
 		</configure>
         <configure component="SolARImageLoaderOpencv" name="image2_prop">
-                        <property name="filePath" type="string" value="../../../../data/Image2.png"/>
+                        <property name="filePath" type="string" value="../../../../../data/Image2.png"/>
 		</configure>
 		<configure component="SolARKeypointDetectorOpencv">
 			<property name="type" type="string" value="AKAZE2"/>
