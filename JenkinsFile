@@ -3,4 +3,5 @@ SolArModulePipeline {
     dirName="SolARBuild"
     runTests=true
     android=false
+    sbomAnalysis=true
 }
