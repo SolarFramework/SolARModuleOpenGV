@@ -1,3 +1,7 @@
+# DEPRECATED - This repo is no longer maintained
+
+----
+
 # SolARModuleOpenGV
 
 [![License](https://img.shields.io/github/license/SolARFramework/SolARModuleOpenGV?style=flat-square&label=License)](https://www.apache.org/licenses/LICENSE-2.0)
